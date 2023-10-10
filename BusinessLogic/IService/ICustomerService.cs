@@ -9,6 +9,6 @@ namespace BusinessLogic.IService
 {
     public interface ICustomerService
     {
-        IEnumerable<Customer> customers { get; }
+        IEnumerable<Customer> GetCustomers { get; }
     }
 }
