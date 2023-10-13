@@ -6,29 +6,30 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using DataAccess;
+using Repository.UnitOfWork;
 
 namespace BirdCageProduction.Web.Pages.Customers
 {
     public class DeleteModel : PageModel
     {
-        private readonly DataAccess.BirdCageProductionContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public DeleteModel(DataAccess.BirdCageProductionContext context)
+        public DeleteModel(IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
 
         [BindProperty]
-      public Customer Customer { get; set; } = default!;
+        public Customer Customer { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Customers == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var customer = await _context.Customers.FirstOrDefaultAsync(m => m.CustomerId == id);
+            var customer = await _unitOfWork.CustomerRepository.GetById(id);
 
             if (customer == null)
             {
@@ -43,17 +44,17 @@ namespace BirdCageProduction.Web.Pages.Customers
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null || _context.Customers == null)
+            if (id == null)
             {
                 return NotFound();
             }
-            var customer = await _context.Customers.FindAsync(id);
+            var customer = await _unitOfWork.CustomerRepository.GetById(id);
 
             if (customer != null)
             {
                 Customer = customer;
-                _context.Customers.Remove(Customer);
-                await _context.SaveChangesAsync();
+                await _unitOfWork.CustomerRepository.Remove(Customer);
+                await _unitOfWork.Save();
             }
 
             return RedirectToPage("./Index");

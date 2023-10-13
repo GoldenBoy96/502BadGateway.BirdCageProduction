@@ -6,28 +6,29 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using DataAccess;
+using Repository.UnitOfWork;
 
 namespace BirdCageProduction.Web.Pages.Customers
 {
     public class DetailsModel : PageModel
     {
-        private readonly DataAccess.BirdCageProductionContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public DetailsModel(DataAccess.BirdCageProductionContext context)
+        public DetailsModel(IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
 
-      public Customer Customer { get; set; } = default!; 
+        public Customer Customer { get; set; } = default!; 
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Customers == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var customer = await _context.Customers.FirstOrDefaultAsync(m => m.CustomerId == id);
+            var customer = await _unitOfWork.CustomerRepository.GetById(id);
             if (customer == null)
             {
                 return NotFound();

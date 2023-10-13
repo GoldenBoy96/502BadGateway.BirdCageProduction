@@ -6,16 +6,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using DataAccess;
+using Repository.UnitOfWork;
 
 namespace BirdCageProduction.Web.Pages.Customers
 {
     public class CreateModel : PageModel
     {
-        private readonly DataAccess.BirdCageProductionContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CreateModel(DataAccess.BirdCageProductionContext context)
+        public CreateModel(IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
 
         public IActionResult OnGet()
@@ -30,13 +31,13 @@ namespace BirdCageProduction.Web.Pages.Customers
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Customers == null || Customer == null)
+          if (!ModelState.IsValid || Customer == null)
             {
                 return Page();
             }
 
-            _context.Customers.Add(Customer);
-            await _context.SaveChangesAsync();
+            await _unitOfWork.CustomerRepository.Add(Customer);
+            await _unitOfWork.Save();
 
             return RedirectToPage("./Index");
         }
