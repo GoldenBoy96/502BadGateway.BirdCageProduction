@@ -1,0 +1,55 @@
+﻿@page
+@model BirdCageProduction.Web.Pages.ProductionPlanSteps.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>ProductionPlanStep</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ProductionPlanStep.ProductionPlanStepId" />
+            <div class="form-group">
+                <label asp-for="ProductionPlanStep.ProductionPlanId" class="control-label"></label>
+                <select asp-for="ProductionPlanStep.ProductionPlanId" class="form-control" asp-items="ViewBag.ProductionPlanId"></select>
+                <span asp-validation-for="ProductionPlanStep.ProductionPlanId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductionPlanStep.ProcedureStepId" class="control-label"></label>
+                <select asp-for="ProductionPlanStep.ProcedureStepId" class="form-control" asp-items="ViewBag.ProcedureStepId"></select>
+                <span asp-validation-for="ProductionPlanStep.ProcedureStepId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductionPlanStep.StartTime" class="control-label"></label>
+                <input asp-for="ProductionPlanStep.StartTime" class="form-control" />
+                <span asp-validation-for="ProductionPlanStep.StartTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductionPlanStep.EndTime" class="control-label"></label>
+                <input asp-for="ProductionPlanStep.EndTime" class="form-control" />
+                <span asp-validation-for="ProductionPlanStep.EndTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductionPlanStep.RealCost" class="control-label"></label>
+                <input asp-for="ProductionPlanStep.RealCost" class="form-control" />
+                <span asp-validation-for="ProductionPlanStep.RealCost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

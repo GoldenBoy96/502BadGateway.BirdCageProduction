@@ -1,0 +1,48 @@
+﻿@page
+@model BirdCageProduction.Web.Pages.PartItems.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PartItem[0].Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PartItem[0].BirdCageCategory)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PartItem[0].Part)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.PartItem) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BirdCageCategory.BirdCageCategoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Part.PartId)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.PartItemId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.PartItemId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.PartItemId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

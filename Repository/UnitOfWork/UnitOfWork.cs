@@ -20,9 +20,9 @@ namespace Repository.UnitOfWork
 
         public ICustomerRepository CustomerRepository { get; }
 
-        public void Save()
+        public async Task Save()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

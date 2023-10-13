@@ -20,27 +20,29 @@ namespace Repository.Repositories
             _dbSet = _context.Set<T>();
         }
 
-        public void Add(T entity)
+        public BirdCageProductionContext Context { get { return _context; } }
+
+        public async Task Add(T entity)
         {
-            _dbSet.Add(entity);
+            await _dbSet.AddAsync(entity);
         }
 
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAll()
         {
-            return _dbSet.ToList();
+            return await _dbSet.ToListAsync();
         }
 
-        public T? GetById(int id)
+        public async Task<T?> GetById(int? id)
         {
-            return _dbSet.Find(id);
+            return await _dbSet.FindAsync(id);
         }
 
-        public void Remove(T entity)
+        public async Task Remove(T entity)
         {
             _dbSet.Remove(entity);
         }
 
-        public void Update(T entity)
+        public async Task Update(T entity)
         {
             _dbSet.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;

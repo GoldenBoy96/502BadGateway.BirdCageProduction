@@ -1,4 +1,5 @@
 ﻿using DataAccess;
+using Microsoft.EntityFrameworkCore;
 using Repository.IRepositories;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,7 @@ namespace Repository.Repositories
         public CustomerRepository(BirdCageProductionContext context) : base(context)
         {
         }
+
+        public async Task<bool> CustomerExists(int id) => await Context.Customers.AnyAsync(e => e.CustomerId == id);      
     }
 }

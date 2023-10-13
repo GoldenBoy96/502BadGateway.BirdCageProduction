@@ -10,6 +10,6 @@ namespace Repository.UnitOfWork
     public interface IUnitOfWork
     {
         ICustomerRepository CustomerRepository { get; }
-        void Save();
+        Task Save();
     }
 }

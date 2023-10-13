@@ -8,10 +8,10 @@ namespace Repository.IRepositories
 {
     public interface IBaseRepository<T> where T : class
     {
-        T? GetById(int id);
-        IEnumerable<T> GetAll();
-        void Add(T entity);
-        void Update(T entity);
-        void Remove(T entity);
+        Task<T?> GetById(int? id);
+        Task<IEnumerable<T>> GetAll();
+        Task Add(T entity);
+        Task Update(T entity);
+        Task Remove(T entity);
     }
 }

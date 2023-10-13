@@ -9,5 +9,6 @@ namespace Repository.IRepositories
 {
     public interface ICustomerRepository : IBaseRepository<Customer>
     {
+        Task<bool> CustomerExists(int id);
     }
 }

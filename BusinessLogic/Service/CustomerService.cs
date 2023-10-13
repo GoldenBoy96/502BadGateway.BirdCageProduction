@@ -18,6 +18,6 @@ namespace BusinessLogic.Service
             this.unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<Customer> GetCustomers => unitOfWork.CustomerRepository.GetAll();
+        public Task<IEnumerable<Customer>> GetCustomers() => unitOfWork.CustomerRepository.GetAll();
     }
 }
