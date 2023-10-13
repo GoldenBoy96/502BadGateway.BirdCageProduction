@@ -12,23 +12,10 @@ namespace Repository.UnitOfWork
     {
         private readonly BirdCageProductionContext _context;
 
-        public UnitOfWork(BirdCageProductionContext context, ICustomerRepository customerRepository, IAccountRepository accountRepository, IBirdCageCategoryRepository birdCageCategoryRepository,
-            IOrderDetailRepository orderDetailRepository, IOrderRepository orderRepository, IPartItemRepository partItemRepository, IPartRepository partRepository,
-            IProcedureRepository procedureRepository, IProcedureStepRepository procedureStepRepository, IProductionPlanRepository productionPlanRepository,
-            IProductionPlanStepRepository productionPlanStepRepository)
+        public UnitOfWork(BirdCageProductionContext context, ICustomerRepository customerRepository)
         {
             _context = context;
             CustomerRepository = customerRepository;
-            AccountRepository = accountRepository;
-            BirdCageCategoryRepository = birdCageCategoryRepository;
-            OrderDetailRepository = orderDetailRepository;
-            OrderRepository = orderRepository;
-            PartItemRepository = partItemRepository;
-            PartRepository = partRepository;
-            ProcedureRepository = procedureRepository;
-            ProcedureStepRepository = procedureStepRepository;
-            ProductionPlanRepository = productionPlanRepository;
-            ProductionPlanStepRepository = productionPlanStepRepository;
         }
 
         public ICustomerRepository CustomerRepository { get; }
