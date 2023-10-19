@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace Repository.IRepositories
 {
-    public interface ICustomerRepository : IBaseRepository<Customer>
+    public interface IProgressRepository : IBaseRepository<Progress>
     {
-        Task<bool> CustomerExists(int id);
     }
 }

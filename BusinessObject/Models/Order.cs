@@ -1,27 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DataAccess;
+namespace BusinessObject.Models;
 
 public partial class Order
 {
     public int OrderId { get; set; }
 
-    public int? AccountId { get; set; }
-
-    public int? CustomerId { get; set; }
-
-    public string? Name { get; set; }
-
-    public string? Code { get; set; }
-
     public DateTime? DayCreated { get; set; }
 
     public decimal? TotalPrice { get; set; }
 
-    public string? Status { get; set; }
+    public string? StatusId { get; set; }
 
     public string? Address { get; set; }
+
+    public int? AccountId { get; set; }
+
+    public int? CustomerId { get; set; }
 
     public virtual Account? Account { get; set; }
 

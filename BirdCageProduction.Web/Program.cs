@@ -1,6 +1,7 @@
 using BusinessLogic.IService;
 using BusinessLogic.Service;
 using DataAccess;
+using Microsoft.EntityFrameworkCore;
 using Repository.IRepositories;
 using Repository.Repositories;
 using Repository.UnitOfWork;
@@ -11,7 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 // DbContext
-builder.Services.AddDbContext<BirdCageProductionContext>();
+builder.Services.AddDbContext<BirdCageProductionContext>(option
+    => option.UseSqlServer(builder.Configuration.GetConnectionString("BirdCageProduction")));
 
 // DI Container
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();

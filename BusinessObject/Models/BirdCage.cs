@@ -3,23 +3,17 @@ using System.Collections.Generic;
 
 namespace BusinessObject.Models;
 
-public partial class Part
+public partial class BirdCage
 {
-    public int PartId { get; set; }
+    public int BirdCageId { get; set; }
 
     public string? Name { get; set; }
 
     public string? Description { get; set; }
 
-    public string? Shape { get; set; }
-
-    public string? Material { get; set; }
-
-    public string? Size { get; set; }
-
-    public int? ColorId { get; set; }
-
-    public double? Cost { get; set; }
+    public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
 
     public virtual ICollection<PartItem> PartItems { get; set; } = new List<PartItem>();
+
+    public virtual ICollection<Procedure> Procedures { get; set; } = new List<Procedure>();
 }

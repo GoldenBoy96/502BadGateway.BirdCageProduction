@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DataAccess;
+namespace BusinessObject.Models;
 
 public partial class PartItem
 {
@@ -11,11 +11,9 @@ public partial class PartItem
 
     public int? PartId { get; set; }
 
-    public int? BirdCageCategoryId { get; set; }
+    public int? BirdCageId { get; set; }
 
-    public virtual BirdCageCategory? BirdCageCategory { get; set; }
+    public virtual BirdCage? BirdCage { get; set; }
 
     public virtual Part? Part { get; set; }
-
-    public virtual ICollection<ProcedureStep> ProcedureSteps { get; set; } = new List<ProcedureStep>();
 }

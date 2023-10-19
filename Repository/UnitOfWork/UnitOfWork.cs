@@ -22,7 +22,7 @@ namespace Repository.UnitOfWork
 
         public IAccountRepository AccountRepository { get; }
 
-        public IBirdCageCategoryRepository BirdCageCategoryRepository {  get; }
+        public IBirdCageRepository BirdCageCategoryRepository {  get; }
 
         public IOrderDetailRepository OrderDetailRepository { get; }
 
@@ -35,10 +35,6 @@ namespace Repository.UnitOfWork
         public IProcedureRepository ProcedureRepository {  get; }
 
         public IProcedureStepRepository ProcedureStepRepository {  get; }
-
-        public IProductionPlanRepository ProductionPlanRepository {  get; }
-
-        public IProductionPlanStepRepository ProductionPlanStepRepository {  get; }
 
         public async Task Save()
         {

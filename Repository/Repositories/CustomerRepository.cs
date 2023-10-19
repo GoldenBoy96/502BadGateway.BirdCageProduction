@@ -1,4 +1,5 @@
-﻿using DataAccess;
+﻿using BusinessObject.Models;
+using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Repository.IRepositories;
 using System;

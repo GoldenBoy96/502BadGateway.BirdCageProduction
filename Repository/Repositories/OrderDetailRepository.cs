@@ -1,4 +1,5 @@
-﻿using DataAccess;
+﻿using BusinessObject.Models;
+using DataAccess;
 using Repository.IRepositories;
 using System;
 using System.Collections.Generic;

@@ -10,7 +10,7 @@ namespace Repository.UnitOfWork
     public interface IUnitOfWork
     {
         IAccountRepository AccountRepository { get; }
-        IBirdCageCategoryRepository BirdCageCategoryRepository { get; }
+        IBirdCageRepository BirdCageCategoryRepository { get; }
         ICustomerRepository CustomerRepository { get; }
         IOrderDetailRepository OrderDetailRepository { get; }
         IOrderRepository OrderRepository { get; }
@@ -18,8 +18,6 @@ namespace Repository.UnitOfWork
         IPartRepository PartRepository { get; }
         IProcedureRepository ProcedureRepository { get; }
         IProcedureStepRepository ProcedureStepRepository { get; }
-        IProductionPlanRepository ProductionPlanRepository { get; }
-        IProductionPlanStepRepository ProductionPlanStepRepository { get; }
         Task Save();
     }
 }

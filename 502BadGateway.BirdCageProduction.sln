@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLogic", "BusinessLo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessObject", "BusinessObject\BusinessObject.csproj", "{C5D86233-C8CD-43BC-9CE0-F2633F67EE12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirdCageProduction.Web", "BirdCageProduction.Web\BirdCageProduction.Web.csproj", "{D6EDBBB2-609C-4D01-A366-0AD6102E9310}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BirdCageProduction.Web", "BirdCageProduction.Web\BirdCageProduction.Web.csproj", "{D6EDBBB2-609C-4D01-A366-0AD6102E9310}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
