@@ -366,4 +366,4 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # Appsettings
-./BirdCageProduction.Web/appsettings.json
+.BirdCageProduction.Web/appsettings.json
