@@ -1,0 +1,156 @@
+﻿@page
+@model BirdCageProduction.Web.Pages.Order.IndexModel
+@{
+}
+<div class="app">
+    <div class="main">
+        <ul class="tabs">
+            <li class="tabs-item">
+                <span class="tabs-item__text">
+                    <a class="nav-link text-dark" asp-area="" asp-page="/Dashboard/Index">Dashboard</a>
+                </span>
+            </li>
+            <li class="tabs-item active">
+                <span class="tabs-item__text">
+                    <a class="nav-link text-dark" asp-area="" asp-page="/Order/Index">Order</a>
+                </span>
+            </li>
+            <li class="tabs-item">
+                <span class="tabs-item__text">
+                    <a class="nav-link text-dark" asp-area="" asp-page="/Production/Index">Production</a>
+                </span>
+            </li>
+            <li class="tabs-item">
+                <span class="tabs-item__text">
+                    <a class="nav-link text-dark" asp-area="" asp-page="/BirdCage/Index">Bird Cage</a>
+                </span>
+            </li>
+            <li class="tabs-item">
+                <span class="tabs-item__text">
+                    <a class="nav-link text-dark" asp-area="" asp-page="/Part/Index">Part</a>
+                </span>
+            </li>
+            <li class="tabs-item">
+                <span class="tabs-item__text">
+                    <a class="nav-link text-dark" asp-area="" asp-page="/Customer/Index">Bird Cage</a>
+                </span>
+            </li>
+            <li class="tabs-item">
+                <span class="tabs-item__text">
+                    <a class="nav-link text-dark" asp-area="" asp-page="/Procedure/Index">Procedure</a>
+                </span>
+            </li>
+            <li class="tabs-item">
+                <span class="tabs-item__text">
+                    <a class="nav-link text-dark" asp-area="" asp-page="/Account/Index">Account</a>
+                </span>
+            </li>
+        </ul>
+        <div class="tabs-content">
+
+            <div class="tabs-content__item active">
+                <div class="form-wrapper">
+                    <form action="" class="form_order">
+                        <div class="form-item">
+                            <label for="id">Id</label>
+                            <input type="text" class="form-item_input" id="id" />
+                        </div>
+                        <div class="form-item">
+                            <label for="dayCreate">Day Created</label>
+                            <input type="text" class="form-item_input" id="dayCreate" />
+                        </div>
+                        <div class="form-item">
+                            <label for="Price">Price</label>
+                            <input type="text" class="form-item_input" id="Price" />
+                        </div>
+                        <div class="form-item">
+                            <label for="Status">Status</label>
+
+                            <select id="Status" class="form-item_input">
+                                <option></option>
+                                <option></option>
+                                <option></option>
+                            </select>
+                        </div>
+                        <div class="form-item">
+                            <label for="Customer">Customer</label>
+                            <select id="Customer" class="form-item_input">
+                                <option></option>
+                                <option></option>
+                                <option></option>
+                            </select>
+                        </div>
+                        <div class="form-item">
+                            <label for="Creator">Creator</label>
+                            <select id="Creator" class="form-item_input">
+                                <option></option>
+                                <option></option>
+                                <option></option>
+                            </select>
+                        </div>
+                    </form>
+                    <div class="list-btn">
+                        <button class="btn">Add</button>
+                        <button class="btn">Update</button>
+                        <button class="btn">Delete</button>
+                    </div>
+                    <div class="search">
+                        <div class="search-input">
+                            <img src="./assets/images/search.svg"
+                                 alt=""
+                                 class="search-icon" />
+                            <input type="text" placeholder="Search" />
+                        </div>
+                        <div class="search-status">
+                            <select id="Status">
+                                <option value="Status" selected>Status</option>
+                                <option></option>
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="table">
+                        <table>
+                            <tr>
+                                <th>Id</th>
+                                <th>
+                                    Day <br />
+                                    Created
+                                </th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th>Address</th>
+                                <th>Customer</th>
+                                <th>Creator</th>
+                            </tr>
+                            <tr>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                            </tr>
+
+                        </table>
+                    </div>
+                    <div class="pagination">
+                        <a href="#" class="pagination-prev"><< Prev</a>
+                        <a href="#" class="pagination-number">1</a>
+                        <a href="#" class="pagination-number">2</a>
+                        <a href="#" class="pagination-number">3</a>
+                        <a href="#" class="pagination-number">4</a>
+                        <a href="#" class="pagination-number">5</a>
+                        <a href="#" class="pagination-number">6</a>
+                        <a href="#" class="pagination-number">7</a>
+                        <a href="#" class="pagination-number">8</a>
+                        <a href="#" class="pagination-number">9</a>
+                        <a href="#" class="pagination-number">10</a>
+                        <a href="#" class="pagination-next">Next >></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

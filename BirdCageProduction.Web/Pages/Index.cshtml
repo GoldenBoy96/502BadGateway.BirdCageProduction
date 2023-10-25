@@ -4,14 +4,14 @@
     ViewData["Title"] = "Home page";
 }
 
-@* <div class="text-center">
+<div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     <br />
     <p>@Model.FullName</p>
     <br />
     <p>@Model.Role</p>
-</div> *@
+</div>
 
 <div class="app">
     <div class="main">
@@ -24,8 +24,8 @@
             </li>
             <li class="tabs-item active">
                 <span class="tabs-item__text">
-                    Order
-                    <div class="line"></div>
+                    <a class="nav-link text-dark" asp-area="" asp-page="/Order/Index">Order</a>
+
                 </span>
             </li>
             <li class="tabs-item">
@@ -577,4 +577,4 @@
         e.preventDefault();
         popup.classList.toggle("active");
     });
-</script>
+</script> 
