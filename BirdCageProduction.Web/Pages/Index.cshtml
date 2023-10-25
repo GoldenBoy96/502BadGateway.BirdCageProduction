@@ -4,11 +4,577 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
+@* <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     <br />
     <p>@Model.FullName</p>
     <br />
     <p>@Model.Role</p>
+</div> *@
+
+<div class="app">
+    <div class="main">
+        <ul class="tabs">
+            <li class="tabs-item">
+                <span class="tabs-item__text">
+                    Dashboard
+                    <div class="line"></div>
+                </span>
+            </li>
+            <li class="tabs-item active">
+                <span class="tabs-item__text">
+                    Order
+                    <div class="line"></div>
+                </span>
+            </li>
+            <li class="tabs-item">
+                <span class="tabs-item__text">
+                    Production
+                    <div class="line"></div>
+                </span>
+            </li>
+            <li class="tabs-item">
+                <span class="tabs-item__text">
+                    Bird cage
+                    <div class="line"></div>
+                </span>
+            </li>
+            <li class="tabs-item">
+                <span class="tabs-item__text">
+                    Part
+                    <div class="line"></div>
+                </span>
+            </li>
+            <li class="tabs-item">
+                <span class="tabs-item__text">
+                    Customer
+                    <div class="line"></div>
+                </span>
+            </li>
+        </ul>
+        <div class="tabs-content">
+            <div class="tabs-content__item">content 1</div>
+            <div class="tabs-content__item active">
+                <div class="form-wrapper">
+                    <form action="" class="form_order">
+                        <div class="form-item">
+                            <label for="id">Id</label>
+                            <input type="text" class="form-item_input" id="id" />
+                        </div>
+                        <div class="form-item">
+                            <label for="dayCreate">Day Created</label>
+                            <input type="text" class="form-item_input" id="dayCreate" />
+                        </div>
+                        <div class="form-item">
+                            <label for="Price">Price</label>
+                            <input type="text" class="form-item_input" id="Price" />
+                        </div>
+                        <div class="form-item">
+                            <label for="Status">Status</label>
+
+                            <select id="Status" class="form-item_input">
+                                <option></option>
+                                <option></option>
+                                <option></option>
+                            </select>
+                        </div>
+                        <div class="form-item">
+                            <label for="Customer">Customer</label>
+                            <select id="Customer" class="form-item_input">
+                                <option></option>
+                                <option></option>
+                                <option></option>
+                            </select>
+                        </div>
+                        <div class="form-item">
+                            <label for="Creator">Creator</label>
+                            <select id="Creator" class="form-item_input">
+                                <option></option>
+                                <option></option>
+                                <option></option>
+                            </select>
+                        </div>
+                    </form>
+                    <div class="list-btn">
+                        <button class="btn">Add</button>
+                        <button class="btn">Update</button>
+                        <button class="btn">Delete</button>
+                    </div>
+                    <div class="search">
+                        <div class="search-input">
+                            <img src="./assets/images/search.svg"
+                                 alt=""
+                                 class="search-icon" />
+                            <input type="text" placeholder="Search" />
+                        </div>
+                        <div class="search-status">
+                            <select id="Status">
+                                <option value="Status" selected>Status</option>
+                                <option></option>
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="table">
+                        <table>
+                            <tr>
+                                <th>Id</th>
+                                <th>
+                                    Day <br />
+                                    Created
+                                </th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th>Address</th>
+                                <th>Customer</th>
+                                <th>Creator</th>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>01/01/2023</td>
+                                <td>500$</td>
+                                <td>Approved</td>
+                                <td>Sample</td>
+                                <td>Mr.A</td>
+                                <td>Manager B</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>01/01/2023</td>
+                                <td>500$</td>
+                                <td>Approved</td>
+                                <td>Sample</td>
+                                <td>Mr.A</td>
+                                <td>Manager B</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>01/01/2023</td>
+                                <td>500$</td>
+                                <td>Approved</td>
+                                <td>Sample</td>
+                                <td>Mr.A</td>
+                                <td>Manager B</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>01/01/2023</td>
+                                <td>500$</td>
+                                <td>Approved</td>
+                                <td>Sample</td>
+                                <td>Mr.A</td>
+                                <td>Manager B</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>01/01/2023</td>
+                                <td>500$</td>
+                                <td>Approved</td>
+                                <td>Sample</td>
+                                <td>Mr.A</td>
+                                <td>Manager B</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>01/01/2023</td>
+                                <td>500$</td>
+                                <td>Approved</td>
+                                <td>Sample</td>
+                                <td>Mr.A</td>
+                                <td>Manager B</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>01/01/2023</td>
+                                <td>500$</td>
+                                <td>Approved</td>
+                                <td>Sample</td>
+                                <td>Mr.A</td>
+                                <td>Manager B</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>01/01/2023</td>
+                                <td>500$</td>
+                                <td>Approved</td>
+                                <td>Sample</td>
+                                <td>Mr.A</td>
+                                <td>Manager B</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>01/01/2023</td>
+                                <td>500$</td>
+                                <td>Approved</td>
+                                <td>Sample</td>
+                                <td>Mr.A</td>
+                                <td>Manager B</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>01/01/2023</td>
+                                <td>500$</td>
+                                <td>Approved</td>
+                                <td>Sample</td>
+                                <td>Mr.A</td>
+                                <td>Manager B</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="pagination">
+                        <a href="#" class="pagination-prev"><< Prev</a>
+                        <a href="#" class="pagination-number">1</a>
+                        <a href="#" class="pagination-number">2</a>
+                        <a href="#" class="pagination-number">3</a>
+                        <a href="#" class="pagination-number">4</a>
+                        <a href="#" class="pagination-number">5</a>
+                        <a href="#" class="pagination-number">6</a>
+                        <a href="#" class="pagination-number">7</a>
+                        <a href="#" class="pagination-number">8</a>
+                        <a href="#" class="pagination-number">9</a>
+                        <a href="#" class="pagination-number">10</a>
+                        <a href="#" class="pagination-next">Next >></a>
+                    </div>
+                </div>
+            </div>
+            <div class="tabs-content__item">
+                <div class="form-wrapper">
+                    <form action="" class="form_order">
+                        <div class="form-item">
+                            <label for="id">Id</label>
+                            <input type="text" class="form-item_input" id="id" />
+                        </div>
+                        <div class="form-item">
+                            <label for="Birdcage">Bird cage</label>
+                            <select id="Birdcage" class="form-item_input">
+                                <option></option>
+                                <option></option>
+                                <option></option>
+                            </select>
+                        </div>
+                        <div class="form-item">
+                            <label for="Quantity">Quantity</label>
+                            <input type="text" class="form-item_input" id="Quantity" />
+                        </div>
+                        <div class="form-item">
+                            <label for="Creator">Creator</label>
+                            <input type="text" class="form-item_input" id="Creator" />
+                        </div>
+                        <div class="form-item">
+                            <label for="Parts">Parts</label>
+                            <textarea rows="10"
+                                      type="text"
+                                      class="form-item_input"
+                                      id="Parts"></textarea>
+                        </div>
+                    </form>
+
+                    <div class="list-btn">
+                        <button class="btn view">View Bird cage detail</button>
+                    </div>
+                    <div class="list-btn">
+                        <button class="btn">Add</button>
+                        <button class="btn">Update</button>
+                        <button class="btn">Delete</button>
+                    </div>
+                    <div class="table">
+                        <table>
+                            <tr>
+                                <th>Id</th>
+                                <th>Creator</th>
+                                <th>Bird cage name</th>
+                                <th>Quantity</th>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Manager A</td>
+                                <td>Sample</td>
+                                <td>50</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Manager A</td>
+                                <td>Sample</td>
+                                <td>50</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Manager A</td>
+                                <td>Sample</td>
+                                <td>50</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Manager A</td>
+                                <td>Sample</td>
+                                <td>50</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Manager A</td>
+                                <td>Sample</td>
+                                <td>50</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Manager A</td>
+                                <td>Sample</td>
+                                <td>50</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Manager A</td>
+                                <td>Sample</td>
+                                <td>50</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Manager A</td>
+                                <td>Sample</td>
+                                <td>50</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="pagination">
+                        <a href="#" class="pagination-prev"><< Prev</a>
+                        <a href="#" class="pagination-number">1</a>
+                        <a href="#" class="pagination-number">2</a>
+                        <a href="#" class="pagination-number">3</a>
+                        <a href="#" class="pagination-number">4</a>
+                        <a href="#" class="pagination-number">5</a>
+                        <a href="#" class="pagination-number">6</a>
+                        <a href="#" class="pagination-number">7</a>
+                        <a href="#" class="pagination-number">8</a>
+                        <a href="#" class="pagination-number">9</a>
+                        <a href="#" class="pagination-number">10</a>
+                        <a href="#" class="pagination-next">Next >></a>
+                    </div>
+                </div>
+            </div>
+            <div class="tabs-content__item">
+                <div class="form-wrapper">
+                    <form action="" class="form_order">
+                        <div class="form-item">
+                            <label for="id">Id</label>
+                            <input type="text" class="form-item_input" id="id" />
+                        </div>
+                        <div class="form-item">
+                            <label for="Name">Name</label>
+                            <input type="text" class="form-item_input" id="Name" />
+                        </div>
+                        <div class="form-item">
+                            <label for="Description">Description</label>
+                            <textarea rows="9"
+                                      type="text"
+                                      class="form-item_input"
+                                      id="Parts"></textarea>
+                        </div>
+                        <div class="form-item">
+                            <label for="">Parts</label>
+                            <div class="form-item__part">
+                                <div class="part-item">
+                                    <div class="form-item">
+                                        <select id="part">
+                                            <option value="part" selected>Part 1</option>
+                                            <option></option>
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                    <div class="form-item">
+                                        <input type="text"
+                                               class="form-item_input"
+                                               id="Quantity"
+                                               placeholder="Quantity" />
+                                    </div>
+                                    <div class="part-icon">
+                                        <img src="./assets/images/icon-info.png"
+                                             alt=""
+                                             width="40" />
+                                        <img src="./assets/images/icon-delete.png"
+                                             alt=""
+                                             width="60" />
+                                    </div>
+                                </div>
+                                <div class="part-item">
+                                    <div class="form-item">
+                                        <select id="part">
+                                            <option value="part" selected>Part 1</option>
+                                            <option></option>
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                    <div class="form-item">
+                                        <input type="text"
+                                               class="form-item_input"
+                                               id="Quantity"
+                                               placeholder="Quantity" />
+                                    </div>
+                                    <div class="part-icon">
+                                        <img src="./assets/images/icon-info.png"
+                                             alt=""
+                                             width="40" />
+                                        <img src="./assets/images/icon-delete.png"
+                                             alt=""
+                                             width="60" />
+                                    </div>
+                                </div>
+                                <div class="plus">+</div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="list-btn">
+                        <button class="btn" id="addBtn">Add</button>
+                        <button class="btn">Update</button>
+                        <button class="btn">Delete</button>
+                    </div>
+                    <div class="search right">
+                        <div class="search-input right">
+                            <img src="./assets/images/search.svg"
+                                 alt=""
+                                 class="search-icon" />
+                            <input type="text" placeholder="Search" />
+                        </div>
+                    </div>
+                    <div class="table">
+                        <table>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Sample</td>
+                                <td>Sample</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="pagination">
+                        <a href="#" class="pagination-prev"><< Prev</a>
+                        <a href="#" class="pagination-number">1</a>
+                        <a href="#" class="pagination-number">2</a>
+                        <a href="#" class="pagination-number">3</a>
+                        <a href="#" class="pagination-number">4</a>
+                        <a href="#" class="pagination-number">5</a>
+                        <a href="#" class="pagination-number">6</a>
+                        <a href="#" class="pagination-number">7</a>
+                        <a href="#" class="pagination-number">8</a>
+                        <a href="#" class="pagination-number">9</a>
+                        <a href="#" class="pagination-number">10</a>
+                        <a href="#" class="pagination-next">Next >></a>
+                    </div>
+                </div>
+            </div>
+            <div class="tabs-content__item">content 5</div>
+            <div class="tabs-content__item">content 6</div>
+        </div>
+    </div>
+
+    <div class="popup">
+        <div class="popup_wrapper">
+            <button class="close">x</button>
+            <form action="" class="form_order">
+                <div class="form-item">
+                    <label for="id">Id</label>
+                    <input type="text" class="form-item_input" id="id" />
+                </div>
+                <div class="form-item">
+                    <label for="Name">Name</label>
+                    <input type="text" class="form-item_input" id="Name" />
+                </div>
+                <div class="form-item">
+                    <label for="Description">Description</label>
+                    <textarea rows="9"
+                              type="text"
+                              class="form-item_input"
+                              id="Parts"></textarea>
+                </div>
+                <div class="form-item">
+                    <label for="">Parts</label>
+                    <div class="form-item__part">
+                        <div class="part-item">
+                            <div class="form-item">
+                                <select id="part">
+                                    <option value="part" selected>Part 2</option>
+                                    <option></option>
+                                    <option></option>
+                                </select>
+                            </div>
+                            <div class="form-item">
+                                <input type="text"
+                                       class="form-item_input"
+                                       id="Quantity"
+                                       placeholder="Quantity" />
+                            </div>
+                            <div class="part-icon">
+                                <img src="./assets/images/icon-info.png"
+                                     alt=""
+                                     width="40" />
+                                <img src="./assets/images/icon-delete.png"
+                                     alt=""
+                                     width="60" />
+                            </div>
+                        </div>
+                        <div class="part-item">
+                            <div class="form-item">
+                                <select id="part">
+                                    <option value="part" selected>Part 2</option>
+                                    <option></option>
+                                    <option></option>
+                                </select>
+                            </div>
+                            <div class="form-item">
+                                <input type="text"
+                                       class="form-item_input"
+                                       id="Quantity"
+                                       placeholder="Quantity" />
+                            </div>
+                            <div class="part-icon">
+                                <img src="./assets/images/icon-info.png"
+                                     alt=""
+                                     width="40" />
+                                <img src="./assets/images/icon-delete.png"
+                                     alt=""
+                                     width="60" />
+                            </div>
+                        </div>
+                        <div class="plus">+</div>
+                    </div>
+                </div>
+                <button class="btn save">Save</button>
+            </form>
+        </div>
+    </div>
 </div>
+
+<script>
+    const tabs = document.querySelectorAll(".tabs-item");
+    const tabContents = document.querySelectorAll(".tabs-content__item");
+
+    tabs.forEach((tab, index) => {
+        tab.addEventListener("click", () => {
+            tabs.forEach((t) => t.classList.remove("active"));
+            tabContents.forEach((content) => content.classList.remove("active"));
+            tab.classList.add("active");
+            tabContents[index].classList.add("active");
+        });
+    });
+
+    const addBtn = document.getElementById("addBtn");
+    const saveBtn = document.querySelector(".btn.save");
+    const popup = document.querySelector(".popup");
+    const closeBtn = document.querySelector(".close");
+    addBtn.addEventListener("click", () => {
+        popup.classList.toggle("active");
+    });
+
+    closeBtn.addEventListener("click", () => {
+        popup.classList.toggle("active");
+    });
+
+    saveBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        popup.classList.toggle("active");
+    });
+</script>
