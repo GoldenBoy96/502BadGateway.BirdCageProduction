@@ -9,6 +9,7 @@ namespace Repository.IRepositories
 {
     public interface IAccountRepository : IBaseRepository<Account>
     {
-
+        Task<Account?> GetByEmail(string email);
+        Task<Account?> LoginAsync(string email, string password);
     }
 }

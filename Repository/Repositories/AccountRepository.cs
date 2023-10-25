@@ -1,5 +1,6 @@
 ﻿using BusinessObject.Models;
 using DataAccess;
+using Microsoft.EntityFrameworkCore;
 using Repository.IRepositories;
 using System;
 using System.Collections.Generic;
@@ -11,8 +12,23 @@ namespace Repository.Repositories
 {
     public class AccountRepository : BaseRepository<Account>, IAccountRepository
     {
+        private readonly BirdCageProductionContext _context;
+
         public AccountRepository(BirdCageProductionContext context) : base(context)
         {
+            _context = context;
+        }
+
+        public Task<Account?> GetByEmail(string email)
+        {
+            return _context.Accounts.FirstOrDefaultAsync(acc => acc.Email.Equals(email));
+        }
+
+        // Check login by email & password
+        public Task<Account?> LoginAsync(string email, string password)
+        {
+            var x = _context.Accounts.FirstOrDefaultAsync(acc => (acc.Email.Equals(email) && acc.Password.Equals(password)));
+            return x;
         }
     }
 }

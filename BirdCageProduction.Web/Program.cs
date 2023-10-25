@@ -1,6 +1,7 @@
-using BusinessLogic.IService;
-using BusinessLogic.Service;
+using BusinessLogic.Service.Abstraction;
+using BusinessLogic.Service.Implementation;
 using DataAccess;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Repository.IRepositories;
 using Repository.Repositories;
@@ -17,8 +18,25 @@ builder.Services.AddDbContext<BirdCageProductionContext>(option
 
 // DI Container
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+ // Repository
+builder.Services.AddTransient<IAccountRepository, AccountRepository>();
 builder.Services.AddTransient<ICustomerRepository, CustomerRepository>();
+ // Service
+builder.Services.AddTransient<IAuthService, AuthService>(); 
 builder.Services.AddTransient<ICustomerService, CustomerService>();
+builder.Services.AddTransient<IAccountService, AccountService>();
+
+
+// Cookie
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+        options.SlidingExpiration = true;
+        options.AccessDeniedPath = "/Forbidden/";
+        options.LoginPath = "/Login";
+    });
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); 
 
 var app = builder.Build();
 
@@ -35,8 +53,10 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
+app.MapDefaultControllerRoute();
 
 app.Run();

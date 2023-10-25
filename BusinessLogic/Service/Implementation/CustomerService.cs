@@ -1,4 +1,4 @@
-﻿using BusinessLogic.IService;
+﻿using BusinessLogic.Service.Abstraction;
 using BusinessObject.Models;
 using Repository.UnitOfWork;
 using System;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLogic.Service
+namespace BusinessLogic.Service.Implementation
 {
     public class CustomerService : ICustomerService
     {
