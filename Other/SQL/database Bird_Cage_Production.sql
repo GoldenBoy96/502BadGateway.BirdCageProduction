@@ -10,6 +10,9 @@ CREATE TABLE OrderStatus(
    [Name] VARCHAR(50)
 );
 
+INSERT INTO OrderStatus (StatusId, [Name])
+VALUES (0, '');
+
 CREATE TABLE AccountStatus(
    StatusId INT PRIMARY KEY,
    [Name] VARCHAR(50)
@@ -29,10 +32,32 @@ CREATE TABLE Role(
    RoleName VARCHAR(50)
 );
 
+INSERT INTO Role (RoleId, RoleName)
+VALUES (0, 'Undefined');
+INSERT INTO Role (RoleId, RoleName)
+VALUES (1, 'Admin');
+INSERT INTO Role (RoleId, RoleName)
+VALUES (2, 'Manager');
+INSERT INTO Role (RoleId, RoleName)
+VALUES (3, 'Staff');
+
 CREATE TABLE Color(
    ColorId INT PRIMARY KEY,
    ColorName VARCHAR(50)
 );
+INSERT INTO Color (ColorId, ColorName)
+VALUES (0, 'Undefined');
+INSERT INTO Color (ColorId, ColorName)
+VALUES (1, 'Purple');
+INSERT INTO Color (ColorId, ColorName)
+VALUES (2, 'Pink');
+INSERT INTO Color (ColorId, ColorName)
+VALUES (3, 'Blue');
+INSERT INTO Color (ColorId, ColorName)
+VALUES (4, 'Green');
+INSERT INTO Color (ColorId, ColorName)
+VALUES (5, 'Beige');
+
 
 -- Tạo bảng Customer
 CREATE TABLE Customer(
@@ -49,8 +74,8 @@ CREATE TABLE Account(
    AccountId INT IdENTITY(1,1) PRIMARY KEY,
    FullName VARCHAR(50),   
    [Address] VARCHAR(50),
-   PhoneNumber VARCHAR(50),
-   Email VARCHAR(50),
+   PhoneNumber VARCHAR(50) UNIQUE,
+   Email VARCHAR(50) UNIQUE,
    [Password] VARCHAR(50),
    RoleId INT,
    StatusId VARCHAR(50),
@@ -139,10 +164,41 @@ CREATE TABLE Progress(
 );
 
 
-
+--Account sample data
 INSERT INTO Account (FullName, [Address], PhoneNumber, Email, [Password], RoleId, StatusId)
-VALUES ('Nguyen Van Chi', '135 Le Than Ton', '0123456789', 'admin1@birdcage.com', '@123', 1, 0);
+VALUES ('Nguyen Van Chi', '135 Le Than Ton', '0123456789', 'admin1@birdcage.com', '@123', 0, 0);
 INSERT INTO Account (FullName, [Address], PhoneNumber, Email, [Password], RoleId, StatusId)
-VALUES ('Pham Nhat Mai', '99 Bui Thi Xuan', '0987654321', 'admin2@birdcage.com', '@123', 1, 0);
+VALUES ('Pham Nhat Mai', '99 Bui Thi Xuan', '0987654321', 'admin2@birdcage.com', '@123', 0, 0);
 
 
+--Customer sample data
+INSERT INTO customer (FullName, Address, PhoneNumber, Email, StatusId)
+VALUES ('John Doe', '123 Main St', '555-1234', 'johndoe@example.com', 1);
+INSERT INTO customer (FullName, Address, PhoneNumber, Email, StatusId)
+VALUES ('Jane Smith', '456 Elm St', '555-5678', 'janesmith@example.com', 1);
+INSERT INTO customer (FullName, Address, PhoneNumber, Email, StatusId)
+VALUES ('David Johnson', '789 Oak St', '555-9012', 'davidjohnson@example.com', 1);
+INSERT INTO customer (FullName, Address, PhoneNumber, Email, StatusId)
+VALUES ('Sarah Williams', '321 Maple St', '555-3456', 'sarahwilliams@example.com', 1);
+INSERT INTO customer (FullName, Address, PhoneNumber, Email, StatusId)
+VALUES ('Michael Brown', '654 Pine St', '555-7890', 'michaelbrown@example.com', 1);
+INSERT INTO customer (FullName, Address, PhoneNumber, Email, StatusId)
+VALUES ('Emily Wilson', '987 Cedar St', '555-1234', 'emilywilson@example.com', 1);
+INSERT INTO customer (FullName, Address, PhoneNumber, Email, StatusId)
+VALUES ('Daniel Thompson', '654 Birch St', '555-5678', 'danielthompson@example.com', 1);
+INSERT INTO customer (FullName, Address, PhoneNumber, Email, StatusId)
+VALUES ('Olivia Davis', '321 Oak St', '555-9012', 'oliviadavis@example.com', 1);
+INSERT INTO customer (FullName, Address, PhoneNumber, Email, StatusId)
+VALUES ('James Anderson', '789 Maple St', '555-3456', 'jamesanderson@example.com', 1);
+INSERT INTO customer (FullName, Address, PhoneNumber, Email, StatusId)
+VALUES ('Sophia Martinez', '456 Elm St', '555-7890', 'sophiamartinez@example.com', 1);
+INSERT INTO customer (FullName, Address, PhoneNumber, Email, StatusId)
+VALUES ('Ethan Clark', '987 Pine St', '555-1234', 'ethanclark@example.com', 1);
+INSERT INTO customer (FullName, Address, PhoneNumber, Email, StatusId)
+VALUES ('Ava Rodriguez', '654 Cedar St', '555-5678', 'avarodriguez@example.com', 1);
+INSERT INTO customer (FullName, Address, PhoneNumber, Email, StatusId)
+VALUES ('Logan Lee', '321 Birch St', '555-9012', 'loganlee@example.com', 1);
+INSERT INTO customer (FullName, Address, PhoneNumber, Email, StatusId)
+VALUES ('Mia Turner', '789 Oak St', '555-3456', 'miaturner@example.com', 1);
+INSERT INTO customer (FullName, Address, PhoneNumber, Email, StatusId)
+VALUES ('Lucas Scott', '456 Maple St', '555-7899', 'lucasscott@example.com', 1);
