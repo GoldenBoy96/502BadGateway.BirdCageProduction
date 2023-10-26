@@ -140,6 +140,9 @@ CREATE TABLE Progress(
 
 
 
-
+INSERT INTO Account (FullName, [Address], PhoneNumber, Email, [Password], RoleId, StatusId)
+VALUES ('Nguyen Van Chi', '135 Le Than Ton', '0123456789', 'admin1@birdcage.com', '@123', 1, 0);
+INSERT INTO Account (FullName, [Address], PhoneNumber, Email, [Password], RoleId, StatusId)
+VALUES ('Pham Nhat Mai', '99 Bui Thi Xuan', '0987654321', 'admin2@birdcage.com', '@123', 1, 0);
 
 
