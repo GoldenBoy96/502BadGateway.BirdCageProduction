@@ -18,6 +18,10 @@ namespace Repository.UnitOfWork
         IPartRepository PartRepository { get; }
         IProcedureRepository ProcedureRepository { get; }
         IProcedureStepRepository ProcedureStepRepository { get; }
+        IAccountStatusRepository AccountStatusRepository { get; }
+        ICustomerStatusRepository CustomerStatusRepository { get; }
+        IOrderStatusRepository OrderStatusRepository { get; }
+        IProgressStatusRepository ProgressStatusRepository { get; }
         Task Save();
     }
 }

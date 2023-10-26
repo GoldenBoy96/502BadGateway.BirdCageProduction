@@ -1,5 +1,7 @@
+using BusinessLogic.Constant.StatusConstant;
 using BusinessLogic.Service.Abstraction;
 using BusinessLogic.Service.Implementation;
+using BusinessLogic.Constant.StatusConstant;
 using DataAccess;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
@@ -21,10 +23,12 @@ builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
  // Repository
 builder.Services.AddTransient<IAccountRepository, AccountRepository>();
 builder.Services.AddTransient<ICustomerRepository, CustomerRepository>();
+builder.Services.AddTransient<IAccountStatusRepository, AccountStatusRepository>();
  // Service
 builder.Services.AddTransient<IAuthService, AuthService>(); 
 builder.Services.AddTransient<ICustomerService, CustomerService>();
 builder.Services.AddTransient<IAccountService, AccountService>();
+builder.Services.AddTransient<IStatusConstant, StatusConstant>();
 
 
 // Cookie
@@ -59,4 +63,11 @@ app.UseAuthorization();
 app.MapRazorPages();
 app.MapDefaultControllerRoute();
 
+
+
+
+System.Diagnostics.Debug.WriteLine("hello world!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 app.Run();
+
+
+

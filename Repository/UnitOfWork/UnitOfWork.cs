@@ -37,6 +37,12 @@ namespace Repository.UnitOfWork
 
         public IProcedureStepRepository ProcedureStepRepository {  get; }
 
+        public IAccountStatusRepository AccountStatusRepository { get; }
+        public ICustomerStatusRepository CustomerStatusRepository { get; }
+        public IOrderStatusRepository OrderStatusRepository { get; }
+        public IProgressStatusRepository ProgressStatusRepository { get; }
+
+
         public async Task Save()
         {
             await _context.SaveChangesAsync();
