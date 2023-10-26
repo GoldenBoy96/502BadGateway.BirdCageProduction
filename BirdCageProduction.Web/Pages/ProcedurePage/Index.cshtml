@@ -1,0 +1,36 @@
+﻿@page
+@model BirdCageProduction.Web.Pages.ProcedurePage.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Procedure[0].BirdCage)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Procedure) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BirdCage.BirdCageId)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ProcedureId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ProcedureId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ProcedureId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
