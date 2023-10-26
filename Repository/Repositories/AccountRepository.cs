@@ -30,5 +30,38 @@ namespace Repository.Repositories
             var x = _context.Accounts.FirstOrDefaultAsync(acc => (acc.Email.Equals(email) && acc.Password.Equals(password)));
             return x;
         }
+
+        public async Task<List<Account>> GetAllAccountsAsync()
+        {
+            return await _context.Accounts.ToListAsync();
+        }
+
+        public async Task<Account> GetAccountByIdAsync(int accountId)
+        {
+            return await _context.Accounts.FindAsync(accountId);
+        }
+
+        public async Task<int> CreateAccountAsync(Account account)
+        {
+            _context.Accounts.Add(account);
+            await _context.SaveChangesAsync();
+            return account.AccountId;
+        }
+
+        public async Task UpdateAccountAsync(Account account)
+        {
+            _context.Accounts.Update(account);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteAccountAsync(int accountId)
+        {
+            var account = await _context.Accounts.FindAsync(accountId);
+            if (account != null)
+            {
+                _context.Accounts.Remove(account);
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }
