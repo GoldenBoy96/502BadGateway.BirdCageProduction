@@ -2,7 +2,7 @@ using BusinessLogic.Service.Abstraction;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace BirdCageProduction.Web.Pages.Account
+namespace BirdCageProduction.Web.Pages.AccountPage
 {
     public class LogoutModel : PageModel
     {
