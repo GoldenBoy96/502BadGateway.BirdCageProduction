@@ -54,54 +54,54 @@
                     <form action="" class="form_order">
                         <div class="form-item">
                             <label for="id">Id</label>
-                            <input type="text" class="form-item_input" id="id" />
+                            <input type="text" class="form-item_input" id="id" disabled/>
                         </div>
                         <div class="form-item">
                             <label for="Name">Name</label>
-                            <input type="text" class="form-item_input" id="Name" />
+                            <input type="text" class="form-item_input" id="Name" disabled />
                         </div>
                         <div class="form-item">
                             <label for="Description">Description</label>
                             <textarea rows="9"
                                       type="text"
                                       class="form-item_input"
-                                      id="Parts"></textarea>
+                                      id="Parts" disabled></textarea>
                         </div>
                         <div class="form-item">
                             <label for="Shape">Shape</label>
-                            <select id="Shape" class="form-item_input">
-                                <option></option>
-                                <option></option>
-                                <option></option>
+                            <select id="Shape" class="form-item_input" disabled>
+                                <option>Option 1</option>
+                                <option>Option 2</option>
+                                <option>Option 3</option>
                             </select>
                         </div>
                         <div class="form-item">
                             <label for="Material">Material</label>
-                            <select id="Material" class="form-item_input">
-                                <option></option>
-                                <option></option>
-                                <option></option>
+                            <select id="Material" class="form-item_input" disabled>
+                                <option>Option 1</option>
+                                <option>Option 2</option>
+                                <option>Option 3</option>
                             </select>
                         </div>
                         <div class="form-item">
                             <label for="Size">Size</label>
-                            <select id="Size" class="form-item_input">
-                                <option></option>
-                                <option></option>
-                                <option></option>
+                            <select id="Size" class="form-item_input" disabled>
+                                <option>Option 1</option>
+                                <option>Option 2</option>
+                                <option>Option 3</option>
                             </select>
                         </div>
                         <div class="form-item">
                             <label for="Color">Color</label>
-                            <select id="Color" class="form-item_input">
-                                <option></option>
-                                <option></option>
-                                <option></option>
+                            <select id="Color" class="form-item_input" disabled>
+                                <option>Option 1</option>
+                                <option>Option 2</option>
+                                <option>Option 3</option>
                             </select>
                         </div>
                         <div class="form-item">
                             <label for="Cost">Cost</label>
-                            <input type="text" class="form-item_input" id="Cost" />
+                            <input type="text" class="form-item_input" id="Cost" disabled />
                         </div>
                     </form>
 
@@ -117,9 +117,9 @@
                                 <th>Cost</th>
                             </tr>
                             <tr>
-                                <td>1</td>
-                                <td>Sample</td>
-                                <td>Sample</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -141,10 +141,83 @@
                         <a href="#" class="pagination-number">10</a>
                         <a href="#" class="pagination-next">Next >></a>
                     </div>
+
+                    <div class="list-btn">
+                        <button class="btn" id="addBtn">Add</button>
+                        <button class="btn">Update</button>
+                        <button class="btn">Delete</button>
+                    </div>
                 </div>
 
             </div>
 
         </div>
+
+        <div class="popup">
+            <div class="popup_wrapper">
+                <button class="close">x</button>
+                <form action="" class="form_order">
+                    <div class="form-item">
+                        <label for="id">Id</label>
+                        <input type="text" class="form-item_input" id="id" />
+                    </div>
+                    <div class="form-item">
+                        <label for="Name">Name</label>
+                        <input type="text" class="form-item_input" id="Name" />
+                    </div>
+                    <div class="form-item">
+                        <label for="Description">Description</label>
+                        <textarea rows="9"
+                                  type="text"
+                                  class="form-item_input"
+                                  id="Parts"></textarea>
+                    </div>
+                    <div class="form-item">
+                        <label for="Shape">Shape</label>
+                        <select id="Shape" class="form-item_input">
+                            <option>Option 1</option>
+                            <option>Option 2</option>
+                            <option>Option 3</option>
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <label for="Material">Material</label>
+                        <select id="Material" class="form-item_input">
+                            <option>Option 1</option>
+                            <option>Option 2</option>
+                            <option>Option 3</option>
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <label for="Size">Size</label>
+                        <select id="Size" class="form-item_input">
+                            <option>Option 1</option>
+                            <option>Option 2</option>
+                            <option>Option 3</option>
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <label for="Color">Color</label>
+                        <select id="Color" class="form-item_input">
+                            <option>Option 1</option>
+                            <option>Option 2</option>
+                            <option>Option 3</option>
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <label for="Cost">Cost</label>
+                        <input type="text" class="form-item_input" id="Cost" />
+                    </div>
+
+                    <div class="list-btn">
+                        <button class="btn" id="addBtn">Add</button>
+                        <button class="btn" id="cacelBtn">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+         </div>
     </div>
 </div>
+
+
