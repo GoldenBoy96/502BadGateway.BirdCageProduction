@@ -12,11 +12,12 @@ namespace Repository.UnitOfWork
     {
         private readonly BirdCageProductionContext _context;
 
-        public UnitOfWork(BirdCageProductionContext context, ICustomerRepository customerRepository, IAccountRepository accountRepository)
+        public UnitOfWork(BirdCageProductionContext context, ICustomerRepository customerRepository, IAccountRepository accountRepository, IAccountStatusRepository accountStatusRepository)
         {
             _context = context;
             CustomerRepository = customerRepository;
             AccountRepository = accountRepository;
+            AccountStatusRepository = accountStatusRepository;
         }
 
         public ICustomerRepository CustomerRepository { get; }
