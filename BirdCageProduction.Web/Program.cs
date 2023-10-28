@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Repository.IRepositories;
 using Repository.Repositories;
 using Repository.UnitOfWork;
+using BusinessLogic.Models.Part;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,12 +25,15 @@ builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IAccountRepository, AccountRepository>();
 builder.Services.AddTransient<ICustomerRepository, CustomerRepository>();
 builder.Services.AddTransient<IAccountStatusRepository, AccountStatusRepository>();
+builder.Services.AddTransient<IPartRepository, PartRepository>();
+builder.Services.AddTransient<IColorRepository, ColorRepository>();
  // Service
 builder.Services.AddTransient<IAuthService, AuthService>(); 
 builder.Services.AddTransient<ICustomerService, CustomerService>();
 builder.Services.AddTransient<IAccountService, AccountService>();
+builder.Services.AddTransient<IPartService, PartService>();
 builder.Services.AddTransient<IStatusConstant, StatusConstant>();
-
+builder.Services.AddTransient<IColorService, ColorService>();
 
 // Cookie
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -41,6 +45,10 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LoginPath = "/Login";
     });
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); 
+
+// Other
+builder.Configuration.AddJsonFile("bird_cage_parts_option.json", true, true);
+
 
 var app = builder.Build();
 

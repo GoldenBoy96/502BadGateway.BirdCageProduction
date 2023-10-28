@@ -63,9 +63,9 @@
 
     <script>
         const addBtn = document.getElementById("addBtn");
+        const cancelBtn = document.querySelector(".close");
         const popup = document.querySelector(".popup");
         const closeBtn = document.querySelector(".close");
-        const cancelBtn = document.querySelector(".close");
         addBtn.addEventListener("click", () => {
             popup.classList.toggle("active");
         });
@@ -75,8 +75,9 @@
         });
 
         cancelBtn.addEventListener("click", () => {
-            popup.classList.toggle("active");
+            popup.classList.toggle("");
         });
+
     </script>
 
     @await RenderSectionAsync("Scripts", required: false)
