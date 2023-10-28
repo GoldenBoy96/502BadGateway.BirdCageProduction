@@ -22,5 +22,10 @@ namespace BusinessLogic.Service.Implementation
         {
             return await _unitOfWork.ColorRepository.ColorsName();
         }
+
+        public async Task<int> ReturnIdByName(string name)
+        {
+            return await _unitOfWork.ColorRepository.ReturnIdByName(name);
+        }
     }
 }

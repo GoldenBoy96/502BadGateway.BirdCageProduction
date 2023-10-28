@@ -10,5 +10,6 @@ namespace BusinessLogic.Service.Abstraction
     public interface IColorService
     {
         Task<List<string>> ListColorName();
+        Task<int> ReturnIdByName(string name);
     }
 }

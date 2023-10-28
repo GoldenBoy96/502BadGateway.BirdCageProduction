@@ -32,7 +32,7 @@ namespace Repository.Repositories
             return await _dbSet.ToListAsync();
         }
 
-        public async Task<T?> GetById(int? id)
+        public async Task<T> GetById(int id)
         {
             return await _dbSet.FindAsync(id);
         }

@@ -22,12 +22,32 @@ namespace BusinessLogic.Service.Implementation
             _configuration = configuration;
         }
 
-        public async Task AddPart(Part part, string color)
+        public async Task AddPart(PartPageModel model)
         {
-            int colorId = await _unitOfWork.ColorRepository.ReturnIdByName(color);
-            part.ColorId = colorId;
+            var part = new Part();
+            part.Name = model.Name;
+            part.Description = model.Description;
+            part.Shape = model.Shape;
+            part.Size = model.Size;
+            part.ColorId = await _unitOfWork.ColorRepository.ReturnIdByName(model.Color);
+            part.Cost = model.Cost;
+            
+            
             _ = _unitOfWork.PartRepository.Add(part);
             _ = _unitOfWork.Save();
+        }
+
+        public async Task EditPart(PartPageModel model)
+        {
+            var data = await _unitOfWork.PartRepository.GetById(model.PartId);
+            data.Name = model.Name;
+            data.Description = model.Description;
+            data.Shape = model.Shape;
+            data.Material = model.Material;
+            data.Cost = model.Cost;
+            data.ColorId = await _unitOfWork.ColorRepository.ReturnIdByName(model.Color);
+
+            
         }
 
         public async Task<PartOptions> GetPartOptions()

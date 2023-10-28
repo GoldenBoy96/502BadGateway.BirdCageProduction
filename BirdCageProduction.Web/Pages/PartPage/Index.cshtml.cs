@@ -32,14 +32,15 @@ namespace BirdCageProduction.Web.Pages.PartPage
         [BindProperty]
         public PartOptions PartOptions { get; set; }
 
-        [BindProperty]
-        public Part Part { get; set; }
+        //[BindProperty]
+        //public Part Part { get; set; }
 
         [BindProperty]
         public string Color { get; set; }
 
         // ===================================================================================== //
 
+        public PartPageModel PartModel {  get; set; }
 
         public SelectList Materials {  get; set; }
         public SelectList Shapes { get; set; }
@@ -61,7 +62,13 @@ namespace BirdCageProduction.Web.Pages.PartPage
 
         public async Task<IActionResult> OnPostAdd()
         {
-            _partService.AddPart(Part, Color);
+            _partService.AddPart(PartModel);
+            return RedirectToPage();
+        }
+
+        public async Task<IActionResult> OnPostEdit(int id)
+        {
+            
             return RedirectToPage();
         }
     }

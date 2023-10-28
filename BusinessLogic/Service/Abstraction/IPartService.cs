@@ -13,6 +13,7 @@ namespace BusinessLogic.Service.Abstraction
     {
         Task<IEnumerable<Part>> GetParts();
         Task<PartOptions> GetPartOptions();
-        Task AddPart(Part part, string color);
+        Task AddPart(PartPageModel model);
+        Task EditPart(PartPageModel model);
     }
 }
