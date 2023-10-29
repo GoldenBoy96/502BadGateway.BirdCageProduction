@@ -11,8 +11,8 @@ namespace Repository.IRepositories
     {
         Task<T?> GetById(int? id);
         Task<IEnumerable<T>> GetAll();
-        Task Add(T entity);
-        Task Update(T entity);
-        Task Remove(T entity);
+        Task<bool> Add(T entity);
+        Task<bool> Update(T entity);
+        Task<bool> Remove(T entity);
     }
 }
