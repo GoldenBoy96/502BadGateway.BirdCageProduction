@@ -22,9 +22,12 @@ namespace Repository.Repositories
 
         //public BirdCageProductionContext Context { get { return _context; } }
 
-        public async Task Add(T entity)
+        public async Task<bool> Add(T entity)
         {
             await _dbSet.AddAsync(entity);
+            int success = await _context.SaveChangesAsync();
+
+            return await Task.FromResult(success == 1);
         }
 
         public async Task<IEnumerable<T>> GetAll()
@@ -37,15 +40,19 @@ namespace Repository.Repositories
             return await _dbSet.FindAsync(id);
         }
 
-        public async Task Remove(T entity)
+        public async Task<bool> Remove(T entity)
         {
             _dbSet.Remove(entity);
+            int success  =  await _context.SaveChangesAsync();
+            return await Task.FromResult(success == 1);
         }
 
-        public async Task Update(T entity)
+        public async Task<bool> Update(T entity)
         {
             _dbSet.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
+            int success = await _context.SaveChangesAsync();
+            return await Task.FromResult(success == 1);
         }
     }
 }
