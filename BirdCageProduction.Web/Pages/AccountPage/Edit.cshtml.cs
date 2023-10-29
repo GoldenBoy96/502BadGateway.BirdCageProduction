@@ -8,29 +8,32 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BusinessObject.Models;
 using DataAccess;
+using BusinessLogic.Service.Abstraction;
 
 namespace BirdCageProduction.Web.Pages.AccountPage
 {
     public class EditModel : PageModel
     {
-        private readonly DataAccess.BirdCageProductionContext _context;
+        private readonly IAccountService _accountService;
 
-        public EditModel(DataAccess.BirdCageProductionContext context)
+        public EditModel(IAccountService accountService)
         {
-            _context = context;
+            _accountService = accountService;
         }
+        public string Message { get; set; }
 
         [BindProperty]
         public Account Account { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Accounts == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var account =  await _context.Accounts.FirstOrDefaultAsync(m => m.AccountId == id);
+            Account? account =  await _accountService.GetAccountByIdAsync(id);
+
             if (account == null)
             {
                 return NotFound();
@@ -48,30 +51,35 @@ namespace BirdCageProduction.Web.Pages.AccountPage
                 return Page();
             }
 
-            _context.Attach(Account).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                bool success = await _accountService.UpdateAccountAsync(Account);
+                if(!success)
+                {
+                    Message = "Error while saving!";
+                }
+                Message = "Saved Successfully";
+                return Page();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception ex)
             {
-                if (!AccountExists(Account.AccountId))
+                if (! await AccountExists(Account.AccountId))
                 {
                     return NotFound();
                 }
                 else
                 {
-                    throw;
+                    throw new Exception(ex.Message);
                 }
             }
 
             return RedirectToPage("./Index");
         }
 
-        private bool AccountExists(int id)
+        private async Task<bool> AccountExists(int? id)
         {
-          return (_context.Accounts?.Any(e => e.AccountId == id)).GetValueOrDefault();
+            Account? account = await _accountService.GetAccountByIdAsync(id);
+            return account != null;
         }
     }
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Service.Implementation
 {
-    public class CustomerService : ICustomerService
+    public class CustomerService 
     {
         private readonly IUnitOfWork unitOfWork;
 
@@ -18,6 +18,6 @@ namespace BusinessLogic.Service.Implementation
             this.unitOfWork = unitOfWork;
         }
 
-        public Task<IEnumerable<Customer>> GetCustomers() => unitOfWork.CustomerRepository.GetAll();
+        //public Task<IEnumerable<Customer>> GetCustomers() => unitOfWork.CustomerRepository.GetAll();
     }
 }

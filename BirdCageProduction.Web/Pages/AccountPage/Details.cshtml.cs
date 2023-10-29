@@ -7,28 +7,30 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BusinessObject.Models;
 using DataAccess;
+using BusinessLogic.Service.Abstraction;
 
 namespace BirdCageProduction.Web.Pages.AccountPage
 {
     public class DetailsModel : PageModel
     {
-        private readonly DataAccess.BirdCageProductionContext _context;
+        private readonly IAccountService _accountService;
 
-        public DetailsModel(DataAccess.BirdCageProductionContext context)
+        public DetailsModel(IAccountService accountService)
         {
-            _context = context;
+                   _accountService = accountService;
         }
 
       public Account Account { get; set; } = default!; 
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Accounts == null)
+           
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var account = await _context.Accounts.FirstOrDefaultAsync(m => m.AccountId == id);
+            Account? account = await _accountService.GetAccountByIdAsync(id);
             if (account == null)
             {
                 return NotFound();

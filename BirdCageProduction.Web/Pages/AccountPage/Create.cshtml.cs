@@ -7,16 +7,18 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BusinessObject.Models;
 using DataAccess;
+using BusinessLogic.Service.Abstraction;
 
 namespace BirdCageProduction.Web.Pages.AccountPage
 {
     public class CreateModel : PageModel
     {
-        private readonly DataAccess.BirdCageProductionContext _context;
+        private readonly IAccountService _accountService;
+        public string Message { get; set; }
 
-        public CreateModel(DataAccess.BirdCageProductionContext context)
+        public CreateModel(IAccountService accountService)
         {
-            _context = context;
+            _accountService = accountService;
         }
 
         public IActionResult OnGet()
@@ -31,15 +33,20 @@ namespace BirdCageProduction.Web.Pages.AccountPage
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Accounts == null || Account == null)
+          if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Accounts.Add(Account);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
+            bool success = await _accountService.CreateAccountAsync(Account);
+            if (!success)
+            {
+                Message = "Save failed";
+                return Page();
+            }
+            Message = "Save Successfully";
+            ModelState.Clear();
+            return Page();
         }
     }
 }

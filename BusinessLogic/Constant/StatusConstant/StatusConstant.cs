@@ -45,14 +45,14 @@ namespace BusinessLogic.Constant.StatusConstant
             //_accountStatusList = GetAllAccountStatusAsync().Result;
             //System.Diagnostics.Debug.WriteLine("================" + _accountStatusList[0].Name);
             
-            _accountStatusList = _unitOfWork.AccountStatusRepository.GetAll().Result.ToList(); 
+            _accountStatusList = _unitOfWork.AccountStatusRepository.GetAllAsync().Result.ToList(); 
             
         }
 
         public async Task<List<AccountStatus>> GetAllAccountStatusAsync()
         {
             //_accountStatusList = (List<AccountStatus>)await _unitOfWork.AccountStatusRepository.GetAll();
-            return (List<AccountStatus>)await _accountStatusRepository.GetAll();
+            return (List<AccountStatus>)await _accountStatusRepository.GetAllAsync();
         }
 
         public void PrintAccountStatus()

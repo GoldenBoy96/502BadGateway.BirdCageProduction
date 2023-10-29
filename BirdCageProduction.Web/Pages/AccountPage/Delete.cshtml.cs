@@ -7,29 +7,31 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BusinessObject.Models;
 using DataAccess;
+using BusinessLogic.Service.Abstraction;
 
 namespace BirdCageProduction.Web.Pages.AccountPage
 {
     public class DeleteModel : PageModel
     {
-        private readonly DataAccess.BirdCageProductionContext _context;
+        private readonly IAccountService _accountService;
 
-        public DeleteModel(DataAccess.BirdCageProductionContext context)
+
+        public DeleteModel(IAccountService accountService)
         {
-            _context = context;
+            _accountService = accountService;
         }
-
         [BindProperty]
       public Account Account { get; set; } = default!;
+        public string Message { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Accounts == null)
+            if (id == null)
             {
                 return NotFound();
             }
-
-            var account = await _context.Accounts.FirstOrDefaultAsync(m => m.AccountId == id);
+            
+            Account? account = await _accountService.GetAccountByIdAsync(id);
 
             if (account == null)
             {
@@ -44,20 +46,33 @@ namespace BirdCageProduction.Web.Pages.AccountPage
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null || _context.Accounts == null)
+            try
             {
-                return NotFound();
-            }
-            var account = await _context.Accounts.FindAsync(id);
+                if (id == null)
+                {
+                    return NotFound();
+                }
+                Account? account = await _accountService.GetAccountByIdAsync(id);
+                
+                if (account == null)
+                {
+                    return NotFound();
+                }
 
-            if (account != null)
+                bool success = await _accountService.DeleteAccountAsync(account);
+                if (success)
+                {
+                    Message = "Save Successfully";
+                    return Page();
+                }
+                Message = "Save failed";
+                return Page();
+            }
+            catch(Exception ex)
             {
-                Account = account;
-                _context.Accounts.Remove(Account);
-                await _context.SaveChangesAsync();
+                Message = ex.Message;
+                return Page();
             }
-
-            return RedirectToPage("./Index");
         }
     }
 }
