@@ -25,8 +25,8 @@ builder.Services.AddTransient<IAccountRepository, AccountRepository>();
 builder.Services.AddTransient<ICustomerRepository, CustomerRepository>();
 builder.Services.AddTransient<IAccountStatusRepository, AccountStatusRepository>();
  // Service
-builder.Services.AddTransient<IAuthService, AuthService>(); 
-//builder.Services.AddTransient<ICustomerService, CustomerService>();
+builder.Services.AddTransient<IAuthService, AuthService>();
+builder.Services.AddTransient<ICustomerService, CustomerService>();
 builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddTransient<IStatusConstant, StatusConstant>();
 
