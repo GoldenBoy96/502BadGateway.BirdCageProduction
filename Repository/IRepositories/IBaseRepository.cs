@@ -9,10 +9,10 @@ namespace Repository.IRepositories
 {
     public interface IBaseRepository<T> where T : class
     {
-        Task<T?> GetById(int? id);
-        Task<IEnumerable<T>> GetAll();
-        Task<bool> Add(T entity);
-        Task<bool> Update(T entity);
-        Task<bool> Remove(T entity);
+        Task<T?> GetByIdAsync(int? id);
+        Task<IEnumerable<T>> GetAllAsync();
+        Task<bool> AddAsync(T entity);
+        Task<bool> UpdateAsync(T entity);
+        Task<bool> RemoveAsync(T entity);
     }
 }
