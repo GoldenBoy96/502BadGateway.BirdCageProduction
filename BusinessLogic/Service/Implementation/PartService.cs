@@ -29,7 +29,7 @@ namespace BusinessLogic.Service.Implementation
             part.Description = model.Description;
             part.Shape = model.Shape;
             part.Size = model.Size;
-            part.ColorId = await _unitOfWork.ColorRepository.ReturnIdByName(model.Color);
+            part.ColorId = await _unitOfWork.ColorRepository.ReturnIdByName(model.ColorName);
             part.Cost = model.Cost;
             
             
@@ -40,14 +40,32 @@ namespace BusinessLogic.Service.Implementation
         public async Task EditPart(PartPageModel model)
         {
             var data = await _unitOfWork.PartRepository.GetById(model.PartId);
-            data.Name = model.Name;
-            data.Description = model.Description;
-            data.Shape = model.Shape;
-            data.Material = model.Material;
-            data.Cost = model.Cost;
-            data.ColorId = await _unitOfWork.ColorRepository.ReturnIdByName(model.Color);
+   
+                data.Name = model.Name;
+                data.Description = model.Description;
+                data.Shape = model.Shape;
+                data.Material = model.Material;
+                data.Cost = model.Cost;
+                data.ColorId = await _unitOfWork.ColorRepository.ReturnIdByName(model.ColorName);
 
-            
+                _ = _unitOfWork.PartRepository.Update(data);
+                _ = _unitOfWork.Save();
+        }
+
+        public async Task<PartPageModel> GetPartById(int id)
+        {
+            var data = await _unitOfWork.PartRepository.GetById(id);
+            var respone = new PartPageModel
+            {
+                Name = data.Name,
+                Description = data.Description,
+                Shape = data.Shape,
+                Material = data.Material,
+                ColorName = (await _unitOfWork.ColorRepository.GetAll()).FirstOrDefault(c => c.ColorId == data.ColorId).ColorName,
+                Cost = data.Cost,
+            };
+
+            return respone;
         }
 
         public async Task<PartOptions> GetPartOptions()

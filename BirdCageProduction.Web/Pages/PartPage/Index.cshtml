@@ -127,10 +127,10 @@
                                         <td>@part.Size</td>                                      
                                         <td>@part.Cost</td>
                                         <td>
-                                            <a asp-page-handler="edit" method="post" asp-route-id="@part.PartId">Edit</a>
+                                            <button @* asp-page-handler="byid" method="get" asp-route-id="@part.PartId" *@ class="edit-part">Edit</button>
                                         </td>
                                     </tr>
-                                }
+                                }   
                             </table>
                         </div>
 
@@ -163,7 +163,7 @@
         <div class="popup">
             <div class="popup_wrapper">
                 <button class="close">x</button>
-                <form class="form_order" asp-page="./Index" asp-page-handler="Add" method="post">
+                <form class="form_order" asp-page="./Index" method="post">
 @*                     <div class="form-item">
                         <label for="id">Id</label>
                         <input type="text" class="form-item_input" id="id" asp-for=""/>
@@ -199,7 +199,7 @@
                     </div>
                     <div class="form-item">
                         <label for="Color">Color</label>
-                        <select id="Color" class="form-item_input" asp-for="PartModel.Color" asp-items="Model.Colors">
+                        <select id="Color" class="form-item_input" asp-for="PartModel.ColorName" asp-items="Model.Colors">
                             <option readonly disabled>-- Select --</option>
                         </select>
                     </div>
@@ -208,8 +208,8 @@
                         <input type="text" class="form-item_input" id="Cost" asp-for="PartModel.Cost"/>
                     </div>
 
-                    <div class="list-btn">
-                        <button class="btn" type="submit">Add</button>
+                    <div class="list-btn" id="popup-list-btn">
+                        <button class="btn" type="submit" asp-page-handler="Add">Add</button>
                         <button class="btn" id="cacelBtn">Cancel</button>
                     </div>
                 </form>
@@ -219,8 +219,57 @@
     </div>
 </div>
 
+
 <script>
-    const edit = 
+    const addBtn = document.getElementById("addBtn");
+    const cancelBtn = document.querySelector(".close");
+    const popup = document.querySelector(".popup");
+    const closeBtn = document.querySelector(".close");
+    const edits = document.getElementsByClass("edit-part");
+
+    // addBtn.addEventListener("click", () => {
+    //     popup.classList.toggle("active");
+    // });
+
+    closeBtn.addEventListener("click", () => {
+        popup.classList.toggle("active");
+    });
+
+    cancelBtn.addEventListener("click", () => {
+        popup.classList.toggle("inactive");
+    });
+
+    for (var i = 0; i < edits.length; i++) {
+        edits[i].addEventListener("click", () => {
+            popup.classList.toggle("active");
+        });
+      }
+
+
+            // var updateBtn = document.createElement("button");
+        // updateBtn.innerHTML = "Update";
+        // updateBtn.id = "update"
+
+        // // Add an event listener to the button
+        // updateBtn.addEventListener("click", function () {
+        //     // Call a Razor page handler method using JavaScript
+        //     fetch("/Index?handler=Edit", {
+        //         method: "POST"
+        //     }).then(response => {
+        //         if (response.ok) {
+        //             // Handle a successful response
+        //         } else {
+        //             // Handle an error
+        //         }
+        //     });
+        // });
+
+        // // Get a reference to the container where you want to add the button
+        // var container = document.getElementById("popup-list-btn");
+
+        // // Append the button to the container
+        // container.appendChild(button);
+    });
 </script>
 
 @section Scripts {

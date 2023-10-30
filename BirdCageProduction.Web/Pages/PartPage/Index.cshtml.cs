@@ -39,8 +39,8 @@ namespace BirdCageProduction.Web.Pages.PartPage
         public string Color { get; set; }
 
         // ===================================================================================== //
-
-        public PartPageModel PartModel {  get; set; }
+        [BindProperty]
+        public PartPageModel PartModel {  get; set; } = new PartPageModel();
 
         public SelectList Materials {  get; set; }
         public SelectList Shapes { get; set; }
@@ -58,6 +58,12 @@ namespace BirdCageProduction.Web.Pages.PartPage
             Shapes = new SelectList(PartOptions.Shapes);
             Sizes = new SelectList(PartOptions.Sizes);
             Colors = new SelectList(await _colorService.ListColorName());
+        }
+
+        public async Task OnGetById(int id)
+        {
+            OnGet();
+            PartModel = await _partService.GetPartById(id);
         }
 
         public async Task<IActionResult> OnPostAdd()

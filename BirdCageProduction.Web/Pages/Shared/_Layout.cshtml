@@ -61,25 +61,6 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
-    <script>
-        const addBtn = document.getElementById("addBtn");
-        const cancelBtn = document.querySelector(".close");
-        const popup = document.querySelector(".popup");
-        const closeBtn = document.querySelector(".close");
-        addBtn.addEventListener("click", () => {
-            popup.classList.toggle("active");
-        });
-
-        closeBtn.addEventListener("click", () => {
-            popup.classList.toggle("active");
-        });
-
-        cancelBtn.addEventListener("click", () => {
-            popup.classList.toggle("");
-        });
-
-    </script>
-
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

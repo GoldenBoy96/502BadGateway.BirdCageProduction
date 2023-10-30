@@ -15,5 +15,6 @@ namespace BusinessLogic.Service.Abstraction
         Task<PartOptions> GetPartOptions();
         Task AddPart(PartPageModel model);
         Task EditPart(PartPageModel model);
+        Task<PartPageModel> GetPartById(int id);
     }
 }

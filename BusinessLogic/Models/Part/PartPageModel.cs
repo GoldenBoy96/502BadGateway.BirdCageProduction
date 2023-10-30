@@ -20,7 +20,7 @@ namespace BusinessLogic.Models.Part
 
         public string? Size { get; set; }
 
-        public string? Color { get; set; }
+        public string? ColorName { get; set; }
 
         public double? Cost { get; set; }
     }
