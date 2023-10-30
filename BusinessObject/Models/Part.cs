@@ -17,7 +17,7 @@ public partial class Part
 
     public string? Size { get; set; }
 
-    public int? ColorId { get; set; }
+    public int ColorId { get; set; } = 0;
 
     public double? Cost { get; set; }
 

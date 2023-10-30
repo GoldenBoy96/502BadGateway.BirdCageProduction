@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Repository.IRepositories
 {
-    public interface IAccountRepository : IBaseRepository<Account>
+    public interface IColorRepository : IBaseRepository<Color>
     {
-        Task<Account?> GetByEmail(string email);
-        Task<Account?> LoginAsync(string email, string password);
+        Task<List<string>> ColorsName();
+        Task<int> ReturnIdByName(string name);
     }
 }

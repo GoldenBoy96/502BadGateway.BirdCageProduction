@@ -49,6 +49,7 @@
                 <input asp-for="Account.StatusId" class="form-control" />
                 <span asp-validation-for="Account.StatusId" class="text-danger"></span>
             </div>
+            <span class="text-danger">@Model.Message</span>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

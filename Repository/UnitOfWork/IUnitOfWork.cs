@@ -23,6 +23,7 @@ namespace Repository.UnitOfWork
         ICustomerStatusRepository CustomerStatusRepository { get; }
         IOrderStatusRepository OrderStatusRepository { get; }
         IProgressStatusRepository ProgressStatusRepository { get; }
+        IColorRepository ColorRepository { get; }
         Task Save();
     }
 }

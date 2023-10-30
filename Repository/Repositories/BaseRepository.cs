@@ -20,7 +20,6 @@ namespace Repository.Repositories
             _dbSet = _context.Set<T>();
         }
 
-        //public BirdCageProductionContext Context { get { return _context; } }
 
         public async Task<bool> AddAsync(T entity)
         {

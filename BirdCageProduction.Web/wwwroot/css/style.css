@@ -249,6 +249,10 @@ ul {
             background-color: #DFE0DF;
             margin-left: auto;
         }
+    
+    .list-btn .btn-normal {
+
+    }
 
 .btn.save {
     width: 300px;

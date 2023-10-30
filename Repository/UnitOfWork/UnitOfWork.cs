@@ -12,7 +12,20 @@ namespace Repository.UnitOfWork
     {
         public readonly BirdCageProductionContext _context;
 
+<<<<<<< HEAD
         
+=======
+        public UnitOfWork(BirdCageProductionContext context, ICustomerRepository customerRepository, IAccountRepository accountRepository,
+            IAccountStatusRepository accountStatusRepository, IPartRepository partRepository, IColorRepository colorRepository)
+        {
+            _context = context;
+            CustomerRepository = customerRepository;
+            AccountRepository = accountRepository;
+            AccountStatusRepository = accountStatusRepository;
+            PartRepository = partRepository;
+            ColorRepository = colorRepository;
+        }
+>>>>>>> bf440a8fbe0b468e055f82b4bbbdd07eb86a0200
 
         public ICustomerRepository CustomerRepository { get; }
 
@@ -37,6 +50,7 @@ namespace Repository.UnitOfWork
         public IOrderStatusRepository OrderStatusRepository { get; }
         public IProgressStatusRepository ProgressStatusRepository { get; }
 
+<<<<<<< HEAD
         public UnitOfWork(BirdCageProductionContext context, ICustomerRepository customerRepository, IAccountRepository accountRepository, ICustomerStatusRepository customerStatusRepository)
         {
             _context = context;
@@ -62,6 +76,9 @@ namespace Repository.UnitOfWork
         //    OrderStatusRepository = orderStatusRepository;
         //    ProgressStatusRepository = progressStatusRepository;
         //}
+=======
+        public IColorRepository ColorRepository { get; }
+>>>>>>> bf440a8fbe0b468e055f82b4bbbdd07eb86a0200
 
         public async Task Save()
         {
