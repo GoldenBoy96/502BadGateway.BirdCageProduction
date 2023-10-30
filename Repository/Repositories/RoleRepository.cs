@@ -14,5 +14,9 @@ namespace Repository.Repositories
         public RoleRepository(BirdCageProductionContext context) : base(context)
         {
         }
+        public IEnumerable<Role> GetAll()
+        {
+            return _dbSet.ToList();
+        }
     }
 }

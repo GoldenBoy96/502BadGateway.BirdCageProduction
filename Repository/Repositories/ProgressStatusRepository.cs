@@ -15,6 +15,11 @@ namespace Repository.Repositories
         public ProgressStatusRepository(BirdCageProductionContext context) : base(context)
         {
         }
+
+        public IEnumerable<ProgressStatus> GetAll()
+        {
+            return _dbSet.ToList();
+        }
     }
     
     

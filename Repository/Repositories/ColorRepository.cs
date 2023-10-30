@@ -24,5 +24,10 @@ namespace Repository.Repositories
         {
             return _context.Colors.FirstOrDefault(c => c.ColorName.Equals(name)).ColorId;
         }
+
+        public IEnumerable<Color> GetAll()
+        {
+            return _dbSet.ToList();
+        }
     }
 }

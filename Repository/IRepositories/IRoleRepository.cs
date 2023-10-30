@@ -9,5 +9,6 @@ namespace Repository.IRepositories
 {
     public interface IRoleRepository : IBaseRepository<Role>
     {
+        public IEnumerable<Role> GetAll();
     }
 }

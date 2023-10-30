@@ -22,7 +22,7 @@ namespace BusinessLogic.Constant.StatusConstant
         IOrderStatusRepository _orderStatusRepository;
         IProgressStatusRepository _progressStatusRepository;
 
-        List<AccountStatus> _accountStatusList = new();
+        List<string> _accountStatusList = new();
         List<string> _customerStatusList = new();
         List<string> _orderStatusList = new();
         List<string> _progressStatusList = new();
@@ -36,9 +36,50 @@ namespace BusinessLogic.Constant.StatusConstant
             _orderStatusRepository = orderStatusRepository;
             _progressStatusRepository = progressStatusRepository;
 
-            _accountStatusList = _accountStatusRepository.GetAll().ToList();
-
-
+            foreach (var item in _accountStatusRepository.GetAll())
+            {
+                if (item == null)
+                {
+                    _accountStatusList.Add("");
+                }
+                else
+                {
+                    _accountStatusList.Add(item.Name);
+                }
+            }
+            foreach (var item in _customerStatusRepository.GetAll())
+            {
+                if (item == null)
+                {
+                    _customerStatusList.Add("");
+                }
+                else
+                {
+                    _customerStatusList.Add(item.Name);
+                }
+            }
+            foreach (var item in _orderStatusRepository.GetAll())
+            {
+                if (item == null)
+                {
+                    _orderStatusList.Add("");
+                }
+                else
+                {
+                    _orderStatusList.Add(item.Name);
+                }
+            }
+            foreach (var item in _progressStatusRepository.GetAll())
+            {
+                if (item == null)
+                {
+                    _progressStatusList.Add("");
+                }
+                else
+                {
+                    _progressStatusList.Add(item.Name);
+                }
+            }
 
         }
 
@@ -47,7 +88,7 @@ namespace BusinessLogic.Constant.StatusConstant
         {
             foreach (var accountStatus in _accountStatusList)
             {
-                System.Diagnostics.Debug.WriteLine("================" + accountStatus.Name);
+                //System.Diagnostics.Debug.WriteLine("================" + accountStatus.Name);
             }
         }
 
