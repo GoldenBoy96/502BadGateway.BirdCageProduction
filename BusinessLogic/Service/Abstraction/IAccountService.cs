@@ -9,10 +9,10 @@ namespace BusinessLogic.Service.Abstraction
 {
     public interface IAccountService
     {
-        Task<List<Account>> GetAllAccountsAsync();
-        Task<Account> GetAccountByIdAsync(int accountId);
-        Task<int> CreateAccountAsync(Account account);
-        Task UpdateAccountAsync(Account account);
-        Task DeleteAccountAsync(int accountId);
+        Task<IEnumerable<Account>> GetAllAccountsAsync();
+        Task<Account?> GetAccountByIdAsync(int? accountId);
+        Task<bool> CreateAccountAsync(Account account);
+        Task<bool> UpdateAccountAsync(Account account);
+        Task<bool> DeleteAccountAsync(Account account);
     }
 }

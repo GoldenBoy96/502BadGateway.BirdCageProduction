@@ -1,6 +1,7 @@
 ﻿using BusinessLogic.Service.Abstraction;
 using BusinessObject.Models;
 using Repository.IRepositories;
+using Repository.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,36 +12,36 @@ namespace BusinessLogic.Service.Implementation
 {
     public class AccountService : IAccountService
     {
-        private readonly IAccountRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public AccountService(IAccountRepository repository)
+        public AccountService(IUnitOfWork unitOfWork)
         {
-            _repository = repository;
+            _unitOfWork = unitOfWork;
         }
 
-        public async Task<List<Account>> GetAllAccountsAsync()
+        public async Task<IEnumerable<Account>> GetAllAccountsAsync()
         {
-            return await _repository.GetAllAccountsAsync();
+            return await _unitOfWork.AccountRepository.GetAllAsync();
         }
 
-        public async Task<Account> GetAccountByIdAsync(int accountId)
+        public async Task<Account?> GetAccountByIdAsync(int? accountId)
         {
-            return await _repository.GetAccountByIdAsync(accountId);
+            return await _unitOfWork.AccountRepository.GetByIdAsync(accountId);
         }
 
-        public async Task<int> CreateAccountAsync(Account account)
+        public async Task<bool> CreateAccountAsync(Account account)
         {
-            return await _repository.CreateAccountAsync(account);
+            return await _unitOfWork.AccountRepository.AddAsync(account);
         }
 
-        public async Task UpdateAccountAsync(Account account)
+        public async Task<bool> UpdateAccountAsync(Account account)
         {
-            await _repository.UpdateAccountAsync(account);
+            return await  _unitOfWork.AccountRepository.UpdateAsync(account);
         }
 
-        public async Task DeleteAccountAsync(int accountId)
+        public async Task<bool> DeleteAccountAsync(Account account)
         {
-            await _repository.DeleteAccountAsync(accountId);
+            return await _unitOfWork.AccountRepository.RemoveAsync(account);
         }
     }
 

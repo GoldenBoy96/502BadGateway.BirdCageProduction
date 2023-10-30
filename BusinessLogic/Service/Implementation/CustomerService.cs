@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Service.Implementation
 {
-    public class CustomerService : ICustomerService
+    public class CustomerService:ICustomerService
     {
         private readonly IUnitOfWork unitOfWork;
 

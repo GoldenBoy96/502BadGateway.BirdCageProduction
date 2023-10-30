@@ -28,7 +28,7 @@ builder.Services.AddTransient<IAccountStatusRepository, AccountStatusRepository>
 builder.Services.AddTransient<IPartRepository, PartRepository>();
 builder.Services.AddTransient<IColorRepository, ColorRepository>();
  // Service
-builder.Services.AddTransient<IAuthService, AuthService>(); 
+builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<ICustomerService, CustomerService>();
 builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddTransient<IPartService, PartService>();
