@@ -9,13 +9,10 @@ using System.Threading.Tasks;
 
 namespace Repository.Repositories
 {
-    public class ProgressStatusRepository : BaseRepository<ProgressStatus>, IProgressStatusRepository
+    public class RoleRepository : BaseRepository<Role>, IRoleRepository
     {
-        
-        public ProgressStatusRepository(BirdCageProductionContext context) : base(context)
+        public RoleRepository(BirdCageProductionContext context) : base(context)
         {
         }
     }
-    
-    
 }

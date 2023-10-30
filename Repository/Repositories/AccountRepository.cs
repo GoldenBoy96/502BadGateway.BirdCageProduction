@@ -12,11 +12,9 @@ namespace Repository.Repositories
 {
     public class AccountRepository : BaseRepository<Account>, IAccountRepository
     {
-        //private readonly BirdCageProductionContext _context;
 
         public AccountRepository(BirdCageProductionContext context) : base(context)
         {
-            //_context = context;
         }
 
         public async Task<Account?> GetByEmail(string email) => await _context.Accounts.FirstOrDefaultAsync(acc => acc.Email.Equals(email.Trim()));

@@ -34,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Order\" />
+    <Folder Include="Pages\Order\OrderDetailPage\" />
   </ItemGroup>
 
 </Project>

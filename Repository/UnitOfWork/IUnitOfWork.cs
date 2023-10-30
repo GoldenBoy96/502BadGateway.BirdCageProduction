@@ -11,19 +11,21 @@ namespace Repository.UnitOfWork
     public interface IUnitOfWork
     {
         IAccountRepository AccountRepository { get; }
-        IBirdCageRepository BirdCageCategoryRepository { get; }
+        IAccountStatusRepository AccountStatusRepository { get; }
+        IBirdCageRepository BirdCageRepository { get; }
+        IColorRepository ColorRepository { get; }
         ICustomerRepository CustomerRepository { get; }
+        ICustomerStatusRepository CustomerStatusRepository { get; }
         IOrderDetailRepository OrderDetailRepository { get; }
         IOrderRepository OrderRepository { get; }
+        IOrderStatusRepository OrderStatusRepository { get; }
         IPartItemRepository PartItemRepository { get; }
         IPartRepository PartRepository { get; }
         IProcedureRepository ProcedureRepository { get; }
         IProcedureStepRepository ProcedureStepRepository { get; }
-        IAccountStatusRepository AccountStatusRepository { get; }
-        ICustomerStatusRepository CustomerStatusRepository { get; }
-        IOrderStatusRepository OrderStatusRepository { get; }
+        IProgressRepository ProgressRepository { get; }
         IProgressStatusRepository ProgressStatusRepository { get; }
-        IColorRepository ColorRepository { get; }
+        IRoleRepository RoleRepository { get; }
         Task Save();
     }
 }

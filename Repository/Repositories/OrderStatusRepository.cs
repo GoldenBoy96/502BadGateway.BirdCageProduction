@@ -11,11 +11,10 @@ namespace Repository.Repositories
 {
     public class OrderStatusRepository : BaseRepository<OrderStatus>, IOrderStatusRepository
     {
-        private readonly BirdCageProductionContext _context;
+
 
         public OrderStatusRepository(BirdCageProductionContext context) : base(context)
         {
-            _context = context;
         }
     
     }

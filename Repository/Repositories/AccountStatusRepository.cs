@@ -15,7 +15,6 @@ namespace Repository.Repositories
 
         public AccountStatusRepository(BirdCageProductionContext context) : base(context)
         {
-            //_context = context;
         }
 
         public  IEnumerable<AccountStatus> GetAll()

@@ -18,9 +18,9 @@ namespace BusinessLogic.Constant.StatusConstant
         IUnitOfWork _unitOfWork;
 
         IAccountStatusRepository _accountStatusRepository;
-        CustomerStatusRepository _customerStatusRepository;
-        OrderStatusRepository _orderStatusRepository;
-        ProgressStatusRepository _progressStatusRepository;
+        ICustomerStatusRepository _customerStatusRepository;
+        IOrderStatusRepository _orderStatusRepository;
+        IProgressStatusRepository _progressStatusRepository;
 
         List<AccountStatus> _accountStatusList = new();
         List<string> _customerStatusList = new();
@@ -28,7 +28,7 @@ namespace BusinessLogic.Constant.StatusConstant
         List<string> _progressStatusList = new();
 
 
-        public StatusConstant(IUnitOfWork unitOfWork, IAccountStatusRepository accountStatusRepository, CustomerStatusRepository customerStatusRepository, OrderStatusRepository orderStatusRepository, ProgressStatusRepository progressStatusRepository)
+        public StatusConstant(IUnitOfWork unitOfWork, IAccountStatusRepository accountStatusRepository, ICustomerStatusRepository customerStatusRepository, IOrderStatusRepository orderStatusRepository, IProgressStatusRepository progressStatusRepository)
         {
             _unitOfWork = unitOfWork;
             _accountStatusRepository = accountStatusRepository;

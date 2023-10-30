@@ -21,23 +21,26 @@ builder.Services.AddDbContext<BirdCageProductionContext>(option
 
 // DI Container
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
- // Repository
+// Repository
 builder.Services.AddTransient<IAccountRepository, AccountRepository>();
 builder.Services.AddTransient<IAccountStatusRepository, AccountStatusRepository>();
 builder.Services.AddTransient<IBirdCageRepository, BirdCageRepository>();
+builder.Services.AddTransient<IColorRepository, ColorRepository>();
 builder.Services.AddTransient<ICustomerRepository, CustomerRepository>();
 builder.Services.AddTransient<ICustomerStatusRepository, CustomerStatusRepository>();
-builder.Services.AddTransient <IOrderDetailRepository, OrderDetailRepository>();
-builder.Services.AddTransient <IOrderStatusRepository, OrderStatusRepository>();
-builder.Services.AddTransient <IPartItemRepository, PartItemRepository>();
-builder.Services.AddTransient <IPartRepository, PartRepository>();
-builder.Services.AddTransient <IProcedureRepository, ProcedureRepository>();
-builder.Services.AddTransient <IProcedureStepRepository, ProcedureStepRepository>();
-builder.Services.AddTransient <IProgressRepository, ProgressRepository>();
-builder.Services.AddTransient <IProgressStatusRepository, ProgressStatusRepository>();
+builder.Services.AddTransient<IOrderDetailRepository, OrderDetailRepository>();
+builder.Services.AddTransient<IOrderRepository, OrderRepository>();
+builder.Services.AddTransient<IOrderStatusRepository, OrderStatusRepository>();
+builder.Services.AddTransient<IPartItemRepository, PartItemRepository>();
+builder.Services.AddTransient<IPartRepository, PartRepository>();
+builder.Services.AddTransient<IProcedureRepository, ProcedureRepository>();
+builder.Services.AddTransient<IProcedureStepRepository, ProcedureStepRepository>();
+builder.Services.AddTransient<IProgressRepository, ProgressRepository>();
+builder.Services.AddTransient<IProgressStatusRepository, ProgressStatusRepository>();
+builder.Services.AddTransient<IRoleRepository, RoleRepository>();
 
 
- // Service
+// Service
 builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<ICustomerService, CustomerService>();
 builder.Services.AddTransient<IAccountService, AccountService>();
@@ -54,7 +57,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.AccessDeniedPath = "/Forbidden/";
         options.LoginPath = "/Login";
     });
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); 
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 // Other
 builder.Configuration.AddJsonFile("bird_cage_parts_option.json", true, true);
