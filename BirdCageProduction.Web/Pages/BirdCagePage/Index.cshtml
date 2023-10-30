@@ -53,71 +53,96 @@
                     <form class="form_order">
                         <div class="form-item">
                             <label for="id">Id</label>
-                            <input type="text" class="form-item_input" id="id" />
+                            <input type="text" class="form-item_input" id="id" disabled asp-for="BirdCage.BirdCageId"/>
                         </div>
                         <div class="form-item">
                             <label for="Name">Name</label>
-                            <input type="text" class="form-item_input" id="Name" />
+                            <input type="text" class="form-item_input" id="Name" disabled asp-for="BirdCage.Name"/>
                         </div>
                         <div class="form-item">
                             <label for="Description">Description</label>
                             <textarea rows="9"
                                       type="text"
                                       class="form-item_input"
-                                      id="Parts"></textarea>
+                                      id="Parts" disabled asp-for="BirdCage.Description"></textarea>
                         </div>
-                        <div class="form-item">
-                            <label for="">Parts</label>
-                            <div class="form-item__part">
-                                <div class="part-item">
-                                    <div class="form-item">
-                                        <select id="part">
-                                            <option value="part" selected>Part 1</option>
-                                            <option></option>
-                                            <option></option>
-                                        </select>
-                                    </div>
-                                    <div class="form-item">
-                                        <input type="text"
-                                               class="form-item_input"
-                                               id="Quantity"
-                                               placeholder="Quantity" />
-                                    </div>
-                                    <div class="part-icon">
-                                        <img src="./assets/images/icon-info.png"
-                                             alt=""
-                                             width="40" />
-                                        <img src="./assets/images/icon-delete.png"
-                                             alt=""
-                                             width="60" />
-                                    </div>
-                                </div>
-                                <div class="part-item">
-                                    <div class="form-item">
-                                        <select id="part">
-                                            <option value="part" selected>Part 1</option>
-                                            <option></option>
-                                            <option></option>
-                                        </select>
-                                    </div>
-                                    <div class="form-item">
-                                        <input type="text"
-                                               class="form-item_input"
-                                               id="Quantity"
-                                               placeholder="Quantity" />
-                                    </div>
-                                    <div class="part-icon">
-                                        <img src="./assets/images/icon-info.png"
-                                             alt=""
-                                             width="40" />
-                                        <img src="./assets/images/icon-delete.png"
-                                             alt=""
-                                             width="60" />
+                        @if (Model.BirdCage != null)
+                        {
+
+                                <div class="form-item">
+                                    <label for="">Parts</label>
+                                    <div class="form-item__part">
+
+                                    @foreach (var item in Model.BirdCage.PartItems)
+                                    {
+                                        <div class="part-item">
+                                            <div class="form-item">
+                                                
+                                                <select id="part" disabled>
+                                                    <option value="@item.Part.Name" selected>@item.Part.Name</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-item">
+                                                <input type="text"
+                                                class="form-item_input"
+                                                id="Quantity"
+                                                placeholder="Quantity" disabled asp-for="@item.Quantity" />
+                                            </div>
+                                            <div class="part-icon">
+                                                <img src="./images/icon-info.png"
+                                                alt=""
+                                                width="40" />
+                                                <img src="./images/icon-delete.png"
+                                                alt=""
+                                                width="60" />
+                                            </div>
+                                        </div>
+                                    }
+                                        <div class="plus">+</div>
+
+
                                     </div>
                                 </div>
-                                <div class="plus">+</div>
+                            
+                        }
+                        else
+                        {
+                            <div class="form-item">
+                                <label for="">Parts</label>
+                                <div class="form-item__part">
+
+
+                                    <div class="part-item">
+                                        <div class="form-item">
+                                            <select id="part" disabled >
+                                                <option selected>-- Select --</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-item">
+                                            <input type="text"
+                                                   class="form-item_input"
+                                                   id="Quantity"
+                                                   placeholder="Quantity" disabled  />
+                                        </div>
+                                        <div class="part-icon">
+                                            <img src="./images/icon-info.png"
+                                                 alt=""
+                                                 width="40" />
+                                            <img src="./images/icon-delete.png"
+                                                 alt=""
+                                                 width="60" />
+                                        </div>
+                                    </div>
+
+                                    <div class="plus">+</div>
+
+
+                                </div>
                             </div>
-                        </div>
+                        }
+                            
+                        
+                       
                     </form>
                     <div class="list-btn">
                         <button class="btn" id="addBtn">Add</button>
@@ -139,11 +164,21 @@
                                 <th>Name</th>
                                 <th>Description</th>
                             </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Sample</td>
-                                <td>Sample</td>
-                            </tr>
+                            @foreach (var item in Model.BirdCages)
+                            {
+                                <tr>
+                                    <td>@item.BirdCageId</td>
+                                    <td>@item.Name</td>
+                                    <td>@item.Description</td>
+                                    <td>
+                                        <form method="post" asp-page-handler="ById" asp-route-id="@item.BirdCageId">
+                                            <button type="submit" class="btn btn-secondary">
+                                                Detail
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
                         </table>
                     </div>
 @*                     <div class="pagination">

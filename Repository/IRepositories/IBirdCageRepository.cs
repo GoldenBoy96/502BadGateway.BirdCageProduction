@@ -10,5 +10,6 @@ namespace Repository.IRepositories
 {
     public interface IBirdCageRepository : IBaseRepository<BirdCage>
     {
+        Task<BirdCage> FindByIdAsync(int id);
     }
 }

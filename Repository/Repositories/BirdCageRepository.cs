@@ -1,5 +1,6 @@
 ﻿using BusinessObject.Models;
 using DataAccess;
+using Microsoft.EntityFrameworkCore;
 using Repository.IRepositories;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,13 @@ namespace Repository.Repositories
     {
         public BirdCageRepository(BirdCageProductionContext context) : base(context)
         {
+        }
+
+        public Task<BirdCage> FindByIdAsync(int id)
+        {
+            return _context.BirdCages
+                .Include(bc => bc.PartItems).ThenInclude(pit => pit.Part)                 
+                .FirstAsync(bc => bc.BirdCageId ==  id);
         }
     }
 }
