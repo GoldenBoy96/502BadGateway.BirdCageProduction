@@ -42,7 +42,7 @@ namespace Repository.Repositories
         public async Task<bool> RemoveAsync(T entity)
         {
             _dbSet.Remove(entity);
-            int success  =  await _context.SaveChangesAsync();
+            int success = await _context.SaveChangesAsync();
             return await Task.FromResult(success == 1);
         }
 

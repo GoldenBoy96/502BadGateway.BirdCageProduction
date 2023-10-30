@@ -39,7 +39,7 @@ namespace BusinessLogic.Constant.StatusConstant
             _accountStatusList = _accountStatusRepository.GetAll().ToList();
 
 
-            
+
         }
 
 
@@ -51,6 +51,6 @@ namespace BusinessLogic.Constant.StatusConstant
             }
         }
 
-        
+
     }
 }

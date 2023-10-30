@@ -13,17 +13,12 @@ namespace BirdCageProduction.Web.Pages.Dashboard
         public IndexModel(IStatusConstant statusConstant)
         {
             _statusConstant = statusConstant;
-<<<<<<< HEAD
-=======
-            //_statusConstant = new StatusConstant();
->>>>>>> bf440a8fbe0b468e055f82b4bbbdd07eb86a0200
         }
 
         public void OnGet()
         {
 
             _statusConstant.PrintAccountStatus();
-            //StatusConstant.Instance.PrintAccountStatus();
         }
     }
 }
