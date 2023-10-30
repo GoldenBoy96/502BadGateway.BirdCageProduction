@@ -47,6 +47,7 @@ builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddTransient<IPartService, PartService>();
 builder.Services.AddTransient<IStatusConstant, StatusConstant>();
 builder.Services.AddTransient<IColorService, ColorService>();
+builder.Services.AddTransient<IBirdCageService, BirdCageService>();
 
 // Cookie
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
