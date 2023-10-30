@@ -11,11 +11,5 @@ namespace Repository.IRepositories
     {
         Task<Account?> GetByEmail(string email);
         Task<Account?> LoginAsync(string email, string password);
-
-        Task<List<Account>> GetAllAccountsAsync();
-        Task<Account> GetAccountByIdAsync(int accountId);
-        Task<int> CreateAccountAsync(Account account);
-        Task UpdateAccountAsync(Account account);
-        Task DeleteAccountAsync(int accountId);
     }
 }

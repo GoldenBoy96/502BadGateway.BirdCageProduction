@@ -7,25 +7,27 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BusinessObject.Models;
 using DataAccess;
+using BusinessLogic.Service.Abstraction;
+using BusinessLogic.Service.Implementation;
+using Repository.UnitOfWork;
 
 namespace BirdCageProduction.Web.Pages.AccountPage
 {
     public class IndexModel : PageModel
     {
-        private readonly DataAccess.BirdCageProductionContext _context;
+        private readonly IAccountService _service;
 
-        public IndexModel(DataAccess.BirdCageProductionContext context)
+        public IndexModel(IAccountService service)
         {
-            _context = context;
+            _service = service;
         }
-
-        public IList<Account> Account { get;set; } = default!;
+        public List<Account> Account { get; set; }
 
         public async Task OnGetAsync()
         {
-            if (_context.Accounts != null)
+            if (_service != null)
             {
-                Account = await _context.Accounts.ToListAsync();
+                Account = (List<Account>) await _service.GetAllAccountsAsync();
             }
         }
     }
