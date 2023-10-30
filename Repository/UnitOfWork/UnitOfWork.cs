@@ -10,14 +10,9 @@ namespace Repository.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly BirdCageProductionContext _context;
+        public readonly BirdCageProductionContext _context;
 
-        public UnitOfWork(BirdCageProductionContext context, ICustomerRepository customerRepository, IAccountRepository accountRepository)
-        {
-            _context = context;
-            CustomerRepository = customerRepository;
-            AccountRepository = accountRepository;
-        }
+        
 
         public ICustomerRepository CustomerRepository { get; }
 
@@ -42,6 +37,31 @@ namespace Repository.UnitOfWork
         public IOrderStatusRepository OrderStatusRepository { get; }
         public IProgressStatusRepository ProgressStatusRepository { get; }
 
+        public UnitOfWork(BirdCageProductionContext context, ICustomerRepository customerRepository, IAccountRepository accountRepository, ICustomerStatusRepository customerStatusRepository)
+        {
+            _context = context;
+            CustomerRepository = customerRepository;
+            AccountRepository = accountRepository;
+            CustomerStatusRepository = customerStatusRepository;
+        }
+
+        //public UnitOfWork(BirdCageProductionContext context, ICustomerRepository customerRepository, IAccountRepository accountRepository, IBirdCageRepository birdCageCategoryRepository, IOrderDetailRepository orderDetailRepository, IOrderRepository orderRepository, IPartItemRepository partItemRepository, IPartRepository partRepository, IProcedureRepository procedureRepository, IProcedureStepRepository procedureStepRepository, IAccountStatusRepository accountStatusRepository, ICustomerStatusRepository customerStatusRepository, IOrderStatusRepository orderStatusRepository, IProgressStatusRepository progressStatusRepository)
+        //{
+        //    _context = context;
+        //    CustomerRepository = customerRepository;
+        //    AccountRepository = accountRepository;
+        //    BirdCageCategoryRepository = birdCageCategoryRepository;
+        //    OrderDetailRepository = orderDetailRepository;
+        //    OrderRepository = orderRepository;
+        //    PartItemRepository = partItemRepository;
+        //    PartRepository = partRepository;
+        //    ProcedureRepository = procedureRepository;
+        //    ProcedureStepRepository = procedureStepRepository;
+        //    AccountStatusRepository = accountStatusRepository;
+        //    CustomerStatusRepository = customerStatusRepository;
+        //    OrderStatusRepository = orderStatusRepository;
+        //    ProgressStatusRepository = progressStatusRepository;
+        //}
 
         public async Task Save()
         {

@@ -9,5 +9,6 @@ namespace Repository.IRepositories
 {
     public interface IAccountStatusRepository : IBaseRepository<AccountStatus>
     {
+        public IEnumerable<AccountStatus> GetAll();
     }
 }

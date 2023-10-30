@@ -12,11 +12,11 @@ namespace Repository.Repositories
 {
     public class AccountRepository : BaseRepository<Account>, IAccountRepository
     {
-        private readonly BirdCageProductionContext _context;
+        //private readonly BirdCageProductionContext _context;
 
         public AccountRepository(BirdCageProductionContext context) : base(context)
         {
-            _context = context;
+            //_context = context;
         }
 
         public Task<Account?> GetByEmail(string email)

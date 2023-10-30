@@ -17,7 +17,7 @@ namespace BusinessLogic.Constant.StatusConstant
         private readonly DataAccess.BirdCageProductionContext _context;
         IUnitOfWork _unitOfWork;
 
-        AccountStatusRepository _accountStatusRepository;
+        IAccountStatusRepository _accountStatusRepository;
         //CustomerStatusRepository _customerStatusRepository;
         //OrderStatusRepository _orderStatusRepository;
         //ProgressStatusRepository _progressStatusRepository;
@@ -39,20 +39,20 @@ namespace BusinessLogic.Constant.StatusConstant
         //    }
         //}
 
-        public StatusConstant(IUnitOfWork unitOfWork) {
+        public StatusConstant(IUnitOfWork unitOfWork, IAccountStatusRepository accountStatusRepository) {
             _unitOfWork = unitOfWork;
             //_accountStatusRepository = new(_context);
             //_accountStatusList = GetAllAccountStatusAsync().Result;
             //System.Diagnostics.Debug.WriteLine("================" + _accountStatusList[0].Name);
-            
-            _accountStatusList = _unitOfWork.AccountStatusRepository.GetAll().Result.ToList(); 
-            
+            _accountStatusRepository = accountStatusRepository;
+            _accountStatusList = _accountStatusRepository.GetAll().ToList();
+            System.Diagnostics.Debug.WriteLine("================" + _accountStatusRepository.GetAll().ToList()[0]);
         }
 
         public async Task<List<AccountStatus>> GetAllAccountStatusAsync()
         {
             //_accountStatusList = (List<AccountStatus>)await _unitOfWork.AccountStatusRepository.GetAll();
-            return (List<AccountStatus>)await _accountStatusRepository.GetAll();
+            return (List<AccountStatus>)await _accountStatusRepository.GetAllAsync();
         }
 
         public void PrintAccountStatus()

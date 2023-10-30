@@ -1,37 +1,61 @@
 ﻿-- Tạo database Bird_Cage_Production
---USE master
---DROP DATABASE [Bird_Cage_Production];
---CREATE DATABASE [Bird_Cage_Production];
---USE [Bird_Cage_Production]
+--  USE master
+--  DROP DATABASE [Bird_Cage_Production];
+--  CREATE DATABASE [Bird_Cage_Production];
+--  USE [Bird_Cage_Production]
 
 -- Tạo bảng Status
 CREATE TABLE OrderStatus(
    StatusId INT PRIMARY KEY,
    [Name] VARCHAR(50)
 );
-
 INSERT INTO OrderStatus (StatusId, [Name])
-VALUES (0, '');
+VALUES (0, 'Pending');
+INSERT INTO OrderStatus (StatusId, [Name])
+VALUES (1, 'Approved');
+INSERT INTO OrderStatus (StatusId, [Name])
+VALUES (2, 'Is producing');
+INSERT INTO OrderStatus (StatusId, [Name])
+VALUES (3, 'Produced');
+INSERT INTO OrderStatus (StatusId, [Name])
+VALUES (4, 'Delivering');
+INSERT INTO OrderStatus (StatusId, [Name])
+VALUES (5, 'Completed');
 
 CREATE TABLE AccountStatus(
    StatusId INT PRIMARY KEY,
    [Name] VARCHAR(50)
 );
+INSERT INTO AccountStatus (StatusId, [Name])
+VALUES (0, 'Active');
+INSERT INTO AccountStatus (StatusId, [Name])
+VALUES (1, 'Banned');
+
 CREATE TABLE CustomerStatus(
    StatusId INT PRIMARY KEY,
    [Name] VARCHAR(50)
 );
+INSERT INTO CustomerStatus (StatusId, [Name])
+VALUES (0, 'Active');
+INSERT INTO CustomerStatus (StatusId, [Name])
+VALUES (1, 'Inactive');
+
 CREATE TABLE ProgressStatus(
    StatusId INT PRIMARY KEY,
    [Name] VARCHAR(50)
 );
+INSERT INTO ProgressStatus (StatusId, [Name])
+VALUES (0, 'Pending');
+INSERT INTO ProgressStatus (StatusId, [Name])
+VALUES (1, 'On Progress');
+INSERT INTO ProgressStatus (StatusId, [Name])
+VALUES (2, 'Conpleted');
 
 
 CREATE TABLE Role(
    RoleId INT PRIMARY KEY,
    RoleName VARCHAR(50)
 );
-
 INSERT INTO Role (RoleId, RoleName)
 VALUES (0, 'Undefined');
 INSERT INTO Role (RoleId, RoleName)
@@ -78,7 +102,7 @@ CREATE TABLE Account(
    Email VARCHAR(50) UNIQUE,
    [Password] VARCHAR(50),
    RoleId INT,
-   StatusId VARCHAR(50),
+   StatusId INT,
 );
 
 -- Tạo bảng Order
@@ -142,7 +166,8 @@ CREATE TABLE [Procedure](
 
 -- Tạo bảng ProcedureStep 
 CREATE TABLE ProcedureStep(
-   ProcedureStepId INT IdENTITY(1,1) PRIMARY KEY,   
+   ProcedureStepId INT IdENTITY(1,1) PRIMARY KEY, 
+   StepNum INT UNIQUE,
    Description VARCHAR(50),
    TimeNeeded FLOAT,
    Cost FLOAT,
@@ -154,6 +179,7 @@ CREATE TABLE ProcedureStep(
 -- Tạo bảng ProductionPlan
 CREATE TABLE Progress(
    ProgressId INT IdENTITY(1,1) PRIMARY KEY,
+   ProgressNum INT UNIQUE,
    StartDay DATE,
    EndDay DATE,
    StatusId INT,

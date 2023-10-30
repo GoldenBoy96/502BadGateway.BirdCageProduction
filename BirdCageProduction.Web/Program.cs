@@ -22,9 +22,19 @@ builder.Services.AddDbContext<BirdCageProductionContext>(option
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
  // Repository
 builder.Services.AddTransient<IAccountRepository, AccountRepository>();
-builder.Services.AddTransient<ICustomerRepository, CustomerRepository>();
 builder.Services.AddTransient<IAccountStatusRepository, AccountStatusRepository>();
- // Service
+builder.Services.AddTransient<IBirdCageRepository, BirdCageRepository>();
+builder.Services.AddTransient<ICustomerRepository, CustomerRepository>();
+builder.Services.AddTransient<ICustomerStatusRepository, CustomerStatusRepository>();
+builder.Services.AddTransient <IOrderDetailRepository, OrderDetailRepository>();
+builder.Services.AddTransient <IOrderStatusRepository, OrderStatusRepository>();
+builder.Services.AddTransient <IPartItemRepository, PartItemRepository>();
+builder.Services.AddTransient <IPartRepository, PartRepository>();
+builder.Services.AddTransient <IProcedureRepository, ProcedureRepository>();
+builder.Services.AddTransient <IProcedureStepRepository, ProcedureStepRepository>();
+builder.Services.AddTransient <IProgressRepository, ProgressRepository>();
+builder.Services.AddTransient <IProgressStatusRepository, ProgressStatusRepository>();
+// Service
 builder.Services.AddTransient<IAuthService, AuthService>(); 
 builder.Services.AddTransient<ICustomerService, CustomerService>();
 builder.Services.AddTransient<IAccountService, AccountService>();

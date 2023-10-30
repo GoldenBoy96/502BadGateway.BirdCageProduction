@@ -19,7 +19,7 @@ public partial class Account
 
     public int? RoleId { get; set; }
 
-    public string? StatusId { get; set; }
+    public int? StatusId { get; set; }
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 

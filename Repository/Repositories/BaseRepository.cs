@@ -11,8 +11,8 @@ namespace Repository.Repositories
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
-        private readonly BirdCageProductionContext _context;
-        private readonly DbSet<T> _dbSet;
+        protected readonly BirdCageProductionContext _context;
+        protected readonly DbSet<T> _dbSet;
 
         public BaseRepository(BirdCageProductionContext context)
         {

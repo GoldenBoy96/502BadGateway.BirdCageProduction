@@ -7,6 +7,8 @@ public partial class Progress
 {
     public int ProgressId { get; set; }
 
+    public int ProgressNum { get; set; }
+
     public DateTime? StartDay { get; set; }
 
     public DateTime? EndDay { get; set; }

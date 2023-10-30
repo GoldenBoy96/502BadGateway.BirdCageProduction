@@ -7,6 +7,8 @@ public partial class ProcedureStep
 {
     public int ProcedureStepId { get; set; }
 
+    public int StepNum { get; set; }
+
     public string? Description { get; set; }
 
     public double? TimeNeeded { get; set; }
