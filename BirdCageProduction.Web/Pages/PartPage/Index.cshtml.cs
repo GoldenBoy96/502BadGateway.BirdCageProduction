@@ -27,7 +27,7 @@ namespace BirdCageProduction.Web.Pages.PartPage
         // ===================================================================================== //
 
         [BindProperty]
-        public List<Part> Parts { get; set; }
+        public List<PartPageModel> Parts { get; set; }
 
         [BindProperty]
         public PartOptions PartOptions { get; set; }
@@ -38,9 +38,8 @@ namespace BirdCageProduction.Web.Pages.PartPage
         [BindProperty]
         public string Color { get; set; }
 
-        // ===================================================================================== //
         [BindProperty]
-        public PartPageModel PartModel {  get; set; } = new PartPageModel();
+        public PartPageModel? PartModel {  get; set; } = new PartPageModel();
 
         public SelectList Materials {  get; set; }
         public SelectList Shapes { get; set; }
@@ -49,7 +48,42 @@ namespace BirdCageProduction.Web.Pages.PartPage
         public SelectList Colors { get; set; }
 
         // ===================================================================================== //
-        public async Task OnGet()
+        public async Task<IActionResult> OnGet()
+        {
+            LoadData();
+            return Page();
+        }
+
+        public async Task OnPostById(int id)
+        {
+            LoadData();
+            PartModel = await _partService.GetPartById(id);
+        }
+
+        public async Task<IActionResult> OnPostAdd()
+        {
+            await _partService.AddPart(PartModel);
+            return RedirectToPage();
+        }
+
+        public async Task<IActionResult> OnPostEdit()
+        {
+            await _partService.EditPart(PartModel);
+            return RedirectToPage();
+        }
+
+        public async Task<IActionResult> OnPostDelete()
+        {
+            await _partService.DeletePart(PartModel.PartId);  
+            return RedirectToPage();
+        }
+
+        public IActionResult OnPostResetPage()
+        {
+            return RedirectToPage();
+        }
+
+        private async Task LoadData()
         {
             Parts = _partService.GetParts().Result.ToList();
             PartOptions = _partService.GetPartOptions().Result;
@@ -58,24 +92,6 @@ namespace BirdCageProduction.Web.Pages.PartPage
             Shapes = new SelectList(PartOptions.Shapes);
             Sizes = new SelectList(PartOptions.Sizes);
             Colors = new SelectList(await _colorService.ListColorName());
-        }
-
-        public async Task OnGetById(int id)
-        {
-            OnGet();
-            PartModel = await _partService.GetPartById(id);
-        }
-
-        public async Task<IActionResult> OnPostAdd()
-        {
-            _partService.AddPart(PartModel);
-            return RedirectToPage();
-        }
-
-        public async Task<IActionResult> OnPostEdit(int id)
-        {
-            
-            return RedirectToPage();
         }
     }
 }

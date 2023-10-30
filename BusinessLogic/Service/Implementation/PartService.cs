@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BusinessLogic.Service.Implementation
 {
@@ -28,40 +29,57 @@ namespace BusinessLogic.Service.Implementation
             part.Name = model.Name;
             part.Description = model.Description;
             part.Shape = model.Shape;
+            part.Material = model.Material;
             part.Size = model.Size;
             part.ColorId = await _unitOfWork.ColorRepository.ReturnIdByName(model.ColorName);
             part.Cost = model.Cost;
             
             
-            _ = _unitOfWork.PartRepository.Add(part);
-            _ = _unitOfWork.Save();
+            _unitOfWork.PartRepository.AddAsync(part);
+        }
+
+        public async Task<bool> DeletePart(int id)
+        {
+            try
+            {
+                var part = await _unitOfWork.PartRepository.GetByIdAsync(id);
+                await _unitOfWork.PartRepository.RemoveAsync(part);
+                return true;
+            }
+            catch (Exception ex) 
+            {
+                return false;
+            }
         }
 
         public async Task EditPart(PartPageModel model)
         {
-            var data = await _unitOfWork.PartRepository.GetById(model.PartId);
-   
-                data.Name = model.Name;
-                data.Description = model.Description;
-                data.Shape = model.Shape;
-                data.Material = model.Material;
-                data.Cost = model.Cost;
-                data.ColorId = await _unitOfWork.ColorRepository.ReturnIdByName(model.ColorName);
+            var part = new Part
+            {
+                PartId = model.PartId,
+                Name = model.Name,
+                Description = model.Description,
+                Shape = model.Shape,
+                Material = model.Material,
+                Size = model.Size,
+                ColorId = await _unitOfWork.ColorRepository.ReturnIdByName(model.ColorName),
+                Cost = model.Cost
+            };
 
-                _ = _unitOfWork.PartRepository.Update(data);
-                _ = _unitOfWork.Save();
+            _unitOfWork.PartRepository.UpdateAsync(part);
         }
 
         public async Task<PartPageModel> GetPartById(int id)
         {
-            var data = await _unitOfWork.PartRepository.GetById(id);
+            var data = await _unitOfWork.PartRepository.GetByIdAsync(id);
             var respone = new PartPageModel
             {
+                PartId = id,
                 Name = data.Name,
                 Description = data.Description,
                 Shape = data.Shape,
                 Material = data.Material,
-                ColorName = (await _unitOfWork.ColorRepository.GetAll()).FirstOrDefault(c => c.ColorId == data.ColorId).ColorName,
+                ColorName = (await _unitOfWork.ColorRepository.GetAllAsync()).FirstOrDefault(c => c.ColorId == data.ColorId).ColorName,
                 Cost = data.Cost,
             };
 
@@ -74,9 +92,24 @@ namespace BusinessLogic.Service.Implementation
             return response;
         }
 
-        public async Task<IEnumerable<Part>> GetParts()
+        public async Task<IEnumerable<PartPageModel>> GetParts()
         {
-            return await _unitOfWork.PartRepository.GetAll();
+            var parts = await _unitOfWork.PartRepository.GetAllAsync();
+            var response = new List<PartPageModel>();
+            foreach (var part in parts) 
+            {
+                response.Add(new PartPageModel
+                {
+                    PartId = part.PartId,
+                    Name = part.Name,
+                    Description = part.Description,
+                    Shape = part.Shape,
+                    Material = part.Material,
+                    ColorName = (await _unitOfWork.ColorRepository.GetAllAsync()).FirstOrDefault(c => c.ColorId == part.ColorId).ColorName,
+                    Cost = part.Cost,
+                });
+            }
+            return response;
         }
     }
 }

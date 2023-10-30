@@ -51,61 +51,97 @@
             <div class="tabs-content__item active">
 
                 <div class="form-wrapper">
-                   @*  <form action="" class="form_order">
-                        <div class="form-item">
-                            <label for="id">Id</label>
-                            <input type="text" class="form-item_input" id="id" disabled/>
-                        </div>
+
+                    <form class="form_order" method="post" id="form-part">
+                                            <div class="form-item">
+                        <input type="text" class="form-item_input" id="id" asp-for="PartModel.PartId" hidden/>
+                        </div> 
                         <div class="form-item">
                             <label for="Name">Name</label>
-                            <input type="text" class="form-item_input" id="Name" disabled />
+                            <input type="text" class="form-item_input" id="Name" asp-for="PartModel.Name" disabled/>
                         </div>
                         <div class="form-item">
                             <label for="Description">Description</label>
                             <textarea rows="9"
                                       type="text"
                                       class="form-item_input"
-                                      id="Parts" disabled></textarea>
+                                      id="Parts" asp-for="PartModel.Description" disabled></textarea>
                         </div>
                         <div class="form-item">
                             <label for="Shape">Shape</label>
-                            <select id="Shape" class="form-item_input" disabled>
-                                <option>Option 1</option>
-                                <option>Option 2</option>
-                                <option>Option 3</option>
+                            <select id="Shape" class="form-item_input" asp-for="PartModel.Shape" asp-items="Model.Shapes" disabled>
+                                <option readonly disabled>-- Select --</option>
                             </select>
                         </div>
                         <div class="form-item">
                             <label for="Material">Material</label>
-                            <select id="Material" class="form-item_input" disabled>
-                                <option>Option 1</option>
-                                <option>Option 2</option>
-                                <option>Option 3</option>
+                            <select id="Material" class="form-item_input" asp-for="PartModel.Material" asp-items="Model.Materials" disabled>
+                                <option readonly disabled>-- Select --</option>
                             </select>
                         </div>
                         <div class="form-item">
                             <label for="Size">Size</label>
-                            <select id="Size" class="form-item_input" disabled>
-                                <option>Option 1</option>
-                                <option>Option 2</option>
-                                <option>Option 3</option>
+                            <select id="Size" class="form-item_input" asp-for="PartModel.Size" asp-items="Model.Sizes" disabled>
+                                <option readonly disabled>-- Select --</option>
                             </select>
                         </div>
                         <div class="form-item">
                             <label for="Color">Color</label>
-                            <select id="Color" class="form-item_input" disabled>
-                                <option>Option 1</option>
-                                <option>Option 2</option>
-                                <option>Option 3</option>
+                            <select id="Color" class="form-item_input" asp-for="PartModel.ColorName" asp-items="Model.Colors" disabled>
+                                <option readonly disabled>-- Select --</option>
                             </select>
                         </div>
                         <div class="form-item">
                             <label for="Cost">Cost</label>
-                            <input type="text" class="form-item_input" id="Cost" disabled />
+                            <input type="text" class="form-item_input" id="Cost" asp-for="PartModel.Cost" disabled />
                         </div>
-                    </form> *@
 
-                        <div class="table">
+                        <div class="list-btn" id="btns-add" style="display:none">
+                            <button class="btn" type="submit" asp-page-handler="Add">Add</button>
+                            <button class="btn" type="submit" asp-page-handler="ResetPage">Cancel</button>
+                        </div>
+
+                        <div class="list-btn" id="btns-edit" style="display:none">
+                            <button class="btn" type="submit" asp-page-handler="Edit">Save</button>
+                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Delete
+                            </button>
+
+
+                            <button class="btn" type="submit" asp-page-handler="ResetPage">Cancel</button>
+                        </div>
+
+                        <div class="list-btn" id="btns">
+                            @if(Model.PartModel.Name is null)
+                            {
+                                <button class="btn" type="button" id="" onclick="addPart()">Add</button>
+                            }
+                            else
+                            {
+                                <button class="btn" type="button" id="" onclick="editPart()">Edit</button>
+                            }
+                        </div>
+
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure want to delete this item?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-danger" asp-page-handler="Delete">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="table table-striped">
                             <table>
                                 <tr>
                                     <th>Id</th>
@@ -114,7 +150,9 @@
                                     <th>Shape</th>
                                     <th>Material</th>
                                     <th>Size</th>
+                                    <th>Color</th>
                                     <th>Cost</th>
+                                    <th></th>
                                 </tr>
                                 @foreach (var part in Model.Parts)
                                 {
@@ -124,10 +162,15 @@
                                         <td>@part.Description</td>
                                         <td>@part.Shape</td>
                                         <td>@part.Material</td>
-                                        <td>@part.Size</td>                                      
+                                        <td>@part.Size</td>
+                                        <td>@part.ColorName</td>
                                         <td>@part.Cost</td>
                                         <td>
-                                            <button @* asp-page-handler="byid" method="get" asp-route-id="@part.PartId" *@ class="edit-part">Edit</button>
+                                        <form method="post" asp-page-handler="ById" asp-route-id="@part.PartId">
+                                            <button type="submit" class="btn btn-secondary">
+                                                Detail
+                                            </button>
+                                        </form>
                                         </td>
                                     </tr>
                                 }   
@@ -147,13 +190,13 @@
                         <a href="#" class="pagination-number">9</a>
                         <a href="#" class="pagination-number">10</a>
                         <a href="#" class="pagination-next">Next >></a>
-                    </div> *@
-
-                    <div class="list-btn">
-                        <button class="btn" id="addBtn">Add</button>
-@*                         <button class="btn">Update</button>
-                        <button class="btn">Delete</button> *@
                     </div>
+
+    @*                     <div class="list-btn">
+                            <button class="btn" id="addBtn">Add</button>
+                            <button class="btn">Update</button>
+                            <button class="btn">Delete</button>
+                        </div> *@
                 </div>
 
             </div>
@@ -162,8 +205,8 @@
 
         <div class="popup">
             <div class="popup_wrapper">
-                <button class="close">x</button>
-                <form class="form_order" asp-page="./Index" method="post">
+                <button class="close" onclick="closePopup()">x</button>
+                <form class="form_order" method="post">
 @*                     <div class="form-item">
                         <label for="id">Id</label>
                         <input type="text" class="form-item_input" id="id" asp-for=""/>
@@ -210,67 +253,87 @@
 
                     <div class="list-btn" id="popup-list-btn">
                         <button class="btn" type="submit" asp-page-handler="Add">Add</button>
-                        <button class="btn" id="cacelBtn">Cancel</button>
+                        <button class="btn" id="cacelBtn" onclick="closePopup()">Cancel</button>
                     </div>
                 </form>
             </div>
 
          </div>
+
+        
     </div>
 </div>
 
 
 <script>
-    const addBtn = document.getElementById("addBtn");
-    const cancelBtn = document.querySelector(".close");
-    const popup = document.querySelector(".popup");
-    const closeBtn = document.querySelector(".close");
-    const edits = document.getElementsByClass("edit-part");
+    // const addBtn = document.getElementById("addBtn");
+    // const cancelBtn = document.querySelector(".close");
+    // const popup = document.querySelector(".popup");
+    // const closeBtn = document.querySelector(".close");
+    // const edits = document.getElementsByClass("edit-part");
 
-    // addBtn.addEventListener("click", () => {
+    // // addBtn.addEventListener("click", () => {
+    // //     popup.classList.toggle("active");
+    // // });
+
+    // function submitForm() {
+    //     document.querySelector('form').submit();
+    // }
+
+    // function showPopup() {      
+    //     event.preventDefault();
     //     popup.classList.toggle("active");
-    // });
+        
+    // }
 
-    closeBtn.addEventListener("click", () => {
-        popup.classList.toggle("active");
-    });
+    // function closePopup() {
+    //     event.preventDefault();
+    //     popup.classList.remove("active");
+    // }
 
-    cancelBtn.addEventListener("click", () => {
-        popup.classList.toggle("inactive");
-    });
+    function addPart() {
+        var form = document.getElementById("form-part");
+        var elements = form.elements;
+        for (var i = 0, len = elements.length; i < len; ++i) {
+            if (elements[i].disabled = true) {
+                elements[i].removeAttribute("disabled");
+            }
+        }
 
-    for (var i = 0; i < edits.length; i++) {
-        edits[i].addEventListener("click", () => {
-            popup.classList.toggle("active");
-        });
-      }
+        document.getElementById("btns-add").style.display = "flex";
+  
+
+        document.getElementById("btns").style.display = "none";
+    }
 
 
-            // var updateBtn = document.createElement("button");
-        // updateBtn.innerHTML = "Update";
-        // updateBtn.id = "update"
+    function editPart(id) {
+        var form = document.getElementById("form-part");
+        var elements = form.elements;
+        for (var i = 0, len = elements.length; i < len; ++i) {
+            if (elements[i].disabled = true) {
+                elements[i].removeAttribute("disabled");
+            }
+        }
 
-        // // Add an event listener to the button
-        // updateBtn.addEventListener("click", function () {
-        //     // Call a Razor page handler method using JavaScript
-        //     fetch("/Index?handler=Edit", {
-        //         method: "POST"
-        //     }).then(response => {
-        //         if (response.ok) {
-        //             // Handle a successful response
-        //         } else {
-        //             // Handle an error
-        //         }
-        //     });
-        // });
+        document.getElementById("btns-edit").style.display = "flex";
+        document.getElementById("btns").style.display = "none";
+    }
 
-        // // Get a reference to the container where you want to add the button
-        // var container = document.getElementById("popup-list-btn");
-
-        // // Append the button to the container
-        // container.appendChild(button);
-    });
+    function deleteAlert(message) {
+        var alertDiv = document.createElement('div');
+        alertDiv.classList.add('alert', 'alert-' + 'Delete meassage', 'alert-dismissible', 'show', 'fade', 'in');
+        alertDiv.innerHTML = `
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                ${message}
+            `;
+        document.body.appendChild(alertDiv);
+    }
 </script>
+
+
 
 @section Scripts {
     @{

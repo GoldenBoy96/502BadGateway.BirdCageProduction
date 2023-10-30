@@ -1,0 +1,7 @@
+{
+  "PartOptions": {
+    "Materials": [ "Stainless Steel", "Plastic", "Wrought Iron", "Aluminum", "Wood", "Gold-Plated Steel" ],
+    "Shapes": [ "Round", "Square", "Irregular", "Hexagonal" ],
+    "Sizes": [ "Small", "Medium", "Large" ]
+  }
+}

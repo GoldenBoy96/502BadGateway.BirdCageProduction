@@ -11,10 +11,12 @@ namespace BusinessLogic.Service.Abstraction
 {
     public interface IPartService
     {
-        Task<IEnumerable<Part>> GetParts();
+        Task<IEnumerable<PartPageModel>> GetParts();
         Task<PartOptions> GetPartOptions();
         Task AddPart(PartPageModel model);
         Task EditPart(PartPageModel model);
         Task<PartPageModel> GetPartById(int id);
+        Task<bool> DeletePart(int id);
+       
     }
 }

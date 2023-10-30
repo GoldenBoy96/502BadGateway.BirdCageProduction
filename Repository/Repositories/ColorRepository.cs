@@ -22,7 +22,7 @@ namespace Repository.Repositories
 
         public async Task<int> ReturnIdByName(string name)
         {
-            return _context.Colors.FirstOrDefault(c => c.ColorName == name).ColorId;
+            return _context.Colors.FirstOrDefault(c => c.ColorName.Equals(name)).ColorId;
         }
     }
 }
