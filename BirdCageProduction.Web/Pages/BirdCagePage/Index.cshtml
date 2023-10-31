@@ -242,34 +242,34 @@
         const newDiv = partItemTemplate.cloneNode(true);
 
 
-        @{
-            BusinessLogic.Models.PartItem.PartItemPageModel newItem = new();
-            Model.PartItemPages.Add(new BusinessLogic.Models.PartItem.PartItemPageModel { Code = newItem.Code, Quantity = newItem.Quantity});
+    //     @{
+    //         BusinessLogic.Models.PartItem.PartItemPageModel newItem = new();
+    //         Model.PartItemPages.Add(new BusinessLogic.Models.PartItem.PartItemPageModel { Code = newItem.Code, Quantity = newItem.Quantity});
 
-        }
-        container.innerHTML += `
-        <div class="part-item">
-            <div class="form-item">
-                <select id="part" disabled>
-                    <option value="@newItem.Part.Code" selected>@newItem.Part.Code</option>
-                </select>
-            </div>
-            <div class="form-item">
-                <input type="text"
-                    class="form-item_input"
-                    id="Quantity"
-                    placeholder="Quantity" disabled asp-for="@item.Quantity" />
-            </div>
-            <div class="part-icon">
-                <img src="./images/icon-info.png"
-                    alt=""
-                    width="40" />
-                <img src="./images/icon-delete.png"
-                    alt=""
-                    width="60" />
-            </div>
-        </div>
-    `;
+    //     }
+    //     container.innerHTML += `
+    //     <div class="part-item">
+    //         <div class="form-item">
+    //             <select id="part" disabled>
+    //                 <option value="@newItem.Part.Code" selected>@newItem.Part.Code</option>
+    //             </select>
+    //         </div>
+    //         <div class="form-item">
+    //             <input type="text"
+    //                 class="form-item_input"
+    //                 id="Quantity"
+    //                 placeholder="Quantity" disabled asp-for="@item.Quantity" />
+    //         </div>
+    //         <div class="part-icon">
+    //             <img src="./images/icon-info.png"
+    //                 alt=""
+    //                 width="40" />
+    //             <img src="./images/icon-delete.png"
+    //                 alt=""
+    //                 width="60" />
+    //         </div>
+    //     </div>
+    // `;
         
 
         const removeImage = newDiv.querySelector(".remove-image");
