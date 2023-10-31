@@ -11,5 +11,7 @@ namespace Repository.IRepositories
     {
         Task<List<string>> ColorsName();
         Task<int> ReturnIdByName(string name);
+
+        public IEnumerable<Color> GetAll();
     }
 }

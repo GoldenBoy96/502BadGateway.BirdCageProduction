@@ -16,6 +16,11 @@ namespace Repository.Repositories
         public CustomerStatusRepository(BirdCageProductionContext context) : base(context)
         {
         }
-    
+
+        public IEnumerable<CustomerStatus> GetAll()
+        {
+            return _dbSet.ToList();
+        }
+
     }
 }
