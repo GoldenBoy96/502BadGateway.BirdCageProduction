@@ -1,4 +1,5 @@
-﻿using BusinessLogic.Service.Abstraction;
+﻿using BusinessLogic.Models.PartItem;
+using BusinessLogic.Service.Abstraction;
 using BusinessObject.Models;
 using Repository.UnitOfWork;
 using System;
@@ -16,6 +17,18 @@ namespace BusinessLogic.Service.Implementation
         public PartItemSerivce(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
+        }
+
+        public Task<bool> Add(PartItemPageModel model)
+        {
+            return unitOfWork
+                    .PartItemRepository
+                    .AddAsync(new PartItem
+                        {
+                            Quantity = model.Quantity,
+                            BirdCageId = model.BirdCageId,
+                            PartId = unitOfWork.PartRepository.GetPartByCode(model.Code).Result.PartId,
+                        });
         }
 
         public Task<IEnumerable<PartItem>> GetPartItems()

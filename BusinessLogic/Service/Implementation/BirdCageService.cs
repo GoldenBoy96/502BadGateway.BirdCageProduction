@@ -1,5 +1,7 @@
-﻿using BusinessLogic.Service.Abstraction;
+﻿using BusinessLogic.Models.PartItem;
+using BusinessLogic.Service.Abstraction;
 using BusinessObject.Models;
+using Microsoft.EntityFrameworkCore;
 using Repository.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -16,6 +18,22 @@ namespace BusinessLogic.Service.Implementation
         public BirdCageService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
+        }
+
+        public async Task<bool> Add(BirdCage birdCage, List<PartItemPageModel> partItems)
+        {
+            foreach (var partItem in partItems) 
+            {
+                birdCage.PartItems
+                        .Add(new PartItem
+                        {
+                            Quantity = partItem.Quantity,
+                            PartId = unitOfWork.PartRepository.GetPartByCode(partItem.Code).Result.PartId
+                        });
+                
+            }
+
+            return await unitOfWork.BirdCageRepository.AddAsync(birdCage);          
         }
 
         public Task<BirdCage> GetBirdCageById(int id)

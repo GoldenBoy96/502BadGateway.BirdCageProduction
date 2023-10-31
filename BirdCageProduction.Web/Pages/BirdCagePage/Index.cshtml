@@ -1,7 +1,7 @@
 ﻿@page
 @model IndexModel
-@{
-}
+
+
 <div class="app">
     <div class="main">
         <ul class="tabs">
@@ -22,7 +22,7 @@
             </li>
             <li class="tabs-item active">
                 <span class="tabs-item__text">
-                    <a class="nav-link text-dark" asp-area="" asp-page="/BirdCage/Index">Bird Cage</a>
+                    <a class="nav-link text-dark" asp-area="" asp-page="/BirdCagePage/Index">Bird Cage</a>
                 </span>
             </li>
             <li class="tabs-item">
@@ -50,14 +50,14 @@
 
             <div class="tabs-content__item active">
                 <div class="form-wrapper">
-                    <form class="form_order">
+                    <form class="form_order" id="bc-form" method="post">
                         <div class="form-item">
                             <label for="id">Id</label>
-                            <input type="text" class="form-item_input" id="id" disabled asp-for="BirdCage.BirdCageId"/>
+                            <input type="text" class="form-item_input" id="id" disabled asp-for="BirdCage.BirdCageId" readonly />
                         </div>
                         <div class="form-item">
                             <label for="Name">Name</label>
-                            <input type="text" class="form-item_input" id="Name" disabled asp-for="BirdCage.Name"/>
+                            <input type="text" class="form-item_input" id="Name" disabled asp-for="BirdCage.Name" />
                         </div>
                         <div class="form-item">
                             <label for="Description">Description</label>
@@ -66,89 +66,87 @@
                                       class="form-item_input"
                                       id="Parts" disabled asp-for="BirdCage.Description"></textarea>
                         </div>
-                        @if (Model.BirdCage != null)
-                        {
 
-                                <div class="form-item">
-                                    <label for="">Parts</label>
-                                    <div class="form-item__part">
 
+                        <div class="form-item">
+                            <label for="">Parts</label>
+                            <div class="form-item__part">
+                                @if (Model.BirdCage != null)
+                                {
                                     @foreach (var item in Model.BirdCage.PartItems)
                                     {
                                         <div class="part-item">
                                             <div class="form-item">
-                                                
                                                 <select id="part" disabled>
-                                                    <option value="@item.Part.Name" selected>@item.Part.Name</option>
+                                                    <option value="@item.Part.Code" selected>@item.Part.Code</option>
                                                 </select>
                                             </div>
                                             <div class="form-item">
                                                 <input type="text"
-                                                class="form-item_input"
-                                                id="Quantity"
-                                                placeholder="Quantity" disabled asp-for="@item.Quantity" />
+                                                       class="form-item_input"
+                                                       id="Quantity"
+                                                       placeholder="Quantity" disabled asp-for="@item.Quantity" />
                                             </div>
                                             <div class="part-icon">
                                                 <img src="./images/icon-info.png"
-                                                alt=""
-                                                width="40" />
+                                                     alt=""
+                                                     width="40" />
                                                 <img src="./images/icon-delete.png"
-                                                alt=""
-                                                width="60" />
+                                                     alt=""
+                                                     width="60" />
                                             </div>
                                         </div>
                                     }
-                                        <div class="plus">+</div>
+
+                                }
 
 
-                                    </div>
+                                <div id="part-item-container">
+                                    
                                 </div>
-                            
-                        }
-                        else
-                        {
-                            <div class="form-item">
-                                <label for="">Parts</label>
-                                <div class="form-item__part">
 
 
-                                    <div class="part-item">
-                                        <div class="form-item">
-                                            <select id="part" disabled >
-                                                <option selected>-- Select --</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-item">
-                                            <input type="text"
-                                                   class="form-item_input"
-                                                   id="Quantity"
-                                                   placeholder="Quantity" disabled  />
-                                        </div>
-                                        <div class="part-icon">
-                                            <img src="./images/icon-info.png"
-                                                 alt=""
-                                                 width="40" />
-                                            <img src="./images/icon-delete.png"
-                                                 alt=""
-                                                 width="60" />
-                                        </div>
-                                    </div>
-
-                                    <div class="plus">+</div>
 
 
+
+                                <div class="plus"> 
+                                    <button style="background:none;border:none;color:inherit;padding:inherit;cursor:pointer;outline:inherit" type="button" id="createDivButton" disabled>
+                                        +
+                                    </button>
                                 </div>
                             </div>
-                        }
-                            
-                        
-                       
+                        </div>
+
+
+                        <div class="list-btn" id="btns-add" style="display:none">
+                            <button class="btn" type="submit" asp-page-handler="Add">Add</button>
+                            <button class="btn" onclick="resetPage()" type="button">Cancel</button>
+                        </div>
+
+                        <div class="list-btn" id="btns-edit" style="display:none">
+                            <button class="btn" type="submit" asp-page-handler="Edit">Save</button>
+                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Delete
+                            </button>
+                            <button class="btn" type="submit" asp-page-handler="ResetPage">Cancel</button>
+                        </div>
+
+
+
+                        <div class="list-btn">
+                            @if (Model.BirdCage is null)
+                            {
+                                <button class="btn" id="addBtn-bc" onclick="addPart()" type="button">Add</button>
+                            }
+                            else
+                            {
+                                <button class="btn" id="editBtn-bc">Edit</button>
+                            }
+                        </div>
                     </form>
-                    <div class="list-btn">
-                        <button class="btn" id="addBtn">Add</button>
-                        <button class="btn">Update</button>
-                        <button class="btn">Delete</button>
-                    </div>
+
+
+                    
                     <div class="search right">
                         <div class="search-input right">
                             <img src="./assets/images/search.svg"
@@ -181,19 +179,19 @@
                             }
                         </table>
                     </div>
-@*                     <div class="pagination">
-                        <a href="#" class="pagination-prev"><< Prev</a>
-                        <a href="#" class="pagination-number">1</a>
-                        <a href="#" class="pagination-number">2</a>
-                        <a href="#" class="pagination-number">3</a>
-                        <a href="#" class="pagination-number">4</a>
-                        <a href="#" class="pagination-number">5</a>
-                        <a href="#" class="pagination-number">6</a>
-                        <a href="#" class="pagination-number">7</a>
-                        <a href="#" class="pagination-number">8</a>
-                        <a href="#" class="pagination-number">9</a>
-                        <a href="#" class="pagination-number">10</a>
-                        <a href="#" class="pagination-next">Next >></a>
+                    @*                     <div class="pagination">
+                    <a href="#" class="pagination-prev"><< Prev</a>
+                    <a href="#" class="pagination-number">1</a>
+                    <a href="#" class="pagination-number">2</a>
+                    <a href="#" class="pagination-number">3</a>
+                    <a href="#" class="pagination-number">4</a>
+                    <a href="#" class="pagination-number">5</a>
+                    <a href="#" class="pagination-number">6</a>
+                    <a href="#" class="pagination-number">7</a>
+                    <a href="#" class="pagination-number">8</a>
+                    <a href="#" class="pagination-number">9</a>
+                    <a href="#" class="pagination-number">10</a>
+                    <a href="#" class="pagination-next">Next >></a>
                     </div> *@
                 </div>
             </div>
@@ -201,3 +199,87 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    function showPartItem() {
+        document.getElementById("partItem").style.removeProperty("display");
+    }
+
+
+    function addPart() {
+        var form = document.getElementById("bc-form");
+        var elements = form.elements;
+        for (var i = 0, len = elements.length; i < len; ++i) {
+            if (elements[i].disabled = true) {
+                elements[i].removeAttribute("disabled");
+            }
+        }
+
+        document.getElementById("btns-add").style.display = "flex";
+        document.getElementById("addBtn-bc").style.display = "none";
+    }
+
+
+    function editPart(id) {
+        var form = document.getElementById("form-part");
+        var elements = form.elements;
+        for (var i = 0, len = elements.length; i < len; ++i) {
+            if (elements[i].disabled = true) {
+                elements[i].removeAttribute("disabled");
+            }
+        }
+
+        document.getElementById("btns-edit").style.display = "flex";
+        document.getElementById("btns").style.display = "none";
+    }
+
+    const createDivButton = document.getElementById("createDivButton");
+    const partItemTemplate = document.getElementById("partItem");
+    const container = document.getElementById("part-item-container");
+    var count = 0;
+    function createAndDisplayDiv() {
+        const newDiv = partItemTemplate.cloneNode(true);
+
+
+        @{
+            BusinessLogic.Models.PartItem.PartItemPageModel newItem = new();
+            Model.PartItemPages.Add(new BusinessLogic.Models.PartItem.PartItemPageModel { Code = newItem.Code, Quantity = newItem.Quantity});
+
+        }
+        container.innerHTML += `
+        <div class="part-item">
+            <div class="form-item">
+                <select id="part" disabled>
+                    <option value="@newItem.Part.Code" selected>@newItem.Part.Code</option>
+                </select>
+            </div>
+            <div class="form-item">
+                <input type="text"
+                    class="form-item_input"
+                    id="Quantity"
+                    placeholder="Quantity" disabled asp-for="@item.Quantity" />
+            </div>
+            <div class="part-icon">
+                <img src="./images/icon-info.png"
+                    alt=""
+                    width="40" />
+                <img src="./images/icon-delete.png"
+                    alt=""
+                    width="60" />
+            </div>
+        </div>
+    `;
+        
+
+        const removeImage = newDiv.querySelector(".remove-image");
+        removeImage.addEventListener("click", function () {
+            container.removeChild(newDiv);
+        });
+    }
+    createDivButton.addEventListener("click", createAndDisplayDiv);
+
+    function resetPage() {
+        location.reload(true);
+    }
+</script>

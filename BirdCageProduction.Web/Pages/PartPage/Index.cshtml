@@ -57,6 +57,10 @@
                         <input type="text" class="form-item_input" id="id" asp-for="PartModel.PartId" hidden/>
                         </div> 
                         <div class="form-item">
+                            <label for="Code">Code</label>
+                            <input type="text" class="form-item_input" id="Code" asp-for="PartModel.Code" disabled />
+                        </div>
+                        <div class="form-item">
                             <label for="Name">Name</label>
                             <input type="text" class="form-item_input" id="Name" asp-for="PartModel.Name" disabled/>
                         </div>
@@ -98,7 +102,7 @@
 
                         <div class="list-btn" id="btns-add" style="display:none">
                             <button class="btn" type="submit" asp-page-handler="Add">Add</button>
-                            <button class="btn" type="submit" asp-page-handler="ResetPage">Cancel</button>
+                            <button class="btn" onclick="resetPage()" type="button">Cancel</button>
                         </div>
 
                         <div class="list-btn" id="btns-edit" style="display:none">
@@ -108,7 +112,7 @@
                             </button>
 
 
-                            <button class="btn" type="submit" asp-page-handler="ResetPage">Cancel</button>
+                            <button class="btn" onclick="resetPage()" type="button">Cancel</button>
                         </div>
 
                         <div class="list-btn" id="btns">
@@ -146,11 +150,10 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Name</th>
+                                    <th>Code</th>
                                     <th>Description</th>
                                     <th>Shape</th>
                                     <th>Material</th>
-                                    <th>Size</th>
-                                    <th>Color</th>
                                     <th>Cost</th>
                                     <th></th>
                                 </tr>
@@ -159,11 +162,10 @@
                                     <tr>
                                         <td>@part.PartId</td>
                                         <td>@part.Name</td>
+                                        <td>@part.Code</td>
                                         <td>@part.Description</td>
                                         <td>@part.Shape</td>
                                         <td>@part.Material</td>
-                                        <td>@part.Size</td>
-                                        <td>@part.ColorName</td>
                                         <td>@part.Cost</td>
                                         <td>
                                         <form method="post" asp-page-handler="ById" asp-route-id="@part.PartId">
@@ -330,6 +332,10 @@
                 ${message}
             `;
         document.body.appendChild(alertDiv);
+    }
+
+    function resetPage() {
+        location.reload(true);
     }
 </script>
 

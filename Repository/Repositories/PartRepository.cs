@@ -1,5 +1,6 @@
 ﻿using BusinessObject.Models;
 using DataAccess;
+using Microsoft.EntityFrameworkCore;
 using Repository.IRepositories;
 using System;
 using System.Collections.Generic;
@@ -14,5 +15,17 @@ namespace Repository.Repositories
         public PartRepository(BirdCageProductionContext context) : base(context)
         {
         }
+
+        public Task<Part?> GetPartByCode(string code)
+        {
+            return _context.Parts.FirstOrDefaultAsync(p => p.Code.Equals(code));
+        }
+
+        public async Task<IEnumerable<string?>> GetPartCodes()
+        {
+            return await _context.Parts.Select(p => p.Code).ToListAsync();
+        }
+
+
     }
 }
