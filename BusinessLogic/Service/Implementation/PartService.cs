@@ -36,7 +36,7 @@ namespace BusinessLogic.Service.Implementation
             part.Cost = model.Cost;
             
             
-            _unitOfWork.PartRepository.AddAsync(part);
+            await _unitOfWork.PartRepository.AddAsync(part);
         }
 
         public async Task<bool> DeletePart(int id)
@@ -68,7 +68,7 @@ namespace BusinessLogic.Service.Implementation
                 Cost = model.Cost
             };
 
-            _unitOfWork.PartRepository.UpdateAsync(part);
+            await _unitOfWork.PartRepository.UpdateAsync(part);
         }
 
         public async Task<PartPageModel> GetPartById(int id)
@@ -89,7 +89,7 @@ namespace BusinessLogic.Service.Implementation
             return respone;
         }
 
-        public async Task<PartOptions> GetPartOptions()
+        public async Task<PartOptions?> GetPartOptions()
         {
             var response = _configuration.GetSection("PartOptions").Get<PartOptions>();
             return response;
