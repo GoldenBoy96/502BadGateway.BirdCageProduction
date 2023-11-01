@@ -9,5 +9,6 @@ namespace Repository.IRepositories
 {
     public interface IPartItemRepository : IBaseRepository<PartItem>
     {
+        Task<IEnumerable<PartItem>> GetPartItems(); 
     }
 }

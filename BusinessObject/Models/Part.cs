@@ -9,6 +9,8 @@ public partial class Part
 
     public string? Name { get; set; }
 
+    public string? Code { get; set; }
+
     public string? Description { get; set; }
 
     public string? Shape { get; set; }

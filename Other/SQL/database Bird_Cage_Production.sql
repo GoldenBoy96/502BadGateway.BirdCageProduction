@@ -1,8 +1,8 @@
 ﻿-- Tạo database Bird_Cage_Production
---  USE master
---  DROP DATABASE [Bird_Cage_Production];
---  CREATE DATABASE [Bird_Cage_Production];
---  USE [Bird_Cage_Production]
+  USE master
+  DROP DATABASE [Bird_Cage_Production];
+  CREATE DATABASE [Bird_Cage_Production];
+  USE [Bird_Cage_Production]
 
 -- Tạo bảng Status
 CREATE TABLE OrderStatus(
@@ -122,6 +122,7 @@ CREATE TABLE [Order](
 CREATE TABLE Part(
    PartId INT IdENTITY(1,1) PRIMARY KEY,
    [Name] VARCHAR(50),
+   [Code] Varchar(10),
    [Description] VARCHAR(100),
    Shape VARCHAR(50),
    Material VARCHAR(50),

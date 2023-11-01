@@ -27,6 +27,7 @@ namespace BusinessLogic.Service.Implementation
         {
             var part = new Part();
             part.Name = model.Name;
+            part.Code = model.Code;
             part.Description = model.Description;
             part.Shape = model.Shape;
             part.Material = model.Material;
@@ -35,7 +36,7 @@ namespace BusinessLogic.Service.Implementation
             part.Cost = model.Cost;
             
             
-            _unitOfWork.PartRepository.AddAsync(part);
+            await _unitOfWork.PartRepository.AddAsync(part);
         }
 
         public async Task<bool> DeletePart(int id)
@@ -58,6 +59,7 @@ namespace BusinessLogic.Service.Implementation
             {
                 PartId = model.PartId,
                 Name = model.Name,
+                Code = model.Code,
                 Description = model.Description,
                 Shape = model.Shape,
                 Material = model.Material,
@@ -66,7 +68,7 @@ namespace BusinessLogic.Service.Implementation
                 Cost = model.Cost
             };
 
-            _unitOfWork.PartRepository.UpdateAsync(part);
+            await _unitOfWork.PartRepository.UpdateAsync(part);
         }
 
         public async Task<PartPageModel> GetPartById(int id)
@@ -76,6 +78,7 @@ namespace BusinessLogic.Service.Implementation
             {
                 PartId = id,
                 Name = data.Name,
+                Code = data.Code,
                 Description = data.Description,
                 Shape = data.Shape,
                 Material = data.Material,
@@ -86,7 +89,7 @@ namespace BusinessLogic.Service.Implementation
             return respone;
         }
 
-        public async Task<PartOptions> GetPartOptions()
+        public async Task<PartOptions?> GetPartOptions()
         {
             var response = _configuration.GetSection("PartOptions").Get<PartOptions>();
             return response;
@@ -102,6 +105,7 @@ namespace BusinessLogic.Service.Implementation
                 {
                     PartId = part.PartId,
                     Name = part.Name,
+                    Code = part.Code,
                     Description = part.Description,
                     Shape = part.Shape,
                     Material = part.Material,
@@ -110,6 +114,11 @@ namespace BusinessLogic.Service.Implementation
                 });
             }
             return response;
+        }
+
+        public Task<IEnumerable<string?>> PartCodes()
+        {
+            return _unitOfWork.PartRepository.GetPartCodes();
         }
     }
 }
