@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCore.IServiceCollection.AddIUrlHelper" Version="1.1.0" />
     <PackageReference Include="BuildWebCompiler2022" Version="1.14.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.12">
       <PrivateAssets>all</PrivateAssets>
@@ -34,7 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Order\OrderDetailPage\" />
+    <Folder Include="Pages\Order\OrderDetailPage\test\" />
   </ItemGroup>
 
 </Project>

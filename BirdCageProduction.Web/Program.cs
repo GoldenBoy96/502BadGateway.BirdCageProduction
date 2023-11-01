@@ -44,6 +44,7 @@ builder.Services.AddTransient<IRoleRepository, RoleRepository>();
 builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<ICustomerService, CustomerService>();
 builder.Services.AddTransient<IAccountService, AccountService>();
+builder.Services.AddTransient<IOrderService, OrderService>();
 builder.Services.AddTransient<IPartService, PartService>();
 builder.Services.AddTransient<IStatusConstant, StatusConstant>();
 builder.Services.AddTransient<IColorService, ColorService>();
@@ -61,7 +62,7 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 // Other
 builder.Configuration.AddJsonFile("bird_cage_parts_option.json", true, true);
-
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 var app = builder.Build();
 
