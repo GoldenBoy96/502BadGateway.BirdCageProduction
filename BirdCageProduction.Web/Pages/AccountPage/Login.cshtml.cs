@@ -19,6 +19,7 @@ namespace BirdCageProduction.Web.Pages.AccountPage
         [BindProperty]
         public string Email { get; set; }
 
+
         [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
         [MinLength(8, ErrorMessage = "Password must be at least 8 characters long")]

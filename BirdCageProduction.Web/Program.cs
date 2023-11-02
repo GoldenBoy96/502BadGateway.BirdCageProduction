@@ -13,7 +13,7 @@ using BusinessLogic.Models.Part;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages(option => option.Conventions.AddPageRoute("/AccountPage/Login", ""));
 
 // DbContext
 builder.Services.AddDbContext<BirdCageProductionContext>(option
@@ -57,13 +57,12 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
         options.SlidingExpiration = true;
         options.AccessDeniedPath = "/Forbidden/";
-        options.LoginPath = "/Login";
+        options.LoginPath = "/AccountPage/Login";
     });
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 // Other
 builder.Configuration.AddJsonFile("bird_cage_parts_option.json", true, true);
-
 
 var app = builder.Build();
 
