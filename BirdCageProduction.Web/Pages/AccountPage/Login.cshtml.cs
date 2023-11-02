@@ -1,6 +1,7 @@
 using BusinessLogic.Service.Abstraction;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
 
 namespace BirdCageProduction.Web.Pages.AccountPage
 {
@@ -13,8 +14,14 @@ namespace BirdCageProduction.Web.Pages.AccountPage
             _authService = authService;
         }
 
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Invalid email address")]
         [BindProperty]
         public string Email { get; set; }
+
+        [Required(ErrorMessage = "Password is required")]
+        [DataType(DataType.Password)]
+        [MinLength(8, ErrorMessage = "Password must be at least 8 characters long")]
         [BindProperty]
         public string Password { get; set; }
 
