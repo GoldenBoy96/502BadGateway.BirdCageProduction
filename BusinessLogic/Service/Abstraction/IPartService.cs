@@ -17,6 +17,6 @@ namespace BusinessLogic.Service.Abstraction
         Task EditPart(PartPageModel model);
         Task<PartPageModel> GetPartById(int id);
         Task<bool> DeletePart(int id);
-        Task<IEnumerable<string?>> PartCodes();
+        Task<IEnumerable<string>> PartCodes();
     }
 }

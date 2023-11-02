@@ -29,12 +29,11 @@ public class IndexModel : PageModel
     [BindProperty]
     public BirdCage? BirdCage { get; set; }
 
-    public PartItem? PartItem { get; set; }
-
-    public SelectList selectListPartItems { get; set; }
+    public PartItemPageModel PartItem { get; set; }
 
     public SelectList PartCode {  get; set; }
 
+    public int index;
 
     // ========================================================================== //
 
@@ -54,21 +53,35 @@ public class IndexModel : PageModel
     public async Task<IActionResult> OnPostById(int id)
     {
         BirdCage = await birdCageService.GetBirdCageById(id);
+        foreach (var item in BirdCage.PartItems)
+        {
+            PartItemPages.Add(new PartItemPageModel
+            {
+                Code = item.Part.Code,
+                Quantity = item.Quantity
+            });
+        }
         LoadData();
         return Page();
     }
 
     public async Task<IActionResult> OnPostAdd()
     {
-        _ = birdCageService.Add(BirdCage, PartItemPages);
+        await birdCageService.Add(BirdCage, PartItemPages);
         return RedirectToPage();
     }
 
-    public async Task<IActionResult> OnPostAddPartItem(int partId, int quantity)
+    public async Task<IActionResult> OnPostEdit()
     {
-        throw new NotImplementedException();
+        await birdCageService.EditBirtCage(BirdCage, PartItemPages);
+        return RedirectToPage();
     }
 
+    public async Task<IActionResult> OnPostDelete()
+    {
+        await birdCageService.DeleteBirdCage(BirdCage.BirdCageId);
+        return RedirectToPage();
+    }
 
     private void LoadData()
     {
