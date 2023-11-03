@@ -15,7 +15,7 @@ namespace BirdCageProduction.Web.Pages.AccountPage
 
         public async Task<IActionResult> OnGet()
         {
-            _authService.LogOut();
+            await _authService.LogOut();
             return RedirectToPage("/Index");
         }
     }

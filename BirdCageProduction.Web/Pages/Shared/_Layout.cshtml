@@ -33,13 +33,13 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item text-dark ml-auto">
-                                <a class="nav-link text-dark" asp-page="/Account/Logout">Logout</a>
+                                <a class="nav-link text-dark" asp-page="/AccountPage/Logout">Logout</a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item text-dark ml-auto">
-                                <a class="nav-link text-dark" asp-page="/Account/Login">Login</a>
+                                <a class="nav-link text-dark" asp-page="/AccountPage/Login">Login</a>
                             </li>
                         }
                     </ul>
