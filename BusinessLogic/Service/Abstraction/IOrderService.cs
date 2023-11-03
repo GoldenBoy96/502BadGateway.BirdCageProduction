@@ -16,9 +16,11 @@ namespace BusinessLogic.Service.Abstraction
 
         public  Task<IEnumerable<Order>> GetAllOrderAsync();
         public Task<bool> AddOrderAsync(Order order);
-        public Task<OrderDetail> FindOrderDetailByIdAsync(int id);
+        public Task<OrderDetail> GetOrderDetailByIdAsync(int id);
         public Task<Order?> GetOrderByIdAsync(int OrderId);
         public  Task<bool> DeleteOrderAsync(Order order);
         public Task<bool> UpdateOrderAsync(Order order);
+        public Task<bool> DeleteOrderDetailAsync(OrderDetail orderDetail);
+        public Task<bool> UpdateOrderDetailAsync(OrderDetail orderDetail);
     }
 }

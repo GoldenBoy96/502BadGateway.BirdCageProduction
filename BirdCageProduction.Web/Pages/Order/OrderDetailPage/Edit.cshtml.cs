@@ -9,16 +9,17 @@ using Microsoft.EntityFrameworkCore;
 using BusinessObject.Models;
 using DataAccess;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using BusinessLogic.Service.Abstraction;
 
 namespace BirdCageProduction.Web.Pages.Order.OrderDetailPage
 {
     public class EditModel : PageModel
     {
-        private readonly DataAccess.BirdCageProductionContext _context;
+        private readonly IOrderService _orderService;
 
-        public EditModel(DataAccess.BirdCageProductionContext context)
+        public EditModel(IOrderService orderService)
         {
-            _context = context;
+            _orderService = orderService;
         }
 
         [BindProperty]
@@ -26,19 +27,20 @@ namespace BirdCageProduction.Web.Pages.Order.OrderDetailPage
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.OrderDetails == null)
+            var orderdetails = await _orderService.GetAllOrderDetailAsync();
+            if (id == null || orderdetails == null)
             {
                 return NotFound();
             }
 
-            var orderdetail =  await _context.OrderDetails.FirstOrDefaultAsync(m => m.OrderDetailId == id);
+            var orderdetail = await _orderService.GetOrderDetailByIdAsync((int)id);
             if (orderdetail == null)
             {
                 return NotFound();
             }
             OrderDetail = orderdetail;
-           ViewData["BirdCageId"] = new SelectList(_context.BirdCages, "BirdCageId", "BirdCageId");
-           ViewData["OrderId"] = new SelectList(_context.Orders, "OrderId", "OrderId");
+            ViewData["BirdCageId"] = new SelectList(_orderService.GetAllBirdCageAsync().Result, "BirdCageId", "BirdCageId");
+            ViewData["OrderId"] = new SelectList(_orderService.GetAllOrderAsync().Result, "OrderId", "OrderId");
             return Page();
         }
 
@@ -51,15 +53,18 @@ namespace BirdCageProduction.Web.Pages.Order.OrderDetailPage
                 return Page();
             }
 
-            _context.Attach(OrderDetail).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                bool success = await _orderService.UpdateOrderDetailAsync(OrderDetail);
+                if (!success)
+                {
+                    
+                }
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!OrderDetailExists(OrderDetail.OrderDetailId))
+                bool success = await OrderDetailExists(OrderDetail.OrderDetailId);
+                if (!success)
                 {
                     return NotFound();
                 }
@@ -74,9 +79,10 @@ namespace BirdCageProduction.Web.Pages.Order.OrderDetailPage
             return Redirect("../Index");
         }
 
-        private bool OrderDetailExists(int id)
+        private async Task<bool> OrderDetailExists(int id)
         {
-          return (_context.OrderDetails?.Any(e => e.OrderDetailId == id)).GetValueOrDefault();
+            BusinessObject.Models.OrderDetail? orderDtail = await _orderService.GetOrderDetailByIdAsync((int)id);
+            return orderDtail != null;
         }
     }
 }

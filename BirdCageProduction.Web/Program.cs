@@ -66,10 +66,9 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 // Other
 builder.Configuration.AddJsonFile("bird_cage_parts_option.json", true, true);
-<<<<<<< HEAD
+
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-=======
->>>>>>> 496d3bb14e160ec1ce348d7065160fd647cf4898
+
 
 var app = builder.Build();
 

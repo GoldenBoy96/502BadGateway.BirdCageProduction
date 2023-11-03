@@ -16,24 +16,22 @@ namespace BirdCageProduction.Web.Pages.Order.OrderDetailPage
     public class CreateModel : PageModel
     {
         private readonly IOrderService _orderService;
-        private readonly IUnitOfWork _unitOfWork;
 
-        public CreateModel(IOrderService orderService,IUnitOfWork unitOfWork)
+        public CreateModel(IOrderService orderService)
         {
             _orderService = orderService;
-            _unitOfWork = unitOfWork;
         }
 
         public IActionResult OnGet()
         {
-        ViewData["BirdCageId"] = new SelectList(_orderService.GetAllBirdCageAsync().Result, "BirdCageId", "BirdCageId");
-        ViewData["OrderId"] = new SelectList(_orderService.GetAllOrderAsync().Result, "OrderId", "OrderId");
+            ViewData["BirdCageId"] = new SelectList(_orderService.GetAllBirdCageAsync().Result, "BirdCageId", "BirdCageId");
+            ViewData["OrderId"] = new SelectList(_orderService.GetAllOrderAsync().Result, "OrderId", "OrderId");
             return Page();
         }
 
         [BindProperty]
         public OrderDetail OrderDetail { get; set; } = default!;
-        
+
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
