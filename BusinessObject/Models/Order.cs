@@ -11,7 +11,7 @@ public partial class Order
 
     public decimal? TotalPrice { get; set; }
 
-    public string? StatusId { get; set; }
+    public int? StatusId { get; set; }
 
     public string? Address { get; set; }
 

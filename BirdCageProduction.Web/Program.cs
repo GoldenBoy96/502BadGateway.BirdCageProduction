@@ -16,8 +16,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages(option => option.Conventions.AddPageRoute("/AccountPage/Login", ""));
 
 // DbContext
-builder.Services.AddDbContext<BirdCageProductionContext>(option
-    => option.UseSqlServer(builder.Configuration.GetConnectionString("BirdCageProduction")));
+//builder.Services.AddDbContext<BirdCageProductionContext>(option
+//    => option.UseSqlServer(builder.Configuration.GetConnectionString("BirdCageProduction")));
+builder.Services.AddDbContext<BirdCageProductionContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("BirdCageProduction")), 
+    ServiceLifetime.Transient);
 
 // DI Container
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
@@ -44,6 +46,7 @@ builder.Services.AddTransient<IRoleRepository, RoleRepository>();
 builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<ICustomerService, CustomerService>();
 builder.Services.AddTransient<IAccountService, AccountService>();
+builder.Services.AddTransient<IOrderService, OrderService>();
 builder.Services.AddTransient<IPartService, PartService>();
 builder.Services.AddTransient<IStatusConstant, StatusConstant>();
 builder.Services.AddTransient<IColorService, ColorService>();
@@ -63,6 +66,10 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 // Other
 builder.Configuration.AddJsonFile("bird_cage_parts_option.json", true, true);
+<<<<<<< HEAD
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+=======
+>>>>>>> 496d3bb14e160ec1ce348d7065160fd647cf4898
 
 var app = builder.Build();
 

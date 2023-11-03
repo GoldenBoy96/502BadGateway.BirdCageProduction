@@ -110,7 +110,7 @@ CREATE TABLE [Order](
    OrderId INT IdENTITY(1,1) PRIMARY KEY,
    DayCreated datetime,
    TotalPrice DECIMAL(10, 2),
-   StatusId VARCHAR(50),
+   StatusId INT,
    [Address] VARCHAR(50),
    AccountId INT,
    CustomerId INT,
@@ -131,7 +131,7 @@ CREATE TABLE Part(
    Cost FLOAT,
 );
 
--- Tạo bảng Bird_Cage_Category
+-- Tạo bảng Bird_Cage
 CREATE TABLE BirdCage(
    BirdCageId INT IdENTITY(1,1) PRIMARY KEY,
    [Name] VARCHAR(50),
@@ -155,7 +155,7 @@ CREATE TABLE OrderDetail(
 	BirdCageId INT,
 	OrderId INT,	
 	FOREIGN KEY (BirdCageId) REFERENCES BirdCage(BirdCageId),
-	FOREIGN KEY (OrderId) REFERENCES [Order](OrderId),
+	FOREIGN KEY (OrderId) REFERENCES [Order](OrderId)
 );
 
 -- Tạo bảng Procedure 
@@ -200,32 +200,52 @@ VALUES ('Pham Nhat Mai', '99 Bui Thi Xuan', '0987654321', 'admin2@birdcage.com',
 
 --Customer sample data
 INSERT INTO customer (FullName, Address, PhoneNumber, Email, StatusId)
-VALUES ('John Doe', '123 Main St', '555-1234', 'johndoe@example.com', 1);
+VALUES ('John Doe', '123 Main St', '555-1111', 'johndoe1@example.com', 1);
 INSERT INTO customer (FullName, Address, PhoneNumber, Email, StatusId)
-VALUES ('Jane Smith', '456 Elm St', '555-5678', 'janesmith@example.com', 1);
+VALUES ('Jane Smith', '456 Elm St', '555-1112', 'janesmith2@example.com', 1);
 INSERT INTO customer (FullName, Address, PhoneNumber, Email, StatusId)
-VALUES ('David Johnson', '789 Oak St', '555-9012', 'davidjohnson@example.com', 1);
+VALUES ('David Johnson', '789 Oak St', '555-1113', 'davidjohnson3@example.com', 1);
 INSERT INTO customer (FullName, Address, PhoneNumber, Email, StatusId)
-VALUES ('Sarah Williams', '321 Maple St', '555-3456', 'sarahwilliams@example.com', 1);
+VALUES ('Sarah Williams', '321 Maple St', '555-1114', 'sarahwilliams4@example.com', 1);
 INSERT INTO customer (FullName, Address, PhoneNumber, Email, StatusId)
-VALUES ('Michael Brown', '654 Pine St', '555-7890', 'michaelbrown@example.com', 1);
+VALUES ('Michael Brown', '654 Pine St', '555-1115', 'michaelbrown5@example.com', 1);
 INSERT INTO customer (FullName, Address, PhoneNumber, Email, StatusId)
-VALUES ('Emily Wilson', '987 Cedar St', '555-1234', 'emilywilson@example.com', 1);
+VALUES ('Emily Wilson', '987 Cedar St', '555-1116', 'emilywilson6@example.com', 1);
 INSERT INTO customer (FullName, Address, PhoneNumber, Email, StatusId)
-VALUES ('Daniel Thompson', '654 Birch St', '555-5678', 'danielthompson@example.com', 1);
+VALUES ('Daniel Thompson', '654 Birch St', '555-1117', 'danielthompson7@example.com', 1);
 INSERT INTO customer (FullName, Address, PhoneNumber, Email, StatusId)
-VALUES ('Olivia Davis', '321 Oak St', '555-9012', 'oliviadavis@example.com', 1);
+VALUES ('Olivia Davis', '321 Oak St', '555-1118', 'oliviadavis8@example.com', 1);
 INSERT INTO customer (FullName, Address, PhoneNumber, Email, StatusId)
-VALUES ('James Anderson', '789 Maple St', '555-3456', 'jamesanderson@example.com', 1);
+VALUES ('James Anderson', '789 Maple St', '555-1119', 'jamesanderson9@example.com', 1);
 INSERT INTO customer (FullName, Address, PhoneNumber, Email, StatusId)
-VALUES ('Sophia Martinez', '456 Elm St', '555-7890', 'sophiamartinez@example.com', 1);
+VALUES ('Sophia Martinez', '456 Elm St', '555-1120', 'sophiamartinez10@example.com', 1);
 INSERT INTO customer (FullName, Address, PhoneNumber, Email, StatusId)
-VALUES ('Ethan Clark', '987 Pine St', '555-1234', 'ethanclark@example.com', 1);
+VALUES ('Ethan Clark', '987 Pine St', '555-1121', 'ethanclark11@example.com', 1);
 INSERT INTO customer (FullName, Address, PhoneNumber, Email, StatusId)
-VALUES ('Ava Rodriguez', '654 Cedar St', '555-5678', 'avarodriguez@example.com', 1);
+VALUES ('Ava Rodriguez', '654 Cedar St', '555-1122', 'avarodriguez12@example.com', 1);
 INSERT INTO customer (FullName, Address, PhoneNumber, Email, StatusId)
-VALUES ('Logan Lee', '321 Birch St', '555-9012', 'loganlee@example.com', 1);
+VALUES ('Logan Lee', '321 Birch St', '555-1123', 'loganlee13@example.com', 1);
 INSERT INTO customer (FullName, Address, PhoneNumber, Email, StatusId)
-VALUES ('Mia Turner', '789 Oak St', '555-3456', 'miaturner@example.com', 1);
+VALUES ('Mia Turner', '789 Oak St', '555-1124', 'miaturner14@example.com', 1);
 INSERT INTO customer (FullName, Address, PhoneNumber, Email, StatusId)
-VALUES ('Lucas Scott', '456 Maple St', '555-7899', 'lucasscott@example.com', 1);
+VALUES ('Lucas Scott', '456 Maple St', '555-1125', 'lucasscott15@example.com', 1);
+
+--Birdcage Sample Data
+INSERT INTO BirdCage([Name],[Description]) 
+VALUES('A very nice bird cage', 'This bird cage is very nice'); 
+INSERT INTO BirdCage([Name],[Description]) 
+VALUES('A very bad bird cage', 'This bird cage is very bad');
+INSERT INTO BirdCage([Name],[Description]) 
+VALUES('A very handsome bird cage', 'This bird cage is very handsome');
+
+--Order Sample Data
+INSERT INTO [Order](DayCreated,TotalPrice,StatusId,[Address],AccountId,CustomerId) 
+VALUES('2021-12-01 14:30:15', 9999, 1, 'sample address', 1, 1); 
+--Order Detail Sample Data
+INSERT INTO OrderDetail(Quantity,BirdCageId,OrderId) 
+VALUES(10, 1, 1);
+INSERT INTO OrderDetail(Quantity,BirdCageId,OrderId) 
+VALUES(20, 2, 1);
+INSERT INTO OrderDetail(Quantity,BirdCageId,OrderId) 
+VALUES(30, 3, 1);
+

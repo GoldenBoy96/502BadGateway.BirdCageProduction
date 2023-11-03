@@ -26,7 +26,7 @@ namespace BusinessLogic.Service.Implementation
 
         public async Task<Account?> GetAccountByIdAsync(int? accountId)
         {
-            return await _unitOfWork.AccountRepository.GetByIdAsync(accountId);
+            return await _unitOfWork.AccountRepository.GetById(accountId);
         }
 
         public async Task<bool> CreateAccountAsync(Account account)

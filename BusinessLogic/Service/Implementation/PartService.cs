@@ -43,7 +43,7 @@ namespace BusinessLogic.Service.Implementation
         {
             try
             {
-                var part = await _unitOfWork.PartRepository.GetByIdAsync(id);
+                var part = await _unitOfWork.PartRepository.GetById(id);
                 await _unitOfWork.PartRepository.RemoveAsync(part);
                 return true;
             }
@@ -73,7 +73,7 @@ namespace BusinessLogic.Service.Implementation
 
         public async Task<PartPageModel> GetPartById(int id)
         {
-            var data = await _unitOfWork.PartRepository.GetByIdAsync(id);
+            var data = await _unitOfWork.PartRepository.GetById(id);
             var respone = new PartPageModel
             {
                 PartId = id,

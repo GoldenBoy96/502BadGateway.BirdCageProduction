@@ -29,12 +29,12 @@ namespace Repository.Repositories
             return await Task.FromResult(success == 1);
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public  async Task<IEnumerable<T>> GetAllAsync()
         {
             return await _dbSet.ToListAsync();
         }
 
-        public async Task<T?> GetByIdAsync(int? id)
+        public async Task<T?> GetById(int? id)
         {
             return await _dbSet.FindAsync(id);
         }
