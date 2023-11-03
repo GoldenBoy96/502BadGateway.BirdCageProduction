@@ -21,7 +21,7 @@ namespace Repository.Repositories
             return _context.Parts.FirstOrDefaultAsync(p => p.Code.Equals(code));
         }
 
-        public async Task<IEnumerable<string?>> GetPartCodes()
+        public async Task<IEnumerable<string>> GetPartCodes()
         {
             return await _context.Parts.Select(p => p.Code).ToListAsync();
         }

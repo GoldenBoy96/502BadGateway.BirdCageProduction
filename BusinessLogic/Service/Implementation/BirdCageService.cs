@@ -2,6 +2,7 @@
 using BusinessLogic.Service.Abstraction;
 using BusinessObject.Models;
 using Microsoft.EntityFrameworkCore;
+using Repository.Repositories;
 using Repository.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -36,14 +37,38 @@ namespace BusinessLogic.Service.Implementation
             return await unitOfWork.BirdCageRepository.AddAsync(birdCage);          
         }
 
-        public Task<BirdCage> GetBirdCageById(int id)
+        public async Task<bool> DeleteBirdCage(int id)
         {
-            return unitOfWork.BirdCageRepository.FindByIdAsync(id);
+            var entity = await unitOfWork.BirdCageRepository.FindByIdAsync(id);
+            return await unitOfWork.BirdCageRepository.RemoveAsync(entity);
         }
 
-        public Task<IEnumerable<BirdCage>> GetBirdCages()
+        public async Task<bool> EditBirtCage(BirdCage birdCage, List<PartItemPageModel> partItems)
         {
-            return unitOfWork.BirdCageRepository.GetAllAsync();
+            var mapPartItems = new List<PartItem>();
+            foreach (var partItem in partItems)
+            {
+                mapPartItems.Add(new PartItem
+                                {
+                                    Quantity = partItem.Quantity,
+                                    PartId = unitOfWork.PartRepository.GetPartByCode(partItem.Code).Result.PartId
+                                });
+
+            }
+            birdCage = await unitOfWork.BirdCageRepository.FindByIdAsync(birdCage.BirdCageId);
+            birdCage.PartItems = new List<PartItem>(mapPartItems);
+
+            return await unitOfWork.BirdCageRepository.UpdateAsync(birdCage);   
+        }
+
+        public async Task<BirdCage> GetBirdCageById(int id)
+        {
+            return await unitOfWork.BirdCageRepository.FindByIdAsync(id);
+        }
+
+        public async Task<IEnumerable<BirdCage>> GetBirdCages()
+        {
+            return await unitOfWork.BirdCageRepository.GetAllAsync();
         }
     }
 }

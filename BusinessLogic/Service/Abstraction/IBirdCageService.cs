@@ -13,5 +13,7 @@ namespace BusinessLogic.Service.Abstraction
         Task<bool> Add(BirdCage birdCage, List<PartItemPageModel> partItems);
         Task<IEnumerable<BirdCage>> GetBirdCages();
         Task<BirdCage> GetBirdCageById(int id);
+        Task<bool> EditBirtCage(BirdCage birdCage, List<PartItemPageModel> partItems);
+        Task<bool> DeleteBirdCage(int id);
     }
 }

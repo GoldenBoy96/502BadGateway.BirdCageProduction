@@ -116,9 +116,9 @@ namespace BusinessLogic.Service.Implementation
             return response;
         }
 
-        public Task<IEnumerable<string?>> PartCodes()
+        public async Task<IEnumerable<string>> PartCodes()
         {
-            return _unitOfWork.PartRepository.GetPartCodes();
+            return await _unitOfWork.PartRepository.GetPartCodes();
         }
     }
 }

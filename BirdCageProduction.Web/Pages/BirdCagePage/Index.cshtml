@@ -53,7 +53,7 @@
                     <form class="form_order" id="bc-form" method="post">
                         <div class="form-item">
                             <label for="id">Id</label>
-                            <input type="text" class="form-item_input" id="id" disabled asp-for="BirdCage.BirdCageId" readonly />
+                            <input type="text" class="form-item_input" id="id" disabled asp-for="BirdCage.BirdCageId" placeholder="Id" readonly />
                         </div>
                         <div class="form-item">
                             <label for="Name">Name</label>
@@ -71,21 +71,30 @@
                         <div class="form-item">
                             <label for="">Parts</label>
                             <div class="form-item__part">
-                                @if (Model.BirdCage != null)
-                                {
-                                    @foreach (var item in Model.BirdCage.PartItems)
+                                    
+                                <div id="part-item-container">
+                                    @for (var index = 0; index < Model.PartItemPages.Count; index++)
                                     {
-                                        <div class="part-item">
+                                        var id = "part-" + index;
+                                        <div class="part-item" id="@id">
                                             <div class="form-item">
-                                                <select id="part" disabled>
-                                                    <option value="@item.Part.Code" selected>@item.Part.Code</option>
+                                                <select id="part" disabled asp-for="@Model.PartItemPages[index].Code">
+                                                    @foreach (var i in Model.PartCode.Items)
+                                                    {
+                                                        if (i.Equals(@Model.PartItemPages[index].Code))
+                                                        {
+                                                            <option value="@i" selected>@i</option>
+                                                        }
+
+                                                        <option value="@i">@i</option>
+                                                    }
                                                 </select>
                                             </div>
                                             <div class="form-item">
                                                 <input type="text"
                                                        class="form-item_input"
                                                        id="Quantity"
-                                                       placeholder="Quantity" disabled asp-for="@item.Quantity" />
+                                                       placeholder="Quantity" disabled asp-for="@Model.PartItemPages[index].Quantity" />
                                             </div>
                                             <div class="part-icon">
                                                 <img src="./images/icon-info.png"
@@ -97,17 +106,7 @@
                                             </div>
                                         </div>
                                     }
-
-                                }
-
-
-                                <div id="part-item-container">
-                                    
                                 </div>
-
-
-
-
 
                                 <div class="plus"> 
                                     <button style="background:none;border:none;color:inherit;padding:inherit;cursor:pointer;outline:inherit" type="button" id="createDivButton" disabled>
@@ -128,19 +127,36 @@
                             <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Delete
                             </button>
-                            <button class="btn" type="submit" asp-page-handler="ResetPage">Cancel</button>
+                            <button class="btn" onclick="resetPage()" type="button">Cancel</button>
                         </div>
 
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure want to delete this item?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-danger" asp-page-handler="Delete">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
 
                         <div class="list-btn">
                             @if (Model.BirdCage is null)
                             {
-                                <button class="btn" id="addBtn-bc" onclick="addPart()" type="button">Add</button>
+                                <button class="btn" id="addBtn-bc" onclick="addBC()" type="button">Add</button>
                             }
                             else
                             {
-                                <button class="btn" id="editBtn-bc">Edit</button>
+                                <button class="btn" id="editBtn-bc" onclick="editBC()" type="button">Edit</button>
                             }
                         </div>
                     </form>
@@ -201,85 +217,88 @@
 </div>
 
 
-<script>
-    function showPartItem() {
-        document.getElementById("partItem").style.removeProperty("display");
-    }
+@section scripts{
 
-
-    function addPart() {
-        var form = document.getElementById("bc-form");
-        var elements = form.elements;
-        for (var i = 0, len = elements.length; i < len; ++i) {
-            if (elements[i].disabled = true) {
-                elements[i].removeAttribute("disabled");
-            }
+    <script type="text/javascript">
+        function showPartItem() {
+            document.getElementById("partItem").style.removeProperty("display");
         }
 
-        document.getElementById("btns-add").style.display = "flex";
-        document.getElementById("addBtn-bc").style.display = "none";
-    }
 
-
-    function editPart(id) {
-        var form = document.getElementById("form-part");
-        var elements = form.elements;
-        for (var i = 0, len = elements.length; i < len; ++i) {
-            if (elements[i].disabled = true) {
-                elements[i].removeAttribute("disabled");
+        function addBC() {
+            var form = document.getElementById("bc-form");
+            var elements = form.elements;
+            for (var i = 0, len = elements.length; i < len; ++i) {
+                if (elements[i].disabled = true) {
+                    elements[i].removeAttribute("disabled");
+                }
             }
+
+            document.getElementById("btns-add").style.display = "flex";
+            document.getElementById("addBtn-bc").style.display = "none";
         }
 
-        document.getElementById("btns-edit").style.display = "flex";
-        document.getElementById("btns").style.display = "none";
-    }
+        function editBC() {
+            var form = document.getElementById("bc-form");
+            var elements = form.elements;
+            for (var i = 0, len = elements.length; i < len; ++i) {
+                if (elements[i].disabled = true) {
+                    elements[i].removeAttribute("disabled");
+                }
+            }
 
-    const createDivButton = document.getElementById("createDivButton");
-    const partItemTemplate = document.getElementById("partItem");
-    const container = document.getElementById("part-item-container");
-    var count = 0;
-    function createAndDisplayDiv() {
-        const newDiv = partItemTemplate.cloneNode(true);
+            document.getElementById("btns-edit").style.display = "flex";
+            document.getElementById("editBtn-bc").style.display = "none";
+        }
+
+        const createDivButton = document.getElementById("createDivButton");
+        const container = document.getElementById("part-item-container");
+        var count = 0 + @Model.PartItemPages.Count;
+        function createAndDisplayDiv() {
+            @{
+                Model.PartItemPages.Add(new BusinessLogic.Models.PartItem.PartItemPageModel());
+            }
+            container.innerHTML += `
+                            <div class="part-item" id="part-${count}">
+                                <div class="form-item">
+                                    <select id="part" name="PartItemPages[${count}].Code">
+                                        @foreach (var item in Model.PartCode.Items)
+                                        {
+                                            <option value="@item">@item</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-item">
+                                    <input type="text"
+                                        class="form-item_input"
+                                        id="Quantity"
+                                        placeholder="Quantity" name="PartItemPages[${count}].Quantity"/>
+                                </div>
+                                <div class="part-icon">
+                                    <img src="./images/icon-info.png"
+                                        alt=""
+                                        width="40" />
+                                    <img src="./images/icon-delete.png"
+                                        alt=""
+                                        width="60"/>
+                                </div>
+                            </div>`;
+            count++;
+
+            const newDiv = document.getElementById(`part-${count}`);
+            const removeImage = newDiv.querySelector(".remove-image");
+
+            removeImage.addEventListener("click", function () {
+                newDiv.parent("div").remove();
+            });
+        }
+
+        createDivButton.addEventListener("click", createAndDisplayDiv);
 
 
-    //     @{
-    //         BusinessLogic.Models.PartItem.PartItemPageModel newItem = new();
-    //         Model.PartItemPages.Add(new BusinessLogic.Models.PartItem.PartItemPageModel { Code = newItem.Code, Quantity = newItem.Quantity});
+        function resetPage() {
+            location.reload(true);
+        }
+    </script>
 
-    //     }
-    //     container.innerHTML += `
-    //     <div class="part-item">
-    //         <div class="form-item">
-    //             <select id="part" disabled>
-    //                 <option value="@newItem.Part.Code" selected>@newItem.Part.Code</option>
-    //             </select>
-    //         </div>
-    //         <div class="form-item">
-    //             <input type="text"
-    //                 class="form-item_input"
-    //                 id="Quantity"
-    //                 placeholder="Quantity" disabled asp-for="@item.Quantity" />
-    //         </div>
-    //         <div class="part-icon">
-    //             <img src="./images/icon-info.png"
-    //                 alt=""
-    //                 width="40" />
-    //             <img src="./images/icon-delete.png"
-    //                 alt=""
-    //                 width="60" />
-    //         </div>
-    //     </div>
-    // `;
-        
-
-        // const removeImage = newDiv.querySelector(".remove-image");
-        // removeImage.addEventListener("click", function () {
-        //     container.removeChild(newDiv);
-        // });
-    }
-    createDivButton.addEventListener("click", createAndDisplayDiv);
-
-    function resetPage() {
-        location.reload(true);
-    }
-</script>
+}

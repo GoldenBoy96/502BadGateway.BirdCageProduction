@@ -9,7 +9,7 @@ namespace Repository.IRepositories
 {
     public interface IPartRepository : IBaseRepository<Part>
     {
-        Task<IEnumerable<string?>> GetPartCodes();
+        Task<IEnumerable<string>> GetPartCodes();
 
         Task<Part?> GetPartByCode(string code);
     }

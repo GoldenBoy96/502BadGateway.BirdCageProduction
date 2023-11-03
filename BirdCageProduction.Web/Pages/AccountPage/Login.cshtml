@@ -1,48 +1,23 @@
-﻿@page
+﻿@page 
 @model LoginModel
 @{
 }
 
-<section class="ftco-section">
-	<div class="container">
-		<div class="row justify-content-center">
-			<div class="col-md-6 col-lg-5">
-				<div class="login-wrap p-4 p-md-5">
-					<div class="icon d-flex align-items-center justify-content-center">
-						<span class="fa fa-user-o"></span>
-					</div>
-					<form method="post" class="login-form">
-						<div class="form-group">
-							<input type="text" class="form-control rounded-left" placeholder="Email" asp-for="@Model.Email" required>
-						</div>
-						<div class="form-group d-flex">
-							<input type="password" class="form-control rounded-left" placeholder="Password" asp-for="@Model.Password" required>
-						</div>
-						<div class="form-group d-md-flex">
-							<div class="w-50">
-								<a href="#">Forgot Password</a>
-							</div>
-						</div>
-						<div class="form-group d-md-flex">
-							@if (!ModelState.IsValid)
-							{
-								<div class="alert alert-danger">
-									@foreach (var modelStateEntry in ViewData.ModelState.Values)
-									{
-										foreach (var error in modelStateEntry.Errors)
-										{
-											<p>@error.ErrorMessage</p>
-										}
-									}
-								</div>
-							}
-						</div>
-						<div class="form-group">
-							<button type="submit" class="btn btn-primary rounded submit p-3 px-5">Get Started</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
+<form method="post">
+    <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" asp-for="Email">
+        <span class="badge rounded-pill text-bg-danger" asp-validation-for="Email"></span>
+        
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" asp-for="Password">
+        <span class="badge rounded-pill text-bg-danger" asp-validation-for="Password"></span>
+    </div>
+    <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
