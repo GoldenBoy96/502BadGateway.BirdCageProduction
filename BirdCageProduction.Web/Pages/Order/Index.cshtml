@@ -90,7 +90,8 @@
                         </div>
                     </form>
                     <div class="list-btn">
-                        <button class="btn">Add</button>
+                        
+                        <a class="btn" asp-page="Create">Add</a>
                         <button class="btn">Update</button>
                         <button class="btn">Delete</button>
                     </div>
@@ -112,7 +113,7 @@
                     <div class="table">
                         <table>
                             <tr>
-                                <th>Id</th>
+                                
                                 <th>
                                     Day <br />
                                     Created
@@ -123,15 +124,33 @@
                                 <th>Customer</th>
                                 <th>Creator</th>
                             </tr>
-                            <tr>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                            </tr>
+                            @foreach (var item in Model.Order)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DayCreated)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TotalPrice)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StatusId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Address)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Account.FullName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Customer.FullName)
+
+                                        <a asp-page="./Edit" asp-route-id="@item.OrderId">Edit</a> |
+                                        <a asp-page="./Details" asp-route-id="@item.OrderId">Details</a> |
+                                        <a asp-page="./Delete" asp-route-id="@item.OrderId">Delete</a>
+                                    </td>
+                                </tr>
+                            }
 
                         </table>
                     </div>

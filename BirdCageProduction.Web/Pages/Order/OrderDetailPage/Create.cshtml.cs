@@ -9,21 +9,24 @@ using BusinessObject.Models;
 using DataAccess;
 using BusinessLogic.Service.Abstraction;
 using BusinessLogic.Service.Implementation;
+using Repository.UnitOfWork;
 
 namespace BirdCageProduction.Web.Pages.Order.OrderDetailPage
 {
     public class CreateModel : PageModel
     {
         private readonly IOrderService _orderService;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CreateModel(IOrderService orderService)
+        public CreateModel(IOrderService orderService,IUnitOfWork unitOfWork)
         {
             _orderService = orderService;
+            _unitOfWork = unitOfWork;
         }
 
         public IActionResult OnGet()
         {
-        ViewData["BirdCage"] = new SelectList(_orderService.GetAllBirdCageAsync().Result, "BirdCageId", "BirdCageId");
+        ViewData["BirdCageId"] = new SelectList(_orderService.GetAllBirdCageAsync().Result, "BirdCageId", "BirdCageId");
         ViewData["OrderId"] = new SelectList(_orderService.GetAllOrderAsync().Result, "OrderId", "OrderId");
             return Page();
         }
@@ -35,16 +38,15 @@ namespace BirdCageProduction.Web.Pages.Order.OrderDetailPage
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _orderService.GetAllOrderDetailAsync() == null || OrderDetail == null)
+            var orderDetail = await _orderService.GetAllOrderDetailAsync();
+            if (!ModelState.IsValid || orderDetail == null || OrderDetail == null)
             {
                 return Page();
             }
 
             await _orderService.AddOrderDetailAsync(OrderDetail);
-            //_context.OrderDetails.Add(OrderDetail);
-            //await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("../Index");
         }
     }
 }

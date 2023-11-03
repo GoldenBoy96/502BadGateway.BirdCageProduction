@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BusinessObject.Models;
 using DataAccess;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BirdCageProduction.Web.Pages.Order.OrderDetailPage
 {
@@ -67,8 +68,10 @@ namespace BirdCageProduction.Web.Pages.Order.OrderDetailPage
                     throw;
                 }
             }
-
-            return RedirectToPage("./Index");
+            int id = 1;
+            //return RedirectToPage($"../Index?id={id}&handler=ById");
+            //System.Diagnostics.Debug.WriteLine(Request.Headers["Referer"].ToString());
+            return Redirect("../Index");
         }
 
         private bool OrderDetailExists(int id)

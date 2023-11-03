@@ -16,8 +16,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 // DbContext
-builder.Services.AddDbContext<BirdCageProductionContext>(option
-    => option.UseSqlServer(builder.Configuration.GetConnectionString("BirdCageProduction")));
+//builder.Services.AddDbContext<BirdCageProductionContext>(option
+//    => option.UseSqlServer(builder.Configuration.GetConnectionString("BirdCageProduction")));
+builder.Services.AddDbContext<BirdCageProductionContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("BirdCageProduction")), 
+    ServiceLifetime.Transient);
 
 // DI Container
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();

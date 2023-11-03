@@ -29,7 +29,7 @@ namespace Repository.Repositories
                 .Include(o => o.Order).ToListAsync();
         }
 
-        public async Task<List<OrderDetail>> GetAllAsync()
+        public new async Task<List<OrderDetail>> GetAllAsync()
         {
             return await _dbSet.Include(o => o.BirdCage)
                 .Include(o => o.Order).ToListAsync(); ;

@@ -9,5 +9,8 @@ namespace Repository.IRepositories
 {
     public interface IOrderRepository : IBaseRepository<Order>
     {
+        public new Task<IEnumerable<Order>> GetAllAsync();
+        public new  Task<Order?> GetById(int? id);
+        public new  Task<bool> UpdateAsync(Order entity);
     }
 }

@@ -26,11 +26,9 @@ namespace BirdCageProduction.Web.Pages.Order.OrderDetailPage
 
         public async Task OnGetAsync()
         {
-            if (_orderService.GetAllOrderDetailOfAnOrderAsync(1).Result != null)
-            {
-                OrderDetail = _orderService.GetAllOrderDetailOfAnOrderAsync(1).Result.ToList();
 
-            }
+            OrderDetail = (IList<OrderDetail>)await _orderService.GetAllOrderDetailOfAnOrderAsync(1);
+            
         }
 
         

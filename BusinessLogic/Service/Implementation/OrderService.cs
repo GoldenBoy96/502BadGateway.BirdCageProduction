@@ -42,25 +42,6 @@ namespace BusinessLogic.Service.Implementation
         {
             return await _unitOfWork.OrderDetailRepository.FindByIdAsync(id);
         }
-        //public async Task<T?> GetByIdAsync(int? id)
-        //{
-        //    return await _dbSet.FindAsync(id);
-        //}
-
-        //public async Task<bool> RemoveAsync(T entity)
-        //{
-        //    _dbSet.Remove(entity);
-        //    int success = await _context.SaveChangesAsync();
-        //    return await Task.FromResult(success == 1);
-        //}
-
-        //public async Task<bool> UpdateAsync(T entity)
-        //{
-        //    _dbSet.Attach(entity);
-        //    _context.Entry(entity).State = EntityState.Modified;
-        //    int success = await _context.SaveChangesAsync();
-        //    return await Task.FromResult(success == 1);
-        //}
 
         public async Task<IEnumerable<BirdCage>> GetAllBirdCageAsync()
         {
@@ -72,6 +53,29 @@ namespace BusinessLogic.Service.Implementation
             return await _unitOfWork.OrderRepository.GetAllAsync();
         }
 
+        public async Task<Order?> GetOrderByIdAsync(int orderId)
+        {
+            return await _unitOfWork.OrderRepository.GetById(orderId);
+        }
 
+
+        public async Task<bool> AddOrderAsync(Order order)
+        {
+            return await _unitOfWork.OrderRepository.AddAsync(order);
+        }
+
+        public async Task<bool> DeleteOrderAsync(Order order)
+        {
+            return await _unitOfWork.OrderRepository.RemoveAsync(order);
+        }
+
+        public async Task<bool> UpdateOrderAsync(Order order)
+        {
+            return await _unitOfWork.OrderRepository.UpdateAsync(order);
+        }
+
+        
+
+        
     }
 }
