@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BusinessObject.Models;
 
 public partial class Progress
 {
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int ProgressId { get; set; }
 
     public int ProgressNum { get; set; }

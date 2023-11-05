@@ -18,6 +18,29 @@ namespace BusinessLogic.Service.Implementation
             this.unitOfWork = unitOfWork;
         }
 
-        public Task<IEnumerable<Customer>> GetCustomers() => unitOfWork.CustomerRepository.GetAllAsync();
+        public Task<bool> AddCustomerAsync(Customer order)
+        {
+            return unitOfWork.CustomerRepository.AddAsync(order);
+        }
+
+        public Task<bool> DeleteCustomerAsync(Customer order)
+        {
+            return unitOfWork.CustomerRepository.RemoveAsync(order);
+        }
+
+        public Task<IEnumerable<Customer>> GetAllCustomerAsync()
+        {
+            return unitOfWork.CustomerRepository.GetAllAsync();
+        }
+
+        public Task<Customer?> GetCustomerByIdAsync(int CustomerId)
+        {
+            return unitOfWork.CustomerRepository.GetById(CustomerId);
+        }
+
+        public Task<bool> UpdateCustomerAsync(Customer order)
+        {
+            return unitOfWork.CustomerRepository.UpdateAsync(order);
+        }
     }
 }

@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessObject", "BusinessO
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BirdCageProduction.Web", "BirdCageProduction.Web\BirdCageProduction.Web.csproj", "{D6EDBBB2-609C-4D01-A366-0AD6102E9310}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BirdCageAPI", "BirdCageAPI\BirdCageAPI.csproj", "{EF527ACF-6B9A-46F6-A596-DD46E1F348C0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{D6EDBBB2-609C-4D01-A366-0AD6102E9310}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6EDBBB2-609C-4D01-A366-0AD6102E9310}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6EDBBB2-609C-4D01-A366-0AD6102E9310}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF527ACF-6B9A-46F6-A596-DD46E1F348C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF527ACF-6B9A-46F6-A596-DD46E1F348C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF527ACF-6B9A-46F6-A596-DD46E1F348C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF527ACF-6B9A-46F6-A596-DD46E1F348C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
