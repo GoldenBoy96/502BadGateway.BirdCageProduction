@@ -15,7 +15,7 @@ namespace BusinessLogic.Models.Reponse
 
         public decimal? TotalPrice { get; set; }
 
-        public int? StatusId { get; set; }
+        public string? Status { get; set; }
 
         public string? Address { get; set; }
 
@@ -23,6 +23,6 @@ namespace BusinessLogic.Models.Reponse
 
         public int? CustomerId { get; set; }
 
-        public  List<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
+        public  List<OrderDetailReponse> OrderDetails { get; set; } = new List<OrderDetailReponse>();
     }
 }

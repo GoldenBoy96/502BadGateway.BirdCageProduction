@@ -16,7 +16,7 @@ namespace BusinessLogic.Models.Reponse
 
         public DateTime? EndDay { get; set; }
 
-        public int? StatusId { get; set; }
+        public string? Status { get; set; }
 
         public int? OrderDetailId { get; set; }
 

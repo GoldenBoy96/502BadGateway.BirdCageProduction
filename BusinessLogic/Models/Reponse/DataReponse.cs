@@ -8,7 +8,7 @@ namespace BusinessLogic.Models.Reponse
 {
     public class DataReponse<T>
     {
-        public Object? Data { get; set; }
+        public T? Data { get; set; }
         public bool Success { get; set; }
         public string? Message { get; set; }
     }

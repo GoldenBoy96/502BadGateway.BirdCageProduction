@@ -1,4 +1,5 @@
-﻿using BusinessLogic.Models.Reponse;
+﻿using AutoMapper;
+using BusinessLogic.Models.Reponse;
 using BusinessLogic.Service.Abstraction;
 using BusinessObject.Models;
 using Microsoft.AspNetCore.Http;
@@ -11,19 +12,22 @@ namespace BirdCageAPI.Controllers
     public class OrderDetailController : ControllerBase
     {
         private IOrderService _orderService;
-        public OrderDetailController(IOrderService orderService)
+
+        private readonly IMapper _mapper;
+        public OrderDetailController(IOrderService orderService, IMapper mapper)
         {
             _orderService = orderService;
+            _mapper = mapper;
         }
         [HttpGet]
-        public async Task<ActionResult<List<OrderDetail>>> GetOrderDetails()
+        public async Task<ActionResult<List<OrderDetailReponse>>> GetOrderDetails()
         {
-            var response = new DataReponse<List<OrderDetail>>();
+            var response = new DataReponse<List<OrderDetailReponse>>();
             try
             {
                 response.Success = true;
                 response.Message = "Get Order Detail success!";
-                response.Data = await _orderService.GetAllOrderDetailAsync();
+                response.Data = _mapper.Map<List<OrderDetailReponse>>(await _orderService.GetAllOrderDetailAsync());
                 return Ok(response);
             }
             catch (Exception ex)
@@ -36,14 +40,14 @@ namespace BirdCageAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<OrderDetail>>> GetOrderDetailsById(int id)
+        public async Task<ActionResult<OrderDetailReponse>> GetOrderDetailsById(int id)
         {
-            var response = new DataReponse<List<OrderDetail>>();
+            var response = new DataReponse<OrderDetailReponse>();
             try
             {
                 response.Success = true;
                 response.Message = "Get Order Detail success!";
-                response.Data = await _orderService.GetOrderDetailByIdAsync(id);
+                response.Data = _mapper.Map<OrderDetailReponse>(await _orderService.GetOrderDetailByIdAsync(id));
                 return Ok(response);
             }
             catch (Exception ex)
@@ -56,41 +60,41 @@ namespace BirdCageAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<OrderDetail>>> AddOrderDetail(OrderDetail orderDetail)
+        public async Task<ActionResult<bool>> AddOrderDetail(OrderDetailReponse orderDetailReponse)
         {
-            var response = new DataReponse<List<OrderDetail>>();
+            var response = new DataReponse<bool>();
             try
             {
                 response.Success = true;
                 response.Message = "Add Order Detail success!";
-                response.Data = await _orderService.AddOrderDetailAsync(orderDetail);
+                response.Data = await _orderService.AddOrderDetailAsync(_mapper.Map<OrderDetail>(orderDetailReponse));
                 return Ok(response);
             }
             catch (Exception ex)
             {
                 response.Success = false;
                 response.Message = "Add Order Detail error!";
-                response.Data = null;
+                response.Data = false;
                 return NotFound(ex.Message);
             }
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<List<OrderDetail>>> UpdateOrderDetail(OrderDetail orderDetail)
+        public async Task<ActionResult<bool>> UpdateOrderDetail(OrderDetail orderDetail)
         {
-            var response = new DataReponse<List<OrderDetail>>();
+            var response = new DataReponse<bool>();
             try
             {
                 response.Success = true;
                 response.Message = "Update Order Detail success!";
-                response.Data = await _orderService.UpdateOrderDetailAsync(orderDetail);
+                response.Data = await _orderService.UpdateOrderDetailAsync(_mapper.Map<OrderDetail>(orderDetail));
                 return Ok(response);
             }
             catch (Exception ex)
             {
                 response.Success = false;
                 response.Message = "Update Order Detail error!";
-                response.Data = null;
+                response.Data = false;
                 return NotFound(ex.Message);
             }
         }

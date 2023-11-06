@@ -27,7 +27,7 @@ namespace BirdCageProduction.Web.Pages.Order
         public IActionResult OnGet()
         {
             ViewData["AccountId"] = new SelectList(_accountService.GetAllAccountsAsync().Result, "AccountId", "AccountId");
-            ViewData["CustomerId"] = new SelectList(_customerService.GetCustomers().Result, "CustomerId", "CustomerId");
+            ViewData["CustomerId"] = new SelectList(_customerService.GetAllCustomerAsync().Result, "CustomerId", "CustomerId");
             return Page();
         }
 

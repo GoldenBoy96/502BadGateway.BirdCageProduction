@@ -13,5 +13,7 @@ namespace BusinessLogic.Models.Reponse
         public string? Name { get; set; }
 
         public string? Description { get; set; }
+
+        public  List<PartItemReponse> PartItems { get; set; } = new List<PartItemReponse>();
     }
 }

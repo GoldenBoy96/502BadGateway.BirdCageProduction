@@ -2,97 +2,96 @@
 using BusinessLogic.Models.Reponse;
 using BusinessLogic.Service.Abstraction;
 using BusinessObject.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BirdCageAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CustomerController : ControllerBase
+    public class ProcedureStepController : ControllerBase
     {
-        private ICustomerService _customerService;
+        private IProcedureService _customerService;
         private readonly IMapper _mapper;
-        public CustomerController(ICustomerService customerService, IMapper mapper)
+        public ProcedureStepController(IProcedureService customerService, IMapper mapper)
         {
             _customerService = customerService;
             _mapper = mapper;
         }
         [HttpGet]
-        public async Task<ActionResult<List<CustomerReponse>>> GetCustomers()
+        public async Task<ActionResult<List<ProcedureStepReponse>>> GetProcedureSteps()
         {
-            var response = new DataReponse<List<CustomerReponse>>();
+            var response = new DataReponse<List<ProcedureStepReponse>>();
             try
             {
                 response.Success = true;
-                response.Message = "Get Customer success!";
-                response.Data = _mapper.Map<List<CustomerReponse>>(await _customerService.GetAllCustomerAsync()) ;
+                response.Message = "Get ProcedureStep success!";
+                response.Data = _mapper.Map<List<ProcedureStepReponse>>(await _customerService.GetAllProcedureStepAsync());
                 return Ok(response);
             }
             catch (Exception ex)
             {
                 response.Success = false;
-                response.Message = "Get Customers error!";
+                response.Message = "Get ProcedureSteps error!";
                 response.Data = null;
                 return NotFound(ex.Message);
             }
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<CustomerReponse>> GetCustomersById(int id)
+        public async Task<ActionResult<ProcedureStepReponse>> GetProcedureStepsById(int id)
         {
-            var response = new DataReponse<CustomerReponse>();
+            var response = new DataReponse<ProcedureStepReponse>();
             try
             {
                 response.Success = true;
-                response.Message = "Get Customer success!";
-                response.Data = _mapper.Map<CustomerReponse>(await _customerService.GetCustomerByIdAsync(id));
+                response.Message = "Get ProcedureStep success!";
+                response.Data = _mapper.Map<ProcedureStepReponse>(await _customerService.GetProcedureStepByIdAsync(id));
                 return Ok(response);
             }
             catch (Exception ex)
             {
                 response.Success = false;
-                response.Message = "Get Customer error!";
+                response.Message = "Get ProcedureStep error!";
                 response.Data = null;
                 return NotFound(ex.Message);
             }
         }
 
         [HttpPost]
-        public async Task<ActionResult<bool>> AddCustomer(CustomerReponse customerReponse)
+        public async Task<ActionResult<bool>> AddProcedureStep(ProcedureStepReponse customerReponse)
         {
             var response = new DataReponse<bool>();
             try
-            {  
+            {
                 response.Success = true;
-                response.Message = "Add Customer success!";
-                response.Data = await _customerService.AddCustomerAsync(_mapper.Map<Customer>(customerReponse));
+                response.Message = "Add ProcedureStep success!";
+                response.Data = await _customerService.AddProcedureStepAsync(_mapper.Map<ProcedureStep>(customerReponse));
                 return Ok(response);
             }
             catch (Exception ex)
             {
                 response.Success = false;
-                response.Message = "Add Customer error!";
+                response.Message = "Add ProcedureStep error!";
                 response.Data = false;
                 return NotFound(ex.Message);
             }
         }
 
         [HttpPut]
-        public async Task<ActionResult<bool>> UpdateCustomer(CustomerReponse customer)
+        public async Task<ActionResult<bool>> UpdateProcedureStep(ProcedureStepReponse customer)
         {
             var response = new DataReponse<bool>();
             try
             {
                 response.Success = true;
-                response.Message = "Update Customer success!";
-                response.Data = await _customerService.UpdateCustomerAsync(_mapper.Map<Customer>(customer));
+                response.Message = "Update ProcedureStep success!";
+                response.Data = await _customerService.UpdateProcedureStepAsync(_mapper.Map<ProcedureStep>(customer));
                 return Ok(response);
             }
             catch (Exception ex)
             {
                 response.Success = false;
-                response.Message = "Update Customer error!";
+                response.Message = "Update ProcedureStep error!";
                 response.Data = false;
                 return NotFound(ex.Message);
             }

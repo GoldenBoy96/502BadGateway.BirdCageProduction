@@ -23,7 +23,13 @@ namespace BusinessLogic.AutoMappers
 
         private void AutoMapping()
         {
-            CreateMap<AccountReponse, Account>();
+            CreateMap<AccountReponse, Account>()
+                .ForMember(dest => dest.StatusId, opt => opt.MapFrom(src => Constant.AccountStatus.IndexOf(src.Status)))
+                .ForMember(dest => dest.RoleId, opt => opt.MapFrom(src => Constant.Role.IndexOf(src.Role)))
+                .ReverseMap()
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => Constant.AccountStatus[(int)src.StatusId]))
+                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => Constant.Role[(int)src.RoleId]));
+
 
             CreateMap<BirdCageReponse, BirdCage>();
 
@@ -33,11 +39,19 @@ namespace BusinessLogic.AutoMappers
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => Constant.CustomerStatus[(int)src.StatusId]));
 
 
-            CreateMap<OrderReponse, Order>();
+            CreateMap<OrderReponse, Order>()
+                .ForMember(dest => dest.StatusId, opt => opt.MapFrom(src => Constant.OrderStatus.IndexOf(src.Status)))
+                .ReverseMap()
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => Constant.OrderStatus[(int)src.StatusId]));
+
             CreateMap<OrderDetailReponse, OrderDetail>();
             CreateMap<PartReponse, Part>();
             CreateMap<ProcedureReponse, Procedure>();
-            CreateMap<ProgressReponse, Progress>();
+            CreateMap<ProgressReponse, Progress>()
+                .ForMember(dest => dest.StatusId, opt => opt.MapFrom(src => Constant.ProgressStatus.IndexOf(src.Status)))
+                .ReverseMap()
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => Constant.ProgressStatus[(int)src.StatusId]));
+
 
         }
     }

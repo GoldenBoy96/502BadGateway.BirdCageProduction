@@ -15,6 +15,6 @@ namespace BusinessLogic.Models.Reponse
 
         public virtual BirdCage? BirdCage { get; set; }
 
-        public  List<ProcedureStep> ProcedureSteps { get; set; } = new List<ProcedureStep>();
+        public  List<ProcedureStepReponse> ProcedureSteps { get; set; } = new List<ProcedureStepReponse>();
     }
 }
