@@ -53,7 +53,8 @@
                     <form class="form_order" id="bc-form" method="post">
                         <div class="form-item">
                             <label for="id">Id</label>
-                            <input type="text" class="form-item_input" id="id" disabled asp-for="BirdCage.BirdCageId" placeholder="Id" readonly />
+                            <input type="text" class="form-item_input" id="id" disabled asp-for="BirdCage.BirdCageId"
+                                placeholder="Id" readonly />
                         </div>
                         <div class="form-item">
                             <label for="Name">Name</label>
@@ -61,24 +62,21 @@
                         </div>
                         <div class="form-item">
                             <label for="Description">Description</label>
-                            <textarea rows="9"
-                                      type="text"
-                                      class="form-item_input"
-                                      id="Parts" disabled asp-for="BirdCage.Description"></textarea>
+                            <textarea rows="9" type="text" class="form-item_input" id="Parts" disabled
+                                asp-for="BirdCage.Description"></textarea>
                         </div>
 
 
                         <div class="form-item">
                             <label for="">Parts</label>
                             <div class="form-item__part">
-                                    
+
                                 <div id="part-item-container">
                                     @for (var index = 0; index < Model.PartItemPages.Count; index++)
                                     {
-                                        var id = "part-" + index;
-                                        <div class="part-item" id="@id">
+                                        <div class="part-item" id="@index">
                                             <div class="form-item">
-                                                <select id="part" disabled asp-for="@Model.PartItemPages[index].Code">
+                                                <select disabled asp-for="@Model.PartItemPages[index].Code" id="PartItemPages[@index].Code">
                                                     @foreach (var i in Model.PartCode.Items)
                                                     {
                                                         if (i.Equals(@Model.PartItemPages[index].Code))
@@ -91,25 +89,24 @@
                                                 </select>
                                             </div>
                                             <div class="form-item">
-                                                <input type="text"
-                                                       class="form-item_input"
-                                                       id="Quantity"
-                                                       placeholder="Quantity" disabled asp-for="@Model.PartItemPages[index].Quantity" />
+                                                <input type="text" class="form-item_input"
+                                                    placeholder="Quantity" disabled
+                                                    asp-for="@Model.PartItemPages[index].Quantity" id="PartItemPages[@index].Quantity" />
                                             </div>
                                             <div class="part-icon">
-                                                <img src="./images/icon-info.png"
-                                                     alt=""
-                                                     width="40" />
+                                                <img src="./images/icon-info.png" alt="" width="40" />
                                                 <img src="./images/icon-delete.png"
                                                      alt=""
-                                                     width="60" />
+                                                     width="60" onclick="deleteRow(this)" />
                                             </div>
                                         </div>
                                     }
                                 </div>
 
-                                <div class="plus"> 
-                                    <button style="background:none;border:none;color:inherit;padding:inherit;cursor:pointer;outline:inherit" type="button" id="createDivButton" disabled>
+                                <div class="plus">
+                                    <button
+                                        style="background:none;border:none;color:inherit;padding:inherit;cursor:pointer;outline:inherit"
+                                        type="button" id="createDivButton" disabled>
                                         +
                                     </button>
                                 </div>
@@ -130,19 +127,23 @@
                             <button class="btn" onclick="resetPage()" type="button">Cancel</button>
                         </div>
 
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         Are you sure want to delete this item?
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-danger" asp-page-handler="Delete">Delete</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-danger"
+                                            asp-page-handler="Delete">Delete</button>
                                     </div>
                                 </div>
                             </div>
@@ -162,12 +163,10 @@
                     </form>
 
 
-                    
+
                     <div class="search right">
                         <div class="search-input right">
-                            <img src="./assets/images/search.svg"
-                                 alt=""
-                                 class="search-icon" />
+                            <img src="./assets/images/search.svg" alt="" class="search-icon" />
                             <input type="text" placeholder="Search" />
                         </div>
                     </div>
@@ -195,7 +194,7 @@
                             }
                         </table>
                     </div>
-                    @*                     <div class="pagination">
+                    @* <div class="pagination">
                     <a href="#" class="pagination-prev"><< Prev</a>
                     <a href="#" class="pagination-number">1</a>
                     <a href="#" class="pagination-number">2</a>
@@ -217,7 +216,7 @@
 </div>
 
 
-@section scripts{
+@section scripts {
 
     <script type="text/javascript">
         function showPartItem() {
@@ -255,46 +254,60 @@
         const container = document.getElementById("part-item-container");
         var count = 0 + @Model.PartItemPages.Count;
         function createAndDisplayDiv() {
-            @{
-                Model.PartItemPages.Add(new BusinessLogic.Models.PartItem.PartItemPageModel());
-            }
-            container.innerHTML += `
-                            <div class="part-item" id="part-${count}">
-                                <div class="form-item">
-                                    <select id="part" name="PartItemPages[${count}].Code">
-                                        @foreach (var item in Model.PartCode.Items)
-                                        {
-                                            <option value="@item">@item</option>
-                                        }
-                                    </select>
-                                </div>
-                                <div class="form-item">
-                                    <input type="text"
-                                        class="form-item_input"
-                                        id="Quantity"
-                                        placeholder="Quantity" name="PartItemPages[${count}].Quantity"/>
-                                </div>
-                                <div class="part-icon">
-                                    <img src="./images/icon-info.png"
-                                        alt=""
-                                        width="40" />
-                                    <img src="./images/icon-delete.png"
-                                        alt=""
-                                        width="60"/>
-                                </div>
-                            </div>`;
+        @{
+            Model.PartItemPages.Add(new BusinessLogic.Models.PartItem.PartItemPageModel());
+        }
+                container.innerHTML += `
+                                <div class="part-item" id="${count}">
+                                    <div class="form-item">
+                                        <select name="PartItemPages[${count}].Code" id="PartItemPages[${count}].Code">
+                                            @foreach (var item in Model.PartCode.Items)
+                                            {
+                                                    <option value="@item">@item</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="form-item">
+                                        <input type="text"
+                                            class="form-item_input"
+                                            placeholder="Quantity" name="PartItemPages[${count}].Quantity" id="PartItemPages[${count}].Quantity"/>
+                                    </div>
+                                    <div class="part-icon">
+                                        <img src="./images/icon-info.png"
+                                            alt=""
+                                            width="40" />
+                                        <img src="./images/icon-delete.png"
+                                            alt=""
+                                            width="60" onclick="deleteRow(this)"/>
+                                    </div>
+                                </div>`;
             count++;
-
-            const newDiv = document.getElementById(`part-${count}`);
-            const removeImage = newDiv.querySelector(".remove-image");
-
-            removeImage.addEventListener("click", function () {
-                newDiv.parent("div").remove();
-            });
         }
 
         createDivButton.addEventListener("click", createAndDisplayDiv);
 
+        function deleteRow(element) {
+            var currentRow = parseInt(($(element).parent("div")).parent("div").attr('id'));
+
+            ($(element).parent("div")).parent("div").remove();
+
+            for (var i = currentRow + 1; i < count; i++) {
+                document.getElementById(i).id = currentRow;
+
+                var code = document.getElementById(`PartItemPages[${i}].Code`);
+                code.id = `PartItemPages[${currentRow}].Code`;
+                code.setAttribute("name", `PartItemPages[${currentRow}].Code`);
+
+                var quantity = document.getElementById(`PartItemPages[${i}].Quantity`);
+                quantity.id = `PartItemPages[${currentRow}].Quantity`;
+                quantity.setAttribute("name", `PartItemPages[${currentRow}].Quantity`);
+                currentRow++;
+            }
+
+
+            
+            count--;
+        }
 
         function resetPage() {
             location.reload(true);

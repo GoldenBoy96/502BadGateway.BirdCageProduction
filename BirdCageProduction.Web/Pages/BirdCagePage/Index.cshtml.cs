@@ -29,9 +29,9 @@ public class IndexModel : PageModel
     [BindProperty]
     public BirdCage? BirdCage { get; set; }
 
-    public PartItemPageModel PartItem { get; set; }
+    public PartItemPageModel? PartItem { get; set; }
 
-    public SelectList PartCode {  get; set; }
+    public SelectList? PartCode {  get; set; }
 
     public int index;
 
