@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BusinessObject.Models;
 
 public partial class ProcedureStep
 {
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int ProcedureStepId { get; set; }
 
     public int StepNum { get; set; }

@@ -29,7 +29,7 @@ namespace BirdCageProduction.Web.Pages.Order.OrderDetailPage
             {
                 return NotFound();
             }
-            var orderdetail = _orderService.FindOrderDetailByIdAsync((int)id);
+            var orderdetail = _orderService.GetOrderDetailByIdAsync((int)id);
 
             if (orderdetail == null)
             {
@@ -48,7 +48,7 @@ namespace BirdCageProduction.Web.Pages.Order.OrderDetailPage
             {
                 return NotFound();
             }
-            var orderdetail = _orderService.FindOrderDetailByIdAsync((int)id);
+            var orderdetail = _orderService.GetOrderDetailByIdAsync((int)id);
 
             if (orderdetail != null)
             {

@@ -14,9 +14,6 @@ namespace BusinessLogic.Constant.StatusConstant
     public class StatusConstant : IStatusConstant
     {
 
-        private readonly DataAccess.BirdCageProductionContext _context;
-        IUnitOfWork _unitOfWork;
-
         IAccountStatusRepository _accountStatusRepository;
         ICustomerStatusRepository _customerStatusRepository;
         IOrderStatusRepository _orderStatusRepository;
@@ -28,9 +25,8 @@ namespace BusinessLogic.Constant.StatusConstant
         List<string> _progressStatusList = new();
 
 
-        public StatusConstant(IUnitOfWork unitOfWork, IAccountStatusRepository accountStatusRepository, ICustomerStatusRepository customerStatusRepository, IOrderStatusRepository orderStatusRepository, IProgressStatusRepository progressStatusRepository)
+        public StatusConstant(IAccountStatusRepository accountStatusRepository, ICustomerStatusRepository customerStatusRepository, IOrderStatusRepository orderStatusRepository, IProgressStatusRepository progressStatusRepository)
         {
-            _unitOfWork = unitOfWork;
             _accountStatusRepository = accountStatusRepository;
             _customerStatusRepository = customerStatusRepository;
             _orderStatusRepository = orderStatusRepository;

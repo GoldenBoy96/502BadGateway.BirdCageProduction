@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BusinessObject.Models;
 
 public partial class Account
 {
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int AccountId { get; set; }
 
     public string? FullName { get; set; }

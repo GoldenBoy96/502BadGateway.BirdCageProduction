@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BusinessObject.Models;
 
 public partial class Part
 {
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int PartId { get; set; }
 
     public string? Name { get; set; }

@@ -14,12 +14,10 @@ namespace BusinessLogic.Service.Implementation
     public class OrderService : IOrderService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public OrderService(IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor)
+        public OrderService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _httpContextAccessor = httpContextAccessor;
         }
         public async Task<IEnumerable<OrderDetail>> GetAllOrderDetailOfAnOrderAsync(int orderId)
         {
@@ -37,8 +35,17 @@ namespace BusinessLogic.Service.Implementation
             return await _unitOfWork.OrderDetailRepository.AddAsync(orderDetail);
         }
 
+        public async Task<bool> DeleteOrderDetailAsync(OrderDetail orderDetail)
+        {
+            return await _unitOfWork.OrderDetailRepository.RemoveAsync(orderDetail);
+        }
 
-        public async Task<OrderDetail> FindOrderDetailByIdAsync(int id)
+        public async Task<bool> UpdateOrderDetailAsync(OrderDetail orderDetail)
+        {
+            return await _unitOfWork.OrderDetailRepository.UpdateAsync(orderDetail);
+        }
+
+        public async Task<OrderDetail> GetOrderDetailByIdAsync(int id)
         {
             return await _unitOfWork.OrderDetailRepository.FindByIdAsync(id);
         }

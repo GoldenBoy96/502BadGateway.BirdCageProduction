@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BusinessObject.Models;
 
 public partial class OrderDetail
 {
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int OrderDetailId { get; set; }
 
     public int? Quantity { get; set; }

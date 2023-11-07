@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BusinessObject.Models;
 
 public partial class Procedure
 {
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int ProcedureId { get; set; }
 
     public int? BirdCageId { get; set; }
