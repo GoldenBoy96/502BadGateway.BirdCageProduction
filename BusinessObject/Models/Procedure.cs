@@ -11,6 +11,8 @@ public partial class Procedure
 
     public int? BirdCageId { get; set; }
 
+    public int? Quantity { get; set; }
+
     public virtual BirdCage? BirdCage { get; set; }
 
     public virtual ICollection<ProcedureStep> ProcedureSteps { get; set; } = new List<ProcedureStep>();

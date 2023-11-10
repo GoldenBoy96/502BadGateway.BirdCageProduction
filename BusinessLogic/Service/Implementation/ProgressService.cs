@@ -18,6 +18,12 @@ namespace BusinessLogic.Service.Implementation
             this.unitOfWork = unitOfWork;
         }
 
+        //public Task<List<Progress>> GenerateProgressFromProcedure(int procedureId)
+        //{
+            
+        //    List<ProcedureStep> procedureSteps = unitOfWork.
+        //}
+
         public Task<bool> AddProgressAsync(Progress order)
         {
             return unitOfWork.ProgressRepository.AddAsync(order);

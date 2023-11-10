@@ -162,6 +162,7 @@ CREATE TABLE OrderDetail(
 CREATE TABLE [Procedure](
   ProcedureId INT IdENTITY(1,1) PRIMARY KEY,
   BirdCageId INT,
+  Quantity INT,
   FOREIGN KEY (BirdCageId) REFERENCES BirdCage(BirdCageId)
 );
 

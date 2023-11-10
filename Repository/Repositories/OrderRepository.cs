@@ -37,10 +37,13 @@ namespace Repository.Repositories
 
         public new async Task<bool> RemoveAsync(Order entity)
         {
-            foreach (var item in entity.OrderDetails) {
-                _context.OrderDetails.Remove(item);
+            foreach (var item in _context.OrderDetails) {
+                if (item.OrderId.Equals(entity.OrderId))
+                {
+                    _context.OrderDetails.Remove(item);
+                }
             }
-            
+
             _dbSet.Remove(entity);
             int success = await _context.SaveChangesAsync();
             return await Task.FromResult(success == 1);
