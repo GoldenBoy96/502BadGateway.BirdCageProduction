@@ -172,7 +172,7 @@ CREATE TABLE ProcedureStep(
    ProcedureStepId INT IdENTITY(1,1) PRIMARY KEY, 
    StepNum INT UNIQUE,
    Description VARCHAR(50),
-   TimeNeeded FLOAT,
+   TimeNeeded INT,
    Cost FLOAT,
    NumOfWorker INT,
    ProcedureId INT,

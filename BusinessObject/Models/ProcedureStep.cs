@@ -13,7 +13,7 @@ public partial class ProcedureStep
 
     public string? Description { get; set; }
 
-    public double? TimeNeeded { get; set; }
+    public int? TimeNeeded { get; set; }
 
     public double? Cost { get; set; }
 

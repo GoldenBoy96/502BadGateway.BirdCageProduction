@@ -9,5 +9,6 @@ namespace Repository.IRepositories
 {
     public interface IProgressRepository : IBaseRepository<Progress>
     {
+        List<Progress> GetByOrderDetailId(int orderDetailId);
     }
 }

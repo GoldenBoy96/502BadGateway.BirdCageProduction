@@ -14,5 +14,10 @@ namespace Repository.Repositories
         public ProgressRepository(BirdCageProductionContext context) : base(context)
         {
         }
+
+        public  List<Progress> GetByOrderDetailId(int orderDetailId)
+        {
+            return  _context.Progresses.Where(c => c.OrderDetailId == orderDetailId).ToList();
+        }
     }
 }
