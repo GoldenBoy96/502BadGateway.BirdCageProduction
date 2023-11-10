@@ -14,5 +14,10 @@ namespace Repository.Repositories
         public ProcedureStepRepository(BirdCageProductionContext context) : base(context)
         {
         }
+
+        public async Task<List<ProcedureStep>> GetByProcedureId(int procedureId)
+        {
+            return _context.ProcedureSteps.Where(c => c.ProcedureId == procedureId).ToList();
+        }
     }
 }

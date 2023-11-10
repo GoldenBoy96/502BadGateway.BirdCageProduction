@@ -9,5 +9,6 @@ namespace Repository.IRepositories
 {
     public interface IProcedureStepRepository : IBaseRepository<ProcedureStep>
     {
+        public  Task<List<ProcedureStep>> GetByProcedureId(int procedureId);
     }
 }

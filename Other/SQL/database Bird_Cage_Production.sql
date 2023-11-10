@@ -154,6 +154,7 @@ CREATE TABLE OrderDetail(
 	Quantity INT,
 	BirdCageId INT,
 	OrderId INT,	
+	CurrentStep INT,
 	FOREIGN KEY (BirdCageId) REFERENCES BirdCage(BirdCageId),
 	FOREIGN KEY (OrderId) REFERENCES [Order](OrderId)
 );
