@@ -178,6 +178,13 @@ ul {
         justify-content: start;
     }
 
+     ..part-item label {
+        font-weight: 700;
+        color: #3A414A;
+        font-size: 12px;
+     }
+
+
         .form-item__part .part-item .form-item {
             margin-bottom: 0;
         }
@@ -222,6 +229,22 @@ ul {
         align-items: center;
         justify-content: center;
     }
+
+.form-item__bird-cage {
+    margin-top: 12px;
+    border-radius: 10px;
+    border: 2px solid #3A414A;
+    width: 80%;
+    padding: 12px;
+}
+    .form-item__bird-cage .bird-cage-item{
+        margin-top: 12px;
+        border-radius: 10px;
+        border: 2px solid #3A414A;
+        width: auto;
+        padding: 12px;
+    }
+
 
 .list-btn {
     display: flex;
