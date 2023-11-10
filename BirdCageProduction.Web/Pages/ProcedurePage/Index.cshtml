@@ -135,6 +135,9 @@
                                          alt=""
                                          width="60" onclick="deleteRow(this)" />
                                 </div>
+
+
+
                             </div>
                         </div>
 
@@ -155,11 +158,12 @@
                                 <th>Bird cage name</th>
                                 <th>Step</th>
                             </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Manager A</td>
-                                <td>Sample</td>
-                            </tr>
+                            @foreach(var item in Model.Procedures)
+                            {
+                                <td>@item.ProcedureId</td>
+                                <td>@item.BirdCage.Name</td>
+                                <td>@item.</td>
+                            }
 
                         </table>
                     </div>

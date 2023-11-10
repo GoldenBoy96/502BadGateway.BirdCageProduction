@@ -18,8 +18,11 @@ builder.Services.AddRazorPages(option => option.Conventions.AddPageRoute("/Accou
 // DbContext
 //builder.Services.AddDbContext<BirdCageProductionContext>(option
 //    => option.UseSqlServer(builder.Configuration.GetConnectionString("BirdCageProduction")));
-builder.Services.AddDbContext<BirdCageProductionContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("BirdCageProduction")), 
-    ServiceLifetime.Transient);
+builder.Services.AddDbContext<BirdCageProductionContext>(option =>
+{
+    option.UseSqlServer(builder.Configuration.GetConnectionString("BirdCageProduction"));
+    option.UseLazyLoadingProxies();
+});
 
 // DI Container
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
