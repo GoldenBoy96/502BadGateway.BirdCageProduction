@@ -81,8 +81,50 @@ namespace BusinessLogic.Service.Implementation
             return await _unitOfWork.OrderRepository.UpdateAsync(order);
         }
 
-        
+        public async Task<Order> MoveToNextStatus(Order order)
+        {
+            int? status = order.StatusId;
+            switch (status)
+            {
+                case 0:
+                    order.StatusId += 1;
+                    break;
+                case 1:
+                    order.StatusId += 1;
+                    break;
+                case 2:
+                    bool isCompleteProducing = true;
+                    foreach (OrderDetail orderDetail in order.OrderDetails)
+                    {
+                        foreach (Progress progress in orderDetail.Progresses)
+                        {
+                            if (progress.StatusId != 2)
+                            {
+                                isCompleteProducing = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (isCompleteProducing)
+                    {
+                        order.StatusId += 1;
+                    }
+                    break;
+                case 3:
+                    order.StatusId += 1;
+                    break;
+                case 4:
+                    order.StatusId += 1;
+                    break;
+                case 5:
+                    //Do nothing
+                    break;
+            }
+            await _unitOfWork.OrderRepository.UpdateAsync(order);
+            return order;
 
-        
+        }
+
+
     }
 }

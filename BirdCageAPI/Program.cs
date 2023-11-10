@@ -57,6 +57,7 @@ builder.Services.AddTransient<IColorService, ColorService>();
 builder.Services.AddTransient<IBirdCageService, BirdCageService>();
 builder.Services.AddTransient<IPartItemService, PartItemSerivce>();
 
+
 //AutoMapper
 builder.Services.AddControllersWithViews();
 builder.Services.AddAutoMapper
