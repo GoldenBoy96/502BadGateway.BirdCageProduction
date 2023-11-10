@@ -81,7 +81,7 @@ namespace BusinessLogic.AutoMappers
         {
             "Pending",
             "On Progress",
-            "Conpleted"
+            "Completed"
         };
         public static readonly List<string> Role = new()
         {
