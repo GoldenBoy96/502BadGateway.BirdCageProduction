@@ -9,5 +9,6 @@ namespace Repository.IRepositories
 {
     public interface IProcedureRepository : IBaseRepository<Procedure>
     {
+        Task<Procedure> GetByBirdCageId(int birdCageId);
     }
 }
