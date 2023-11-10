@@ -22,5 +22,6 @@ namespace BusinessLogic.Service.Abstraction
         public Task<bool> AddOrderAsync(Order order);
         public Task<bool> DeleteOrderAsync(Order order);
         public Task<bool> UpdateOrderAsync(Order order);
+        Task<Order> MoveToNextStatus(Order order);
     }
 }

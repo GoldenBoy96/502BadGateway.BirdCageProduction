@@ -11,9 +11,9 @@ public partial class Progress
 
     public int ProgressNum { get; set; }
 
-    public DateOnly? StartDay { get; set; }
+    public DateTime? StartDay { get; set; }
 
-    public DateOnly? EndDay { get; set; }
+    public DateTime? EndDay { get; set; }
 
     public int? StatusId { get; set; }
 

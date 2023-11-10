@@ -49,7 +49,31 @@
         <div class="tabs-content">
 
             <div class="tabs-content__item active">Dashboard</div>
-            
+            @foreach (var order in Model.Order)
+            {
+                <span>@(order.ToString())</span>
+
+                <br />
+                @foreach (var orderDetail in order.OrderDetails)
+                {
+                    <form method="post" asp-page-handler="ToNextProgress" asp-route-id="@orderDetail.OrderDetailId">
+                        <span>
+                            @("  - " + orderDetail.ToString())
+                            @if (orderDetail.Progresses != null && orderDetail.Progresses.Count > 0 )
+                            {
+                                
+                                @* @("Current Step: " + orderDetail.Progresses.ToArray()[(int)orderDetail.CurrentStep]) *@
+                                <button type="submit" class="btn btn-secondary">To next Progress</button>
+                            } else
+                            {
+                                <button type="submit" class="btn btn-secondary">Generate Progresses</button>
+                            }
+                            
+                        </span>
+                        <br>
+                    </form>
+                }
+            }
         </div>
     </div>
 </div>

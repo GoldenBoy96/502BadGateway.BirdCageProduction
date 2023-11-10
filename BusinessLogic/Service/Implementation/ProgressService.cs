@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.Service.Abstraction;
 using BusinessObject.Models;
+using Microsoft.IdentityModel.Tokens;
 using Repository.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -18,12 +19,21 @@ namespace BusinessLogic.Service.Implementation
             this.unitOfWork = unitOfWork;
         }
 
-        public async Task<List<Progress>> GenerateProgressFromProcedure(OrderDetail orderdetail)            
+        public async Task<List<Progress>> GetByOrderDetailId(int orderDetailId)
         {
-            BirdCage birdCage = await unitOfWork.BirdCageRepository.GetById(orderdetail.BirdCageId);
-            Order order = await unitOfWork.OrderRepository.GetById(orderdetail.OrderId);
-            Procedure procedure = await unitOfWork.ProcedureRepository.GetByBirdCageId(birdCage.BirdCageId);
-            List<ProcedureStep> procedureSteps = await unitOfWork.ProcedureStepRepository.GetByProcedureId(procedure.ProcedureId);
+            return unitOfWork.ProgressRepository.GetByOrderDetailId(orderDetailId);
+        }
+
+        public async Task<List<Progress>> GenerateProgressFromProcedure(OrderDetail orderDetail)
+        {
+            List<Progress> oldProgresses = unitOfWork.ProgressRepository.GetByOrderDetailId(orderDetail.OrderDetailId);
+            if (!oldProgresses.IsNullOrEmpty()) { return oldProgresses; }
+
+
+            BirdCage birdCage = unitOfWork.BirdCageRepository.GetById(orderDetail.BirdCageId).Result;
+            Order order = unitOfWork.OrderRepository.GetById(orderDetail.OrderId).Result;
+            Procedure procedure = unitOfWork.ProcedureRepository.GetByBirdCageId(birdCage.BirdCageId).Result;
+            List<ProcedureStep> procedureSteps = unitOfWork.ProcedureStepRepository.GetByProcedureId(procedure.ProcedureId).Result;
             List<Progress> progressList = new List<Progress>();
             for (int i = 0; i < procedureSteps.Count; i++)
             {
@@ -31,20 +41,21 @@ namespace BusinessLogic.Service.Implementation
                 progress.ProgressNum = i;
                 if (i == 0)
                 {
-                    progress.StartDay = DateOnly.FromDateTime(DateTime.Now);
+                    progress.StartDay = DateTime.Now;
                     progress.StatusId = 1;
-                    orderdetail.CurrentStep = 0;
-                    await unitOfWork.OrderDetailRepository.UpdateAsync(orderdetail);
-                } else
+                    orderDetail.CurrentStep = 0;
+                    await unitOfWork.OrderDetailRepository.UpdateAsync(orderDetail);
+                }
+                else
                 {
-                    progress.StartDay = progressList[i - 1].EndDay;
+                    progress.StartDay = progressList[i - 1].EndDay.Value.AddDays(1);
                     progress.StatusId = 0;
                 }
                 progress.EndDay = progress.StartDay.Value.AddDays((int)procedureSteps[i].TimeNeeded);
 
-                
+
                 progress.AccountId = order.AccountId;
-                progress.OrderDetailId = orderdetail.OrderDetailId;
+                progress.OrderDetailId = orderDetail.OrderDetailId;
                 await unitOfWork.ProgressRepository.AddAsync(progress);
             }
             return progressList;
@@ -54,12 +65,12 @@ namespace BusinessLogic.Service.Implementation
         {
             List<Progress> progresses = (List<Progress>)unitOfWork.ProgressRepository.GetByOrderDetailId(orderDetail.OrderDetailId).OrderBy(c => c.ProgressNum);
             if (orderDetail.CurrentStep == progresses.Count - 1)
-            {                
+            {
                 orderDetail.CurrentStep = 2;
                 await unitOfWork.OrderDetailRepository.UpdateAsync(orderDetail);
-                    progresses[progresses.Count - 1].StatusId = 2;
+                progresses[progresses.Count - 1].StatusId = 2;
                 await unitOfWork.ProgressRepository.UpdateAsync(progresses[progresses.Count - 1]);
-            } 
+            }
             else if (orderDetail.CurrentStep < progresses.Count - 1)
             {
                 progresses[(int)orderDetail.CurrentStep].StatusId = 2;
@@ -70,7 +81,7 @@ namespace BusinessLogic.Service.Implementation
                 await unitOfWork.ProgressRepository.UpdateAsync(progresses[(int)orderDetail.CurrentStep]);
 
             }
-            
+
         }
 
         public Task<bool> AddProgressAsync(Progress order)
