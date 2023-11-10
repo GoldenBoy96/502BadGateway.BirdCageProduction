@@ -14,5 +14,14 @@ namespace Repository.Repositories
         public ProcedureRepository(BirdCageProductionContext context) : base(context)
         {
         }
+
+        //public ProcedureRepository GetByBirdCageIdAndQuantity(int birdCageId, int quantity)
+        //{
+        //    Procedure? procedure = _context.Procedures.FirstOrDefault(c => c.BirdCageId.Equals(birdCageId) && c.Quantity == quantity);
+        //    if (procedure != null)
+        //    {
+        //        return _context.ProcedureSteps.
+        //    }
+        //}
     }
 }

@@ -75,7 +75,8 @@ namespace BusinessLogic.AutoMappers
             "Is producing",
             "Produced",
             "Delivering",
-            "Completed"
+            "Completed",
+            "Cancel"
         };
         public static readonly List<string> ProgressStatus = new()
         {

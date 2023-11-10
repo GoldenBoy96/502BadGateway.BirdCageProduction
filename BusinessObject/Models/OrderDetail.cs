@@ -15,6 +15,8 @@ public partial class OrderDetail
 
     public int? OrderId { get; set; }
 
+    public int? CurrentStep { get; set; }
+
     public virtual BirdCage? BirdCage { get; set; }
 
     public virtual Order? Order { get; set; }

@@ -31,6 +31,7 @@ namespace BirdCageProduction.Web.Pages.AccountPage
             var temp = await _authService.Login(Email, Password);
             if (temp)
             {
+
                 return RedirectToPage("/Index");
             }
             else
