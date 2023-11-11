@@ -81,10 +81,12 @@ namespace BusinessLogic.Service.Implementation
             return await _unitOfWork.OrderRepository.UpdateAsync(order);
         }
 
-        public async Task<Order> MoveToNextStatus(Order order)
+        public async Task<Order> MoveToNextStatus(int orderId)
         {
-            int? status = order.StatusId;
-            switch (status)
+            Order order = await GetOrderByIdAsync(orderId);
+            System.Diagnostics.Debug.WriteLine(orderId + "     "+ order + " ======================================================================================");
+
+            switch (order.StatusId)
             {
                 case 0:
                     order.StatusId += 1;

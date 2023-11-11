@@ -52,26 +52,34 @@
             @foreach (var order in Model.Order)
             {
                 <span>@(order.ToString())</span>
-
+                <form method="post" asp-page-handler="ToNextStatus" asp-route-id="@order.OrderId">
+                    <button type="submit" class="btn btn-secondary">To next Order Status</button>
+                </form>
                 <br />
                 @foreach (var orderDetail in order.OrderDetails)
                 {
-                    <form method="post" asp-page-handler="ToNextProgress" asp-route-id="@orderDetail.OrderDetailId">
-                        <span>
-                            @("  - " + orderDetail.ToString())
-                            @if (orderDetail.Progresses != null && orderDetail.Progresses.Count > 0 )
-                            {
-                                
-                                @* @("Current Step: " + orderDetail.Progresses.ToArray()[(int)orderDetail.CurrentStep]) *@
+                    
+                    <span>
+                        @("  - " + orderDetail.ToString())
+                        @if (orderDetail.Progresses != null && orderDetail.Progresses.Count > 0)
+                        {
+                            <form method="post" asp-page-handler="ToNextProgress" asp-route-id="@orderDetail.OrderDetailId">
+                                @("Current Step: " + orderDetail.Progresses.ToArray()[(int)orderDetail.CurrentStep])
                                 <button type="submit" class="btn btn-secondary">To next Progress</button>
-                            } else
-                            {
-                                <button type="submit" class="btn btn-secondary">Generate Progresses</button>
-                            }
+                            </form>
                             
-                        </span>
-                        <br>
-                    </form>
+                        }
+                        else
+                        {
+                            <form method="post" asp-page-handler="GenerateProgress" asp-route-id="@orderDetail.OrderDetailId">
+                             
+                                <button type="submit" class="btn btn-secondary">Generate Progresses</button>
+                            </form>
+                        }
+
+                    </span>
+                    <br>
+
                 }
             }
         </div>

@@ -22,4 +22,9 @@ public partial class OrderDetail
     public virtual Order? Order { get; set; }
 
     public virtual ICollection<Progress> Progresses { get; set; } = new List<Progress>();
+
+    public override string ToString()
+    {
+        return $"{{{nameof(OrderDetailId)}={OrderDetailId.ToString()}, {nameof(Quantity)}={Quantity.ToString()}, {nameof(BirdCageId)}={BirdCageId.ToString()}, {nameof(OrderId)}={OrderId.ToString()}, {nameof(CurrentStep)}={CurrentStep.ToString()}}}";
+    }
 }

@@ -26,13 +26,13 @@ namespace Repository.Repositories
                 .ToListAsync();
         }
 
-        public new Order? GetById(int? id)
+        public new async Task<Order>? GetById(int? id)
         {
-            Order? result = _dbSet.FindAsync(id).Result;
-            result.OrderDetails = _context.OrderDetails.Where(orderDetail => orderDetail.OrderId.Equals(result.OrderId))
-                .Include(o => o.BirdCage)
-                .Include(o => o.Order).ToListAsync().Result;
-            return result;
+            Order? result = _context.Orders.FirstOrDefault(c => c.OrderId == id);
+            //result.OrderDetails = _context.OrderDetails.Where(orderDetail => orderDetail.OrderId.Equals(result.OrderId))
+            //    .Include(o => o.BirdCage)
+            //    .Include(o => o.Order).ToListAsync().Result;
+            return _context.Orders.FirstOrDefault(c => c.OrderId == id);
         }
 
         public new async Task<bool> RemoveAsync(Order entity)
