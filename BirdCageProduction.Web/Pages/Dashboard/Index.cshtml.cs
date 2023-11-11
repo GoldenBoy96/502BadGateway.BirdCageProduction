@@ -23,7 +23,7 @@ namespace BirdCageProduction.Web.Pages.Dashboard
         {
             try
             {
-                Order = (IList<BusinessObject.Models.Order>)await _orderService.GetAllOrderAsync();
+                Order = (IList<BusinessObject.Models.Order>) _orderService.GetAllOrderAsync().Result;
                 foreach (var order in Order) { 
                     foreach(var orderDetail in order.OrderDetails)
                     {
@@ -37,9 +37,76 @@ namespace BirdCageProduction.Web.Pages.Dashboard
             }
         }
 
-        //public async Task OnPostToNextProgress(int orderDetailId)
-        //{
-        //    _orderService.
-        //}
+        public async Task<IActionResult> OnPostToNextProgress(int id)
+        {
+            try
+            {
+                Order = (IList<BusinessObject.Models.Order>)_orderService.GetAllOrderAsync().Result;
+                foreach (var order in Order)
+                {
+                    foreach (var orderDetail in order.OrderDetails)
+                    {
+                        orderDetail.Progresses = await _progressService.GetByOrderDetailId(orderDetail.OrderDetailId);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex);
+            }
+            System.Diagnostics.Debug.WriteLine(id + "OnPostToNextProgress ==============================");
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostGenerateProgress(int id)
+        {
+            _progressService.GenerateProgressFromProcedure(await _orderService.GetOrderDetailByIdAsync(id));
+            try
+            {
+                Order = (IList<BusinessObject.Models.Order>)_orderService.GetAllOrderAsync().Result;
+                foreach (var order in Order)
+                {
+                    foreach (var orderDetail in order.OrderDetails)
+                    {
+                        orderDetail.Progresses = await _progressService.GetByOrderDetailId(orderDetail.OrderDetailId);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex);
+            }
+
+            
+
+            System.Diagnostics.Debug.WriteLine(id + "OnPostGenerateProgress ======================================================================================");
+            return Page();
+
+        }public async Task<IActionResult> OnPostToNextStatus(int id)
+        {
+            
+            try
+            {
+                Order = (IList<BusinessObject.Models.Order>)_orderService.GetAllOrderAsync().Result;
+                foreach (var order1 in Order)
+                {
+                    foreach (var orderDetail in order1.OrderDetails)
+                    {
+                        orderDetail.Progresses = await _progressService.GetByOrderDetailId(orderDetail.OrderDetailId);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex);
+            }
+
+            //BusinessObject.Models.Order order = _orderService.GetOrderByIdAsync(orderId).Result;
+            await _orderService.MoveToNextStatus(id);
+            
+
+            return Page();
+
+        }
     }
 }

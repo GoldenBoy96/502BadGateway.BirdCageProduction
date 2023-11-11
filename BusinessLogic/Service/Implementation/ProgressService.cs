@@ -84,6 +84,36 @@ namespace BusinessLogic.Service.Implementation
 
         }
 
+        public async Task<List<Progress>> StartProduction(OrderDetail orderDetail)
+        {
+            BirdCage birdCage = unitOfWork.BirdCageRepository.GetById(orderDetail.BirdCageId).Result;
+            Order order = unitOfWork.OrderRepository.GetById(orderDetail.OrderId).Result;
+            Procedure procedure = unitOfWork.ProcedureRepository.GetByBirdCageId(birdCage.BirdCageId).Result;
+            List<ProcedureStep> procedureSteps = unitOfWork.ProcedureStepRepository.GetByProcedureId(procedure.ProcedureId).Result;
+            List<Progress> progressList = new List<Progress>();
+            for (int i = 0; i < procedureSteps.Count; i++)
+            {
+                Progress progress = new Progress();
+                progress.ProgressNum = i;
+                if (i == 0)
+                {
+                    progress.StartDay = DateTime.Now;
+                    progress.StatusId = 1;
+                }
+                else
+                {
+                    progress.StartDay = progressList[i - 1].EndDay.Value.AddDays(1);
+                    progress.StatusId = 0;
+                }
+                progress.EndDay = progress.StartDay.Value.AddDays((int)procedureSteps[i].TimeNeeded);
+
+
+                progress.AccountId = order.AccountId;
+                progress.OrderDetailId = orderDetail.OrderDetailId;
+                await unitOfWork.ProgressRepository.UpdateAsync(progress);
+            }
+            return progressList;
+        }
         public Task<bool> AddProgressAsync(Progress order)
         {
             return unitOfWork.ProgressRepository.AddAsync(order);
