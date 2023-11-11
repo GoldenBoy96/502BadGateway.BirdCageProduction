@@ -16,6 +16,8 @@ namespace BusinessLogic.Service.Abstraction
         public Task<bool> UpdateProgressAsync(Progress progress);
         Task<List<Progress>> GenerateProgressFromProcedure(OrderDetail orderdetail);
         Task<List<Progress>> GetByOrderDetailId(int orderDetailId);
+        Task MoveToNextProgress(OrderDetail orderDetail);
+        Task<double?> CalculateCostOfAnOrder(Order order);
     }
 }
 

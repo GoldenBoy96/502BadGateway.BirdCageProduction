@@ -32,42 +32,45 @@ namespace BusinessLogic.Service.Implementation
 
             BirdCage birdCage = unitOfWork.BirdCageRepository.GetById(orderDetail.BirdCageId).Result;
             Order order = unitOfWork.OrderRepository.GetById(orderDetail.OrderId).Result;
-            Procedure procedure = unitOfWork.ProcedureRepository.GetByBirdCageId(birdCage.BirdCageId).Result;
-            List<ProcedureStep> procedureSteps = unitOfWork.ProcedureStepRepository.GetByProcedureId(procedure.ProcedureId).Result;
+            Procedure procedure = unitOfWork.ProcedureRepository.GetByBirdCageId(birdCage.BirdCageId);
             List<Progress> progressList = new List<Progress>();
-            for (int i = 0; i < procedureSteps.Count; i++)
+            if (procedure != null)
             {
-                Progress progress = new Progress();
-                progress.ProgressNum = i;
-                if (i == 0)
-                {
-                    progress.StartDay = DateTime.Now;
-                    progress.StatusId = 1;
-                    orderDetail.CurrentStep = 0;
-                    await unitOfWork.OrderDetailRepository.UpdateAsync(orderDetail);
-                }
-                else
-                {
-                    progress.StartDay = progressList[i - 1].EndDay.Value.AddDays(1);
-                    progress.StatusId = 0;
-                }
-                progress.EndDay = progress.StartDay.Value.AddDays((int)procedureSteps[i].TimeNeeded);
+                List<ProcedureStep> procedureSteps = unitOfWork.ProcedureStepRepository.GetByProcedureId(procedure.ProcedureId).Result;
 
+                for (int i = 0; i < procedureSteps.Count; i++)
+                {
+                    Progress progress = new Progress();
+                    progress.ProgressNum = i;
+                    if (i == 0)
+                    {
+                        progress.StartDay = DateTime.Now;
+                        progress.StatusId = 1;
+                        orderDetail.CurrentStep = 0;
+                        await unitOfWork.OrderDetailRepository.UpdateAsync(orderDetail);
+                    }
+                    else
+                    {
+                        progress.StartDay = progressList.LastOrDefault().EndDay.Value.AddDays(1);
+                        progress.StatusId = 0;
+                    }
+                    progress.EndDay = progress.StartDay.Value.AddDays((int)procedureSteps[i].TimeNeeded);
+                    progressList.Add(progress);
 
-                progress.AccountId = order.AccountId;
-                progress.OrderDetailId = orderDetail.OrderDetailId;
-                await unitOfWork.ProgressRepository.AddAsync(progress);
+                    progress.AccountId = order.AccountId;
+                    progress.OrderDetailId = orderDetail.OrderDetailId;
+                    await unitOfWork.ProgressRepository.AddAsync(progress);
+                }
             }
+
             return progressList;
         }
 
         public async Task MoveToNextProgress(OrderDetail orderDetail)
         {
-            List<Progress> progresses = (List<Progress>)unitOfWork.ProgressRepository.GetByOrderDetailId(orderDetail.OrderDetailId).OrderBy(c => c.ProgressNum);
+            List<Progress> progresses = unitOfWork.ProgressRepository.GetByOrderDetailId(orderDetail.OrderDetailId).OrderBy(c => c.ProgressNum).ToList();
             if (orderDetail.CurrentStep == progresses.Count - 1)
             {
-                orderDetail.CurrentStep = 2;
-                await unitOfWork.OrderDetailRepository.UpdateAsync(orderDetail);
                 progresses[progresses.Count - 1].StatusId = 2;
                 await unitOfWork.ProgressRepository.UpdateAsync(progresses[progresses.Count - 1]);
             }
@@ -84,11 +87,45 @@ namespace BusinessLogic.Service.Implementation
 
         }
 
+        public async Task<double?> CalculateCostOfAnOrder(Order order)
+        {
+            double? cost = 0;
+            foreach (OrderDetail orderDetail in order.OrderDetails)
+            {
+                BirdCage birdCage = unitOfWork.BirdCageRepository.GetById(orderDetail.BirdCageId).Result;
+                List<PartItem> parts = unitOfWork.PartItemRepository.GetByBirdCageId((int)orderDetail.BirdCageId);
+                Procedure procedure = unitOfWork.ProcedureRepository.GetByBirdCageId(birdCage.BirdCageId);
+                List<ProcedureStep> procedureSteps = unitOfWork.ProcedureStepRepository.GetByProcedureId(procedure.ProcedureId).Result;
+                double? materialCost = 0;
+                double? procedureCost = 0;
+                foreach(PartItem partItem in parts)
+                {
+                    try
+                    {
+                        materialCost += partItem.Part.Cost * partItem.Quantity;
+                    }
+                    catch (Exception ex) { }
+                }
+                foreach (ProcedureStep step in procedureSteps)
+                {
+                    try
+                    {
+                        procedureCost += step.Cost;
+                    }
+                    catch (Exception ex) { }
+                }
+                cost += materialCost + procedureCost;
+            }
+            order.TotalPrice = (decimal?)cost;
+            await unitOfWork.OrderRepository.UpdateAsync(order);
+            return cost;
+        }
+
         public async Task<List<Progress>> StartProduction(OrderDetail orderDetail)
         {
             BirdCage birdCage = unitOfWork.BirdCageRepository.GetById(orderDetail.BirdCageId).Result;
             Order order = unitOfWork.OrderRepository.GetById(orderDetail.OrderId).Result;
-            Procedure procedure = unitOfWork.ProcedureRepository.GetByBirdCageId(birdCage.BirdCageId).Result;
+            Procedure procedure = unitOfWork.ProcedureRepository.GetByBirdCageId(birdCage.BirdCageId);
             List<ProcedureStep> procedureSteps = unitOfWork.ProcedureStepRepository.GetByProcedureId(procedure.ProcedureId).Result;
             List<Progress> progressList = new List<Progress>();
             for (int i = 0; i < procedureSteps.Count; i++)
@@ -102,7 +139,7 @@ namespace BusinessLogic.Service.Implementation
                 }
                 else
                 {
-                    progress.StartDay = progressList[i - 1].EndDay.Value.AddDays(1);
+                    progress.StartDay = progressList.LastOrDefault().EndDay.Value.AddDays(1);
                     progress.StatusId = 0;
                 }
                 progress.EndDay = progress.StartDay.Value.AddDays((int)procedureSteps[i].TimeNeeded);

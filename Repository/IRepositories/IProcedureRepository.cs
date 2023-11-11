@@ -9,6 +9,7 @@ namespace Repository.IRepositories
 {
     public interface IProcedureRepository : IBaseRepository<Procedure>
     {
-        Task<Procedure> GetByBirdCageId(int birdCageId);
+        //Task<Procedure> GetByBirdCageId(int birdCageId);
+        Procedure GetByBirdCageId(int birdCageId);
     }
 }

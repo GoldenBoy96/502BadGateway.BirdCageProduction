@@ -16,6 +16,11 @@ namespace Repository.Repositories
         {
         }
 
+        public List<PartItem> GetByBirdCageId(int birdCageId)
+        {
+            return  _context.PartItems.Where(c => c.BirdCageId == birdCageId).ToList();
+        }
+
         public async Task<IEnumerable<PartItem>> GetPartItems()
         {
             return _context.PartItems.Include(pit => pit.Part).ToList();

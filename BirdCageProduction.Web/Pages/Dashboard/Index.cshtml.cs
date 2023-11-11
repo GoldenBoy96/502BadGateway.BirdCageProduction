@@ -1,5 +1,6 @@
 using BusinessLogic.Constant.StatusConstant;
 using BusinessLogic.Service.Abstraction;
+using BusinessObject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Repository.UnitOfWork;
@@ -29,7 +30,10 @@ namespace BirdCageProduction.Web.Pages.Dashboard
                     {
                         orderDetail.Progresses = await _progressService.GetByOrderDetailId(orderDetail.OrderDetailId);
                     }
+                    order.TotalPrice = 0M;
+                    order.TotalPrice += (decimal)_progressService.CalculateCostOfAnOrder(order).Result;
                 }
+                
             }
             catch (Exception ex)
             {
@@ -54,13 +58,14 @@ namespace BirdCageProduction.Web.Pages.Dashboard
             {
                 System.Diagnostics.Debug.WriteLine(ex);
             }
-            System.Diagnostics.Debug.WriteLine(id + "OnPostToNextProgress ==============================");
+            OrderDetail inputOrderDetail = await _orderService.GetOrderDetailByIdAsync(id);
+            await _progressService.MoveToNextProgress(inputOrderDetail);
             return Page();
         }
 
         public async Task<IActionResult> OnPostGenerateProgress(int id)
         {
-            _progressService.GenerateProgressFromProcedure(await _orderService.GetOrderDetailByIdAsync(id));
+            await _progressService.GenerateProgressFromProcedure(await _orderService.GetOrderDetailByIdAsync(id));
             try
             {
                 Order = (IList<BusinessObject.Models.Order>)_orderService.GetAllOrderAsync().Result;

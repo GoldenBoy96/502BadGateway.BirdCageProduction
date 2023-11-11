@@ -24,4 +24,9 @@ public partial class Progress
     public virtual Account? Account { get; set; }
 
     public virtual OrderDetail? OrderDetail { get; set; }
+
+    public override string ToString()
+    {
+        return $"{{{nameof(ProgressId)}={ProgressId.ToString()}, {nameof(ProgressNum)}={ProgressNum.ToString()}, {nameof(StartDay)}={StartDay.ToString()}, {nameof(EndDay)}={EndDay.ToString()}, {nameof(StatusId)}={StatusId.ToString()}, {nameof(OrderDetailId)}={OrderDetailId.ToString()}, {nameof(AccountId)}={AccountId.ToString()}}}";
+    }
 }

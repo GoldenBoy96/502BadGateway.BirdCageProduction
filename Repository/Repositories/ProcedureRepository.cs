@@ -20,10 +20,7 @@ namespace Repository.Repositories
             return _context.Procedures.FirstOrDefault(c => c.BirdCageId == birdCageId);
         }
 
-        Task<Procedure> IProcedureRepository.GetByBirdCageId(int birdCageId)
-        {
-            throw new NotImplementedException();
-        }
+      
 
         //public ProcedureRepository GetByBirdCageIdAndQuantity(int birdCageId, int quantity)
         //{

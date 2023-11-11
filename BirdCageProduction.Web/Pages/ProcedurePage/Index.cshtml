@@ -18,7 +18,7 @@
                     <a class="nav-link text-dark" asp-area="" asp-page="/Order/Index">Order</a>
                 </span>
             </li>
-            <li class="tabs-item active">
+            <li class="tabs-item ">
                 <span class="tabs-item__text">
                     <a class="nav-link text-dark" asp-area="" asp-page="/Production/Index">Production</a>
                 </span>
@@ -38,7 +38,7 @@
                     <a class="nav-link text-dark" asp-area="" asp-page="/CustomerPage/Index">Customer</a>
                 </span>
             </li>
-            <li class="tabs-item">
+            <li class="tabs-item active">
                 <span class="tabs-item__text active">
                     <a class="nav-link text-dark" asp-area="" asp-page="/ProcedurePage/Index">Procedure</a>
                 </span>
@@ -222,7 +222,7 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Bird cage name</th>
-                                <th>Qauntity</th>
+                                <th>Quantity</th>
                             </tr>
                             @foreach(var item in Model.Procedures)
                             {

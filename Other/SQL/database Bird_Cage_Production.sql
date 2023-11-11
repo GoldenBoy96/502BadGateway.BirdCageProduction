@@ -109,7 +109,7 @@ CREATE TABLE Account(
 CREATE TABLE [Order](
    OrderId INT IdENTITY(1,1) PRIMARY KEY,
    DayCreated datetime,
-   TotalPrice DECIMAL(10, 2),
+   TotalPrice DECIMAL,
    StatusId INT,
    [Address] VARCHAR(50),
    AccountId INT,
@@ -182,7 +182,7 @@ CREATE TABLE ProcedureStep(
 -- Tạo bảng ProductionPlan
 CREATE TABLE Progress(
    ProgressId INT IdENTITY(1,1) PRIMARY KEY,
-   ProgressNum INT UNIQUE,
+   ProgressNum INT,
    StartDay DATE,
    EndDay DATE,
    StatusId INT,
@@ -242,7 +242,7 @@ VALUES('A very handsome bird cage', 'This bird cage is very handsome');
 
 --Order Sample Data
 INSERT INTO [Order](DayCreated,TotalPrice,StatusId,[Address],AccountId,CustomerId) 
-VALUES('2021-12-01 14:30:15', 9999, 1, 'sample address', 1, 1); 
+VALUES('2021-12-01 14:30:15', 0, 1, 'sample address', 1, 1); 
 --Order Detail Sample Data
 INSERT INTO OrderDetail(Quantity,BirdCageId,OrderId) 
 VALUES(10, 1, 1);

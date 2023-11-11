@@ -9,6 +9,7 @@ namespace Repository.IRepositories
 {
     public interface IPartItemRepository : IBaseRepository<PartItem>
     {
+        List<PartItem> GetByBirdCageId(int birdCageId);
         Task<IEnumerable<PartItem>> GetPartItems(); 
     }
 }
