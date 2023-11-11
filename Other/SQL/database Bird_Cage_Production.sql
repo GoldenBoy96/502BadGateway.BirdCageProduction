@@ -170,7 +170,7 @@ CREATE TABLE [Procedure](
 -- Tạo bảng ProcedureStep 
 CREATE TABLE ProcedureStep(
    ProcedureStepId INT IdENTITY(1,1) PRIMARY KEY, 
-   StepNum INT UNIQUE,
+   StepNum INT,
    Description VARCHAR(50),
    TimeNeeded INT,
    Cost FLOAT,

@@ -53,116 +53,191 @@
 
             <div class="tabs-content__item active">
                 <div class="form-wrapper">
-                    <form action="" class="form_order">
-                        <div class="form-item">
-                            <label for="id">Id</label>
-                            <input type="text" class="form-item_input" id="id" />
-                        </div>
-                        <div class="form-item">
-                            <label for="Birdcage">Bird cage</label>
-                            <select id="Birdcage" class="form-item_input">
-                                <option></option>
-                                <option></option>
-                                <option></option>
-                            </select>
-                        </div>
-                        <div class="form-item">
-                            <label for="Quantity">Quantity</label>
-                            <input type="text" class="form-item_input" id="Quantity" />
-                        </div>
-
-
-                        <div class="form-item">
-                            <label for="">Step</label>
-                            <div class="form-item__bird-cage">
-                                <div class="bird-cage-item">
-                                    <div class="form-item">
-                                        <label for="order-num">OrderNum</label>
-                                        <input type="text" class="form-item_input" disabled readonly />
-                                    </div>
-                                    <div class="form-item">
-                                        <label for="Name">Name</label>
-                                        <input type="text" class="form-item_input" id="Name" disabled />
-                                    </div>
-                                    <div class="form-item">
-                                        <label for="Description">Description</label>
-                                        <textarea rows="9" type="text" class="form-item_input" id="Parts" disabled></textarea>
-                                    </div>
-                                    <div class="form-item">
-                                        <label for="time-needed">Time Needed</label>
-                                        <input type="text" class="form-item_input" disabled readonly />
-                                    </div>
-                                    <div class="form-item">
-                                        <label for="cost">Cost</label>
-                                        <input type="text" class="form-item_input" disabled readonly />
-                                    </div>
-                                    <div class="form-item">
-                                        <label for="worker-num">Worker num</label>
-                                        <input type="text" class="form-item_input" disabled readonly />
-                                    </div>
-
-                                    <img src="../images/icon-delete.png"
-                                         alt=""
-                                         width="60" onclick="deleteRow(this)" />
-                                </div>
-
-                                <div class="bird-cage-item">
-                                    <div class="form-item">
-                                        <label for="order-num">OrderNum</label>
-                                        <input type="text" class="form-item_input" disabled readonly />
-                                    </div>
-                                    <div class="form-item">
-                                        <label for="Name">Name</label>
-                                        <input type="text" class="form-item_input" id="Name" disabled />
-                                    </div>
-                                    <div class="form-item">
-                                        <label for="Description">Description</label>
-                                        <textarea rows="9" type="text" class="form-item_input" id="Parts" disabled></textarea>
-                                    </div>
-                                    <div class="form-item">
-                                        <label for="time-needed">Time Needed</label>
-                                        <input type="text" class="form-item_input" disabled readonly />
-                                    </div>
-                                    <div class="form-item">
-                                        <label for="cost">Cost</label>
-                                        <input type="text" class="form-item_input" disabled readonly />
-                                    </div>
-                                    <div class="form-item">
-                                        <label for="worker-num">Worker num</label>
-                                        <input type="text" class="form-item_input" disabled readonly />
-                                    </div>
-                                    <img src="../images/icon-delete.png"
-                                         alt=""
-                                         width="60" onclick="deleteRow(this)" />
-                                </div>
-
-
-
+                    
+                        <form method="post" class="form_order">
+                            <div class="form-item" hidden>
+                                <label for="Id">Id</label>
+                                <input type="text" class="form-item_input" id="Id" asp-for="Procedure.ProcedureId" />
                             </div>
-                        </div>
+                            <div class="form-item">
+                                <label for="Birdcage">Bird cage</label>
+                                <select id="Birdcage" class="form-item_input" asp-for="Procedure.BirdCageId" asp-items="ViewBag.BirdCages">
 
-                    </form>
-@* 
+                                </select>
+                            </div>
+                            <div class="form-item">
+                                <label for="Quantity">Quantity</label>
+                                <input type="text" class="form-item_input" id="Quantity" asp-for="Procedure.Quantity"/>
+                            </div>
+
+
+                            <div class="form-item">
+                                <label for="">Step</label>
+                                <div class="form-item__bird-cage">
+
+                                @if(Model.Procedure != null)
+                                {
+                                    @foreach (var item in Model.Procedure.ProcedureSteps)
+                                    {
+                                        <div class="bird-cage-item">
+                                            <div class="form-item">
+                                                <label for="Name">StepNum</label>
+                                                <input type="text" class="form-item_input" id="StepNum" asp-for="@item.StepNum" />
+                                            </div>
+                                            <div class="form-item">
+                                                <label for="Description">Description</label>
+                                                <textarea rows="9" type="text" class="form-item_input" id="Parts" asp-for="@item.Description"></textarea>
+                                            </div>
+                                            <div class="form-item">
+                                                <label for="time-needed">Time Needed</label>
+                                                <input type="text" class="form-item_input" asp-for="@item.TimeNeeded" />
+                                            </div>
+                                            <div class="form-item">
+                                                <label for="cost">Cost</label>
+                                                <input type="text" class="form-item_input" asp-for="@item.Cost" />
+                                            </div>
+                                            <div class="form-item">
+                                                <label for="worker-num">Worker num</label>
+                                                <input type="text" class="form-item_input" asp-for="@item.NumOfWorker" />
+                                            </div>
+
+                                            <img src="../images/icon-delete.png"
+                                                 alt=""
+                                                 width="60" onclick="deleteRow(this)" />
+                                        </div>
+                                    }
+
+                                } else
+                                {
+                                    <div class="bird-cage-item">
+                                        <div class="form-item">
+                                            <label for="Name">StepNum</label>
+                                            <input type="text" class="form-item_input" id="StepNum" asp-for="ProcedureSteps[0].StepNum" />
+                                        </div>
+                                        <div class="form-item">
+                                            <label for="Description">Description</label>
+                                            <textarea rows="9" type="text" class="form-item_input" id="Parts"  asp-for="ProcedureSteps[0].Description"></textarea>
+                                        </div>
+                                        <div class="form-item">
+                                            <label for="time-needed">Time Needed</label>
+                                            <input type="text" class="form-item_input" asp-for="ProcedureSteps[0].TimeNeeded" />
+                                        </div>
+                                        <div class="form-item">
+                                            <label for="cost">Cost</label>
+                                            <input type="text" class="form-item_input" asp-for="ProcedureSteps[0].Cost" />
+                                        </div>
+                                        <div class="form-item">
+                                            <label for="worker-num">Worker num</label>
+                                            <input type="text" class="form-item_input" asp-for="ProcedureSteps[0].NumOfWorker" />
+                                        </div>
+
+                                        <img src="../images/icon-delete.png"
+                                             alt=""
+                                             width="60" onclick="deleteRow(this)" />
+                                    </div>
+
+                                    <div class="bird-cage-item">
+                                        <div class="form-item">
+                                            <label for="Name">StepNum</label>
+                                            <input type="text" class="form-item_input" id="StepNum" asp-for="ProcedureSteps[1].StepNum" />
+                                        </div>
+                                        <div class="form-item">
+                                            <label for="Description">Description</label>
+                                            <textarea rows="9" type="text" class="form-item_input" id="Parts" asp-for="ProcedureSteps[1].Description"></textarea>
+                                        </div>
+                                        <div class="form-item">
+                                            <label for="time-needed">Time Needed</label>
+                                            <input type="text" class="form-item_input" asp-for="ProcedureSteps[1].TimeNeeded" />
+                                        </div>
+                                        <div class="form-item">
+                                            <label for="cost">Cost</label>
+                                            <input type="text" class="form-item_input" asp-for="ProcedureSteps[1].Cost" />
+                                        </div>
+                                        <div class="form-item">
+                                            <label for="worker-num">Worker num</label>
+                                            <input type="text" class="form-item_input" asp-for="ProcedureSteps[1].NumOfWorker" />
+                                        </div>
+
+                                        <img src="../images/icon-delete.png"
+                                             alt=""
+                                             width="60" onclick="deleteRow(this)" />
+                                    </div>
+                                }
+                                </div>
+                            </div>
+                        @if(Model.Procedure != null)
+                        {
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure want to delete this item?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">
+                                                Close
+                                            </button>
+                                            <button type="submit" class="btn btn-danger"
+                                                    asp-page-handler="Delete">
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="list-btn">
+                                <button class="btn" type="submit" asp-page-handler="Edit">Update</button>
+                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    Delete
+                                </button>
+                                <button class="btn" type="submit" asp-page-handler="Reset">Cancel</button>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="list-btn">
+                                <button class="btn" type="submit" asp-page-handler="Add">Add</button>
+                                <button class="btn" type="submit" asp-page-handler="Reset">Cancel</button>
+                            </div>
+                        }
+
+
+                        </form>
+                    @* 
                     <div class="list-btn">
                         <button class="btn view">View Bird cage detail</button>
                     </div> *@
-                    <div class="list-btn">
-                        <button class="btn">Add</button>
-                        <button class="btn">Update</button>
-                        <button class="btn">Delete</button>
-                    </div>
+
                     <div class="table">
                         <table>
                             <tr>
                                 <th>Id</th>
                                 <th>Bird cage name</th>
-                                <th>Step</th>
+                                <th>Qauntity</th>
                             </tr>
                             @foreach(var item in Model.Procedures)
                             {
-                                <td>@item.ProcedureId</td>
-                                <td>@item.BirdCage.Name</td>
-                                <td>@item.</td>
+                                <tr>
+                                    <td>@item.ProcedureId</td>
+                                    <td>@item.BirdCage.Name</td>
+                                    <td>@item.Quantity</td>
+                                    <td>
+                                        <form method="post" asp-page-handler="ById" asp-route-id="@item.ProcedureId">
+                                            <button type="submit" class="btn btn-secondary">
+                                                Detail
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
                             }
 
                         </table>
