@@ -8,30 +8,98 @@ using Microsoft.EntityFrameworkCore;
 using BusinessObject.Models;
 using DataAccess;
 using BusinessLogic.Service.Abstraction;
+using BusinessLogic.Service.Implementation;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.VisualBasic;
 
 namespace BirdCageProduction.Web.Pages.ProcedurePage
 {
     public class IndexModel : PageModel
     {
         private readonly IProcedureService _procedureService;
+        private readonly IBirdCageService _birdCageService;
 
-        public IndexModel(IProcedureService procedureService)
+        public IndexModel(IProcedureService procedureService, IBirdCageService birdCageService)
         {
             _procedureService = procedureService;
+            _birdCageService = birdCageService;
         }
 
         [BindProperty]
-        public List<Procedure> Procedures { get; set; }
+        public List<Procedure>? Procedures { get; set; }
+
+        [BindProperty]
+        public Procedure? Procedure { get; set; }
+
+        [BindProperty]
+        public List<BirdCage>? BirdCages { get; set; }
+
+        [BindProperty]
+        public List<ProcedureStep> ProcedureSteps { get; set; }
 
         public async Task OnGetAsync()
-        {
-            LoadData();
+        {           
+            await LoadData();
         }
 
+        public async Task OnPostById(int id)
+        {
+            await LoadData();
+            Procedure = await _procedureService.GetProcedureByIdAsync(id);
+        }
+        
+        public async Task<IActionResult> OnPostAdd()
+        {
+            if (Procedure != null && ProcedureSteps != null) 
+            {
+                Procedure.ProcedureSteps = ProcedureSteps;
+                await _procedureService.AddProcedureAsync(Procedure);
+                return RedirectToAction("./Index");
+            }
 
-        private async void LoadData()
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostDelete()
+        {
+            if (Procedure != null)
+            {
+                if (Procedure.ProcedureSteps != null)
+                {
+                    foreach (var procedureStep in Procedure.ProcedureSteps)
+                    {
+                        await _procedureService.DeleteProcedureStepAsync(procedureStep);
+                    }
+                    await _procedureService.DeleteProcedureAsync(Procedure);
+                    return RedirectToAction("./Index");
+                }
+
+            }
+
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostEdit()
+        {
+            if (Procedure != null)
+            {
+                await _procedureService.UpdateProcedureAsync(Procedure);
+                return RedirectToAction("./Index");
+            }
+
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostReset()
+        {
+            return RedirectToPage("./Index");
+        }
+
+        private async Task LoadData()
         {
             Procedures = (await _procedureService.GetAllProcedureAsync()).ToList();
+            BirdCages = (await _birdCageService.GetBirdCages()).ToList();
+            ViewData["BirdCages"] = new SelectList(await _birdCageService.GetBirdCages(), "BirdCageId", "Name");
         }
     }
 }

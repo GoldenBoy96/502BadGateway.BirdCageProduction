@@ -26,13 +26,22 @@ namespace BirdCageProduction.Web.Pages.AccountPage
         [BindProperty]
         public string Password { get; set; }
 
+        public IActionResult OnGet()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToPage("../Dashboard/Index");
+            }
+
+            return Page();
+        }
+
         public async Task<IActionResult> OnPostAsync()
         {
             var temp = await _authService.Login(Email, Password);
             if (temp)
             {
-
-                return RedirectToPage("../Dashboard");
+                return RedirectToPage("../Dashboard/Index");
             }
             else
             {

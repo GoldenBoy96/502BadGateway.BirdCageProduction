@@ -1,7 +1,10 @@
 ﻿@page 
 @model LoginModel
 @{
+    ViewData["Title"] = "Log in";
 }
+
+<h2>@ViewData["Title"]</h2>
 
 <form method="post">
     <div class="form-group">
@@ -15,6 +18,17 @@
         <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" asp-for="Password">
         <span class="badge badge-pill badge-danger" style="color:red" asp-validation-for="Password"></span>
     </div>
+                
+    <span class="badge badge-pill badge-danger" style="color:red" asp-validation-for="Email">
+        @foreach (var key in Model.ModelState.Keys)
+        {
+            foreach (var error in Model.ModelState[key].Errors)
+            {
+                @error.ErrorMessage
+            }
+        }
+    </span>
+
     <div class="form-group form-check">
         <input type="checkbox" class="form-check-input" id="exampleCheck1">
         <label class="form-check-label" for="exampleCheck1">Check me out</label>
