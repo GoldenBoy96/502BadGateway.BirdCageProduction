@@ -32,7 +32,7 @@ namespace BirdCageProduction.Web.Pages.AccountPage
             if (temp)
             {
 
-                return RedirectToPage("/Index");
+                return RedirectToPage("../Dashboard");
             }
             else
             {
