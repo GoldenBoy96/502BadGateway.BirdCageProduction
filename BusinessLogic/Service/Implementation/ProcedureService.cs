@@ -69,6 +69,17 @@ namespace BusinessLogic.Service.Implementation
             return await _unitOfWork.ProcedureRepository.UpdateAsync(procedure);
         }
 
+        public async Task<bool> UpdateProcedureAsync(Procedure procedure, List<ProcedureStep> procedureSteps)
+        {
+            var previousProcedureSteps = await _unitOfWork.ProcedureStepRepository.GetByProcedureId(procedure.ProcedureId);
+            foreach (var step in previousProcedureSteps) 
+            {
+                await _unitOfWork.ProcedureStepRepository.RemoveAsync(step);
+            }
+            procedure.ProcedureSteps = new List<ProcedureStep>(procedureSteps);
+            return await _unitOfWork.ProcedureRepository.UpdateAsync(procedure);
+        }
+
         public async Task<bool> UpdateProcedureStepAsync(ProcedureStep procedureStep)
         {
             return await _unitOfWork.ProcedureStepRepository.UpdateAsync(procedureStep);

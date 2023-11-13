@@ -80,10 +80,6 @@
                                         @for (var i = 0; i < Model.ProcedureSteps.Count; i++)
                                         {
                                             <div class="bird-cage-item" id="@i">
-                                                <div class="form-item" hidden>
-                                                    <label for="Name">Id</label>
-                                                    <input type="text" class="form-item_input" id="ProcedureSteps[@i].ProcedureStepId" asp-for="ProcedureSteps[i].ProcedureStepId" />
-                                                </div>
                                                 <div class="form-item">
                                                     <label for="Name">StepNum</label>
                                                     <input type="text" class="form-item_input" id="ProcedureSteps[@i].StepNum" asp-for="ProcedureSteps[i].StepNum" />
@@ -271,7 +267,7 @@
     createDivButton.addEventListener("click", createAndDisplayDiv);
 
     function deleteRow(element) {
-        var currentRow = parseInt(($(element).parent("div")).parent("div").attr('id'));
+        var currentRow = parseInt(($(element).parent("div")).attr('id'));
 
         ($(element).parent("div")).remove();
 

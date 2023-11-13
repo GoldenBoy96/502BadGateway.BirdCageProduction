@@ -81,12 +81,8 @@ namespace BirdCageProduction.Web.Pages.ProcedurePage
         {
             if (Procedure != null)
             {
-                if (ProcedureSteps != null)
-                {
-                    Procedure.ProcedureSteps = this.ProcedureSteps;
-                }
-                await _procedureService.UpdateProcedureAsync(Procedure);
-                return RedirectToPage("./Index");
+                await _procedureService.UpdateProcedureAsync(Procedure, ProcedureSteps);
+                return RedirectToPage();
             }
 
             return Page();
