@@ -74,95 +74,53 @@
                             <div class="form-item">
                                 <label for="">Step</label>
                                 <div class="form-item__bird-cage">
-
-                                @if(Model.Procedure != null)
-                                {
-                                    @foreach (var item in Model.Procedure.ProcedureSteps)
+                                    <div class="procedure-list">
+                                    @if (Model.Procedure != null)
                                     {
-                                        <div class="bird-cage-item">
-                                            <div class="form-item">
-                                                <label for="Name">StepNum</label>
-                                                <input type="text" class="form-item_input" id="StepNum" asp-for="@item.StepNum" />
-                                            </div>
-                                            <div class="form-item">
-                                                <label for="Description">Description</label>
-                                                <textarea rows="9" type="text" class="form-item_input" id="Parts" asp-for="@item.Description"></textarea>
-                                            </div>
-                                            <div class="form-item">
-                                                <label for="time-needed">Time Needed</label>
-                                                <input type="text" class="form-item_input" asp-for="@item.TimeNeeded" />
-                                            </div>
-                                            <div class="form-item">
-                                                <label for="cost">Cost</label>
-                                                <input type="text" class="form-item_input" asp-for="@item.Cost" />
-                                            </div>
-                                            <div class="form-item">
-                                                <label for="worker-num">Worker num</label>
-                                                <input type="text" class="form-item_input" asp-for="@item.NumOfWorker" />
-                                            </div>
+                                        @for (var i = 0; i < Model.ProcedureSteps.Count; i++)
+                                        {
+                                            <div class="bird-cage-item">
+                                                <div class="form-item" hidden>
+                                                    <label for="Name">StepNum</label>
+                                                    <input type="text" class="form-item_input" id="ProcedureSteps[@i].ProcedureStepId" asp-for="ProcedureSteps[i].ProcedureStepId" />
+                                                </div>
+                                                <div class="form-item">
+                                                    <label for="Name">StepNum</label>
+                                                    <input type="text" class="form-item_input" id="ProcedureSteps[@i].StepNum" asp-for="ProcedureSteps[i].StepNum" />
+                                                </div>
+                                                <div class="form-item">
+                                                    <label for="Description">Description</label>
+                                                    <textarea rows="9" type="text" class="form-item_input" id="ProcedureSteps[@i].Description" asp-for="ProcedureSteps[i].Description"></textarea>
+                                                </div>
+                                                <div class="form-item">
+                                                    <label for="time-needed">Time Needed</label>
+                                                    <input type="text" class="form-item_input" id="ProcedureSteps[@i].TimeNeeded" asp-for="ProcedureSteps[i].TimeNeeded" />
+                                                </div>
+                                                <div class="form-item">
+                                                    <label for="cost">Cost</label>
+                                                    <input type="text" class="form-item_input" id="ProcedureSteps[@i].Cost" asp-for="ProcedureSteps[i].Cost" />
+                                                </div>
+                                                <div class="form-item">
+                                                    <label for="worker-num">Worker num</label>
+                                                    <input type="text" class="form-item_input" id="ProcedureSteps[@i].NumOfWorker" asp-for="ProcedureSteps[i].NumOfWorker" />
+                                                </div>
 
-                                            <img src="../images/icon-delete.png"
-                                                 alt=""
-                                                 width="60" onclick="deleteRow(this)" />
-                                        </div>
+                                                <img src="../images/icon-delete.png"
+                                                     alt=""
+                                                     width="60" onclick="deleteRow(this)" />
+                                            </div>
+                                        }
+
                                     }
+                                </div>
 
-                                } else
-                                {
-                                    <div class="bird-cage-item">
-                                        <div class="form-item">
-                                            <label for="Name">StepNum</label>
-                                            <input type="text" class="form-item_input" id="StepNum" asp-for="ProcedureSteps[0].StepNum" />
-                                        </div>
-                                        <div class="form-item">
-                                            <label for="Description">Description</label>
-                                            <textarea rows="9" type="text" class="form-item_input" id="Parts"  asp-for="ProcedureSteps[0].Description"></textarea>
-                                        </div>
-                                        <div class="form-item">
-                                            <label for="time-needed">Time Needed</label>
-                                            <input type="text" class="form-item_input" asp-for="ProcedureSteps[0].TimeNeeded" />
-                                        </div>
-                                        <div class="form-item">
-                                            <label for="cost">Cost</label>
-                                            <input type="text" class="form-item_input" asp-for="ProcedureSteps[0].Cost" />
-                                        </div>
-                                        <div class="form-item">
-                                            <label for="worker-num">Worker num</label>
-                                            <input type="text" class="form-item_input" asp-for="ProcedureSteps[0].NumOfWorker" />
-                                        </div>
 
-                                        <img src="../images/icon-delete.png"
-                                             alt=""
-                                             width="60" onclick="deleteRow(this)" />
+                                <div class="plus">
+                                        <button style="background:none;border:none;color:inherit;padding:inherit;cursor:pointer;outline:inherit"
+                                                type="button" id="createDivButton" disabled>
+                                            +
+                                        </button>
                                     </div>
-
-                                    <div class="bird-cage-item">
-                                        <div class="form-item">
-                                            <label for="Name">StepNum</label>
-                                            <input type="text" class="form-item_input" id="StepNum" asp-for="ProcedureSteps[1].StepNum" />
-                                        </div>
-                                        <div class="form-item">
-                                            <label for="Description">Description</label>
-                                            <textarea rows="9" type="text" class="form-item_input" id="Parts" asp-for="ProcedureSteps[1].Description"></textarea>
-                                        </div>
-                                        <div class="form-item">
-                                            <label for="time-needed">Time Needed</label>
-                                            <input type="text" class="form-item_input" asp-for="ProcedureSteps[1].TimeNeeded" />
-                                        </div>
-                                        <div class="form-item">
-                                            <label for="cost">Cost</label>
-                                            <input type="text" class="form-item_input" asp-for="ProcedureSteps[1].Cost" />
-                                        </div>
-                                        <div class="form-item">
-                                            <label for="worker-num">Worker num</label>
-                                            <input type="text" class="form-item_input" asp-for="ProcedureSteps[1].NumOfWorker" />
-                                        </div>
-
-                                        <img src="../images/icon-delete.png"
-                                             alt=""
-                                             width="60" onclick="deleteRow(this)" />
-                                    </div>
-                                }
                                 </div>
                             </div>
                         @if(Model.Procedure != null)

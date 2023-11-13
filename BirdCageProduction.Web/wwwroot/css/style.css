@@ -148,6 +148,17 @@ ul {
         font-size: 18px;
     }
 
+    .form-item  .plus {
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        border: 3px solid #3A414A;
+        font-size: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
 .form-item_input {
     width: 80%;
     padding: 12px;

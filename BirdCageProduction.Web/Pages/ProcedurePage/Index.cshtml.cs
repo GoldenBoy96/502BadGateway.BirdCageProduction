@@ -46,6 +46,7 @@ namespace BirdCageProduction.Web.Pages.ProcedurePage
         {
             await LoadData();
             Procedure = await _procedureService.GetProcedureByIdAsync(id);
+            ProcedureSteps = Procedure.ProcedureSteps.ToList();
         }
         
         public async Task<IActionResult> OnPostAdd()
@@ -54,7 +55,7 @@ namespace BirdCageProduction.Web.Pages.ProcedurePage
             {
                 Procedure.ProcedureSteps = ProcedureSteps;
                 await _procedureService.AddProcedureAsync(Procedure);
-                return RedirectToAction("./Index");
+                return RedirectToPage("./Index");
             }
 
             return Page();
@@ -64,16 +65,13 @@ namespace BirdCageProduction.Web.Pages.ProcedurePage
         {
             if (Procedure != null)
             {
-                if (Procedure.ProcedureSteps != null)
+                if (ProcedureSteps  != null)
                 {
-                    foreach (var procedureStep in Procedure.ProcedureSteps)
-                    {
+                    foreach (var procedureStep in ProcedureSteps)
                         await _procedureService.DeleteProcedureStepAsync(procedureStep);
-                    }
-                    await _procedureService.DeleteProcedureAsync(Procedure);
-                    return RedirectToAction("./Index");
                 }
-
+                await _procedureService.DeleteProcedureAsync(Procedure);
+                return RedirectToPage("./Index");
             }
 
             return Page();
@@ -84,7 +82,7 @@ namespace BirdCageProduction.Web.Pages.ProcedurePage
             if (Procedure != null)
             {
                 await _procedureService.UpdateProcedureAsync(Procedure);
-                return RedirectToAction("./Index");
+                return RedirectToPage("./Index");
             }
 
             return Page();
@@ -97,7 +95,7 @@ namespace BirdCageProduction.Web.Pages.ProcedurePage
 
         private async Task LoadData()
         {
-            Procedures = (await _procedureService.GetAllProcedureAsync()).ToList();
+            Procedures = (await _procedureService.GetAllProcedureAsync()).ToList();            
             BirdCages = (await _birdCageService.GetBirdCages()).ToList();
             ViewData["BirdCages"] = new SelectList(await _birdCageService.GetBirdCages(), "BirdCageId", "Name");
         }

@@ -33,6 +33,12 @@ namespace BusinessLogic.Service.Implementation
             return await _unitOfWork.ProcedureRepository.RemoveAsync(procedure);
         }
 
+        public async Task<bool> DeleteProcedureAsync(int procedureId)
+        {
+            var entity = await _unitOfWork.ProcedureRepository.GetById(procedureId);
+            return await _unitOfWork.ProcedureRepository.RemoveAsync(entity);
+        }
+
         public async Task<bool> DeleteProcedureStepAsync(ProcedureStep procedureStep)
         {
             return await _unitOfWork.ProcedureStepRepository.RemoveAsync(procedureStep);

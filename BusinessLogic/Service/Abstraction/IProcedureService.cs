@@ -19,6 +19,7 @@ namespace BusinessLogic.Service.Abstraction
         public Task<Procedure?> GetProcedureByIdAsync(int procedureId);
         public Task<bool> AddProcedureAsync(Procedure procedure);
         public Task<bool> DeleteProcedureAsync(Procedure procedure);
+        public Task<bool> DeleteProcedureAsync(int procedureId);
         public Task<bool> UpdateProcedureAsync(Procedure procedure);
     }
 }
