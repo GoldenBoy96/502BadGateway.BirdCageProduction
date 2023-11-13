@@ -74,14 +74,14 @@
                             <div class="form-item">
                                 <label for="">Step</label>
                                 <div class="form-item__bird-cage">
-                                    <div class="procedure-list">
+                                    <div id="procedure-list">
                                     @if (Model.Procedure != null)
                                     {
                                         @for (var i = 0; i < Model.ProcedureSteps.Count; i++)
                                         {
-                                            <div class="bird-cage-item">
+                                            <div class="bird-cage-item" id="@i">
                                                 <div class="form-item" hidden>
-                                                    <label for="Name">StepNum</label>
+                                                    <label for="Name">Id</label>
                                                     <input type="text" class="form-item_input" id="ProcedureSteps[@i].ProcedureStepId" asp-for="ProcedureSteps[i].ProcedureStepId" />
                                                 </div>
                                                 <div class="form-item">
@@ -117,7 +117,7 @@
 
                                 <div class="plus">
                                         <button style="background:none;border:none;color:inherit;padding:inherit;cursor:pointer;outline:inherit"
-                                                type="button" id="createDivButton" disabled>
+                                                type="button" id="createDivButton">
                                             +
                                         </button>
                                     </div>
@@ -220,3 +220,91 @@
         </div>
     </div>
 </div>
+
+
+
+<script>
+
+    const createDivButton = document.getElementById("createDivButton");
+    const container = document.getElementById("procedure-list");
+    var count = 0 + @Model.ProcedureSteps.Count;
+    function createAndDisplayDiv() {
+    @{
+        Model.ProcedureSteps.Add(new BusinessObject.Models.ProcedureStep());
+    }
+            container.innerHTML +=
+                    `
+                    <div class="bird-cage-item" id="${count}">
+                        <div class="form-item" hidden>
+                            <label for="Name">Id</label>
+                            <input type="text" class="form-item_input" id="ProcedureSteps[${count}].ProcedureStepId" name="ProcedureSteps[${count}].ProcedureStepId" />
+                        </div>
+                        <div class="form-item">
+                            <label for="Name">StepNum</label>
+                            <input type="text" class="form-item_input" id="ProcedureSteps[${count}].StepNum" name="ProcedureSteps[${count}].StepNum" />
+                        </div>
+                        <div class="form-item">
+                            <label for="Description">Description</label>
+                            <textarea rows="9" type="text" class="form-item_input" id="ProcedureSteps[${count}].Description" name="ProcedureSteps[${count}].Description"></textarea>
+                        </div>
+                        <div class="form-item">
+                            <label for="time-needed">Time Needed</label>
+                            <input type="text" class="form-item_input" id="ProcedureSteps[${count}].TimeNeeded" name="ProcedureSteps[${count}].TimeNeeded" />
+                        </div>
+                        <div class="form-item">
+                            <label for="cost">Cost</label>
+                            <input type="text" class="form-item_input" id="ProcedureSteps[${count}].Cost" name="ProcedureSteps[${count}].Cost" />
+                        </div>
+                        <div class="form-item">
+                            <label for="worker-num">Worker num</label>
+                            <input type="text" class="form-item_input" id="ProcedureSteps[${count}].NumOfWorker" name="ProcedureSteps[${count}].NumOfWorker" />
+                        </div>
+
+                        <img src="../images/icon-delete.png"
+                             alt=""
+                             width="60" onclick="deleteRow(this)" />
+                    </div>
+                `;
+        count++;
+    }
+
+    createDivButton.addEventListener("click", createAndDisplayDiv);
+
+    function deleteRow(element) {
+        var currentRow = parseInt(($(element).parent("div")).parent("div").attr('id'));
+
+        ($(element).parent("div")).remove();
+
+        for (var i = currentRow + 1; i < count; i++) {
+            document.getElementById(i).id = currentRow;
+
+            var stepNum = document.getElementById(`ProcedureSteps[${i}].StepNum`);
+            stepNum.id = `ProcedureSteps[${currentRow}].StepNum`;
+            stepNum.setAttribute("name", `ProcedureSteps[${currentRow}].StepNum`);
+
+            var description = document.getElementById(`ProcedureSteps[${i}].Description`);
+            description.id = `ProcedureSteps[${currentRow}].Description`;
+            description.setAttribute("name", `ProcedureSteps[${currentRow}].Description`);
+
+            var timeNeeded = document.getElementById(`ProcedureSteps[${i}].TimeNeeded`);
+            timeNeeded.id = `ProcedureSteps[${currentRow}].TimeNeeded`;
+            timeNeeded.setAttribute("name", `ProcedureSteps[${currentRow}].TimeNeeded`);
+
+            var cost = document.getElementById(`ProcedureSteps[${i}].Cost`);
+            cost.id = `ProcedureSteps[${currentRow}].Cost`;
+            cost.setAttribute("name", `ProcedureSteps[${currentRow}].Cost`);
+
+            var numOfWorker = document.getElementById(`ProcedureSteps[${i}].NumOfWorker`);
+            numOfWorker.id = `ProcedureSteps[${currentRow}].NumOfWorker`;
+            numOfWorker.setAttribute("name", `ProcedureSteps[${currentRow}].NumOfWorker`);
+
+            currentRow++;
+        }
+
+
+
+        count--;
+    }
+
+
+</script>

@@ -35,7 +35,7 @@ namespace BirdCageProduction.Web.Pages.ProcedurePage
         public List<BirdCage>? BirdCages { get; set; }
 
         [BindProperty]
-        public List<ProcedureStep> ProcedureSteps { get; set; }
+        public List<ProcedureStep> ProcedureSteps { get; set; } = new();
 
         public async Task OnGetAsync()
         {           
@@ -81,6 +81,10 @@ namespace BirdCageProduction.Web.Pages.ProcedurePage
         {
             if (Procedure != null)
             {
+                if (ProcedureSteps != null)
+                {
+                    Procedure.ProcedureSteps = this.ProcedureSteps;
+                }
                 await _procedureService.UpdateProcedureAsync(Procedure);
                 return RedirectToPage("./Index");
             }
