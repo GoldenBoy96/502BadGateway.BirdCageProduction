@@ -11,5 +11,6 @@ namespace Repository.IRepositories
     {
         //Task<Procedure> GetByBirdCageId(int birdCageId);
         Procedure GetByBirdCageId(int birdCageId);
+        Task<Procedure> GetById(int id);
     }
 }

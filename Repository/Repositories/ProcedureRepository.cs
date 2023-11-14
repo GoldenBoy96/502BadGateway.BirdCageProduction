@@ -1,5 +1,6 @@
 ﻿using BusinessObject.Models;
 using DataAccess;
+using Microsoft.EntityFrameworkCore;
 using Repository.IRepositories;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,12 @@ namespace Repository.Repositories
             return _context.Procedures.FirstOrDefault(c => c.BirdCageId == birdCageId);
         }
 
+        public async Task<Procedure?> GetById(int id) 
+        {
+            return _context.Procedures
+                    .Include(p => p.ProcedureSteps)
+                    .FirstOrDefault(p => p.ProcedureId == id);
+        }
       
 
         //public ProcedureRepository GetByBirdCageIdAndQuantity(int birdCageId, int quantity)

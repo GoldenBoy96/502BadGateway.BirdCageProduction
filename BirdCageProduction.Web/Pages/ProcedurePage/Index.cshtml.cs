@@ -65,12 +65,7 @@ namespace BirdCageProduction.Web.Pages.ProcedurePage
         {
             if (Procedure != null)
             {
-                if (ProcedureSteps  != null)
-                {
-                    foreach (var procedureStep in ProcedureSteps)
-                        await _procedureService.DeleteProcedureStepAsync(procedureStep);
-                }
-                await _procedureService.DeleteProcedureAsync(Procedure);
+                await _procedureService.DeleteProcedureAsync(Procedure.ProcedureId);
                 return RedirectToPage("./Index");
             }
 
