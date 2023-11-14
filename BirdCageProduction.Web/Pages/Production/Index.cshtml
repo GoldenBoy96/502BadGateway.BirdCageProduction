@@ -55,55 +55,68 @@
                 @if (Model.Order != null)
                 {
 
-
                     @foreach (var order in Model.Order)
                     {
-                        <div class="form-item">
-                            <label for="order">Order</label>
-                            <input type="text" class="form-item_input" id="id" value="@(order.OrderId)" disabled />
-                            <input type="text" class="form-item_input" id="id" value="@(Constant.OrderStatus[(int)order.StatusId])" disabled />
-                        </div>
+                        @if (order.StatusId != 5)
+                        {
+                            <div class="form-item">
+                                <label for="order">Order</label>
+                                <input type="text" class="form-item_input" id="id" value="@(order.OrderId)" disabled />
+                                <input type="text" class="form-item_input" id="id" value="@(Constant.OrderStatus[(int)order.StatusId])" disabled />
+                                <input type="text" class="form-item_input" id="id" value="@(order.TotalPrice)" disabled />
 
-                        <form method="post" asp-page-handler="ToNextStatus" asp-route-id="@order.OrderId">
-                            <button type="submit" class="btn btn-secondary">To next Order Status</button>
-                        </form>
-                        <br />
-                        <div style="margin-left:30px">
-                            @foreach (var orderDetail in order.OrderDetails)
-                            {
-                                <span>
-                                    @* @("  - " + orderDetail.ToString()) *@
-                                    <div class="form-item">
-                                        <label for="order">Bird cage @("  - " + orderDetail.BirdCage.Name)</label>
-                                        <input type="text" class="form-item_input" id="id" value="@(orderDetail.Quantity)" disabled />
-                                    </div>
-                                    @if (orderDetail.Progresses != null && orderDetail.Progresses.Count > 0)
-                                    {
-                                        <form method="post" asp-page-handler="ToNextProgress" asp-route-id="@orderDetail.OrderDetailId">
-                                            @* @("Current Step: " + orderDetail.Progresses.ToArray()[(int)orderDetail.CurrentStep].ProgressNum) *@
-                                            <div class="form-item">
-                                                <label for="order">Current Step </label>
-                                                <input type="text" class="form-item_input" id="id" value="@(orderDetail.Progresses.ToArray()[(int)orderDetail.CurrentStep].ProgressNum)" disabled />
-                                                <input type="text" class="form-item_input" id="id" value="@(orderDetail.Progresses.ToArray()[(int)orderDetail.CurrentStep].StartDay)" disabled />
-                                                <input type="text" class="form-item_input" id="id" value="@(orderDetail.Progresses.ToArray()[(int)orderDetail.CurrentStep].EndDay)" disabled />
-                                            </div>
-                                            <button type="submit" class="btn btn-secondary">To next Progress</button>
-                                        </form>
+                            </div>
 
-                                    }
-                                    else
-                                    {
-                                        <form method="post" asp-page-handler="GenerateProgress" asp-route-id="@orderDetail.OrderDetailId">
+                            <form method="post" asp-page-handler="ToNextStatus" asp-route-id="@order.OrderId">
+                                <button type="submit" class="btn btn-secondary">To next Order Status</button>
+                            </form>
+                            <br />
+                            <div style="margin-left:30px">
+                                @foreach (var orderDetail in order.OrderDetails)
+                                {
+                                    <span>
+                                        @* @("  - " + orderDetail.ToString()) *@
+                                        <div class="form-item">
+                                            <label for="order">Bird cage @(orderDetail.BirdCage.Name)</label>
+                                            <input type="text" class="form-item_input" id="id" value="@(orderDetail.Quantity)" disabled />
+                                        </div>
+                                        @if (orderDetail.Progresses != null && orderDetail.Progresses.Count > 0)
+                                        {
+                                            <form method="post" asp-page-handler="ToNextProgress" asp-route-id="@orderDetail.OrderDetailId">
+                                                @* @("Current Step: " + orderDetail.Progresses.ToArray()[(int)orderDetail.CurrentStep].ProgressNum) *@
+                                                <div class="form-item">
+                                                    <label for="order">Current Step </label>
+                                                    <input type="text" class="form-item_input" id="id" value="@(orderDetail.Progresses.ToArray()[(int)orderDetail.CurrentStep].ProgressNum)" disabled />
+                                                    <input type="text" class="form-item_input" id="id" value="@(orderDetail.Progresses.ToArray()[(int)orderDetail.CurrentStep].StartDay)" disabled />
+                                                    <input type="text" class="form-item_input" id="id" value="@(orderDetail.Progresses.ToArray()[(int)orderDetail.CurrentStep].EndDay)" disabled />
+                                                </div>
+                                                <button type="submit" class="btn btn-secondary">To next Progress</button>
+                                            </form>
 
-                                            <button type="submit" class="btn btn-secondary">Generate Progresses</button>
-                                        </form>
-                                    }
+                                        }
+                                        else
+                                        {
+                                            <form method="post" asp-page-handler="GenerateProgress" asp-route-id="@orderDetail.OrderDetailId">
 
-                                </span>
-                                <br>
+                                                <button type="submit" class="btn btn-secondary">Generate Progresses</button>
+                                            </form>
+                                        }
 
-                            }
-                        </div>
+                                    </span>
+                                    <br>
+
+                                }
+                            </div>
+                        } else
+                        {
+                            <div class="form-item">
+                                <label for="order">Order</label>
+                                <input type="text" class="form-item_input" id="id" value="@(order.OrderId)" disabled />
+                                <input type="text" class="form-item_input" id="id" value="@(Constant.OrderStatus[(int)order.StatusId])" disabled />
+                                <input type="text" class="form-item_input" id="id" value="@(order.TotalPrice)" disabled />
+
+                            </div>
+                        }
                     }
                 }
             </div>
