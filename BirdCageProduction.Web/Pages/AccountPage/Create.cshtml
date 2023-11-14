@@ -5,61 +5,116 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<div class="app">
+    <div class="main">
+        <ul class="tabs">
+            <li class="tabs-item ">
+                <span class="tabs-item__text">
+                    <a class="nav-link text-dark" asp-area="" asp-page="/Dashboard/Index">Dashboard</a>
+                </span>
+            </li>
+            <li class="tabs-item">
+                <span class="tabs-item__text">
+                    <a class="nav-link text-dark" asp-area="" asp-page="/Order/Index">Order</a>
+                </span>
+            </li>
+            <li class="tabs-item">
+                <span class="tabs-item__text">
+                    <a class="nav-link text-dark" asp-area="" asp-page="/Production/Index">Production</a>
+                </span>
+            </li>
+            <li class="tabs-item">
+                <span class="tabs-item__text">
+                    <a class="nav-link text-dark" asp-area="" asp-page="/BirdCagePage/Index">Bird Cage</a>
+                </span>
+            </li>
+            <li class="tabs-item">
+                <span class="tabs-item__text">
+                    <a class="nav-link text-dark" asp-area="" asp-page="/PartPage/Index">Part</a>
+                </span>
+            </li>
+            <li class="tabs-item">
+                <span class="tabs-item__text">
+                    <a class="nav-link text-dark" asp-area="" asp-page="/CustomerPage/Index">Customer</a>
+                </span>
+            </li>
+            <li class="tabs-item">
+                <span class="tabs-item__text">
+                    <a class="nav-link text-dark" asp-area="" asp-page="/ProcedurePage/Index">Procedure</a>
+                </span>
+            </li>
+            <li class="tabs-item" active>
+                <span class="tabs-item__text">
+                    <a class="nav-link text-dark" asp-area="" asp-page="/AccountPage/Index">Account</a>
+                </span>
+            </li>
+        </ul>
+        <div class="tabs-content">
+            <h1>Create</h1>
 
-<h4>Account</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Account.FullName" class="control-label"></label>
-                <input asp-for="Account.FullName" class="form-control" />
-                <span asp-validation-for="Account.FullName" class="text-danger"></span>
+            <h4>Account</h4>
+            <hr />
+            <div class="row">
+                <div class="col-md-4">
+                    <form method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Account.FullName" class="control-label"></label>
+                            <input asp-for="Account.FullName" class="form-control" />
+                            <span asp-validation-for="Account.FullName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Account.Address" class="control-label"></label>
+                            <input asp-for="Account.Address" class="form-control" />
+                            <span asp-validation-for="Account.Address" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Account.PhoneNumber" class="control-label"></label>
+                            <input asp-for="Account.PhoneNumber" class="form-control" />
+                            <span asp-validation-for="Account.PhoneNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Account.Password" class="control-label"></label>
+                            <input asp-for="Account.Password" class="form-control" />
+                            <span asp-validation-for="Account.Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Account.Email" class="control-label"></label>
+                            <input asp-for="Account.Email" class="form-control" />
+                            <span asp-validation-for="Account.Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Account.RoleId" class="control-label"></label>
+                            <input asp-for="Account.RoleId" class="form-control" />
+                            <span asp-validation-for="Account.RoleId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Account.StatusId" class="control-label"></label>
+                            <input asp-for="Account.StatusId" class="form-control" />
+                            <span asp-validation-for="Account.StatusId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <span class="text-danger">@Model.Message</span>
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Account.Address" class="control-label"></label>
-                <input asp-for="Account.Address" class="form-control" />
-                <span asp-validation-for="Account.Address" class="text-danger"></span>
+
+            <div>
+                <a asp-page="Index">Back to List</a>
             </div>
-            <div class="form-group">
-                <label asp-for="Account.PhoneNumber" class="control-label"></label>
-                <input asp-for="Account.PhoneNumber" class="form-control" />
-                <span asp-validation-for="Account.PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Account.Password" class="control-label"></label>
-                <input asp-for="Account.Password" class="form-control" />
-                <span asp-validation-for="Account.Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Account.Email" class="control-label"></label>
-                <input asp-for="Account.Email" class="form-control" />
-                <span asp-validation-for="Account.Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Account.RoleId" class="control-label"></label>
-                <input asp-for="Account.RoleId" class="form-control" />
-                <span asp-validation-for="Account.RoleId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Account.StatusId" class="control-label"></label>
-                <input asp-for="Account.StatusId" class="form-control" />
-                <span asp-validation-for="Account.StatusId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <span class="text-danger">@Model.Message</span>
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+
+            @section Scripts {
+                @{
+                    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+                }
+            }
+
+
+        </div>
     </div>
+
 </div>
 
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

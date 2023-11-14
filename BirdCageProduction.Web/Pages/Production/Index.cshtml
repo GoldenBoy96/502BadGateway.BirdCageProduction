@@ -1,4 +1,5 @@
 ﻿@page
+@using BusinessLogic.AutoMappers;
 @model BirdCageProduction.Web.Pages.Production.IndexModel
 @{
 }
@@ -48,119 +49,63 @@
         </ul>
         <div class="tabs-content">
 
-            <div class="tabs-content__item active">
-                <div class="form-wrapper">
-                    <form action="" class="form_order">
-                        <div class="form-item">
-                            <label for="id">Id</label>
-                            <input type="text" class="form-item_input" id="id" />
-                        </div>
-                        <div class="form-item">
-                            <label for="Birdcage">Bird cage</label>
-                            <select id="Birdcage" class="form-item_input">
-                                <option></option>
-                                <option></option>
-                                <option></option>
-                            </select>
-                        </div>
-                        <div class="form-item">
-                            <label for="Quantity">Quantity</label>
-                            <input type="text" class="form-item_input" id="Quantity" />
-                        </div>
-                        <div class="form-item">
-                            <label for="Creator">Creator</label>
-                            <input type="text" class="form-item_input" id="Creator" />
-                        </div>
-                        <div class="form-item">
-                            <label for="Parts">Parts</label>
-                            <textarea rows="10"
-                                      type="text"
-                                      class="form-item_input"
-                                      id="Parts"></textarea>
-                        </div>
-                    </form>
+            <div class="tabs-content">
 
-                    <div class="list-btn">
-                        <button class="btn view">View Bird cage detail</button>
-                    </div>
-                    <div class="list-btn">
-                        <button class="btn">Add</button>
-                        <button class="btn">Update</button>
-                        <button class="btn">Delete</button>
-                    </div>
-                    <div class="table">
-                        <table>
-                            <tr>
-                                <th>Id</th>
-                                <th>Creator</th>
-                                <th>Bird cage name</th>
-                                <th>Quantity</th>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Manager A</td>
-                                <td>Sample</td>
-                                <td>50</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Manager A</td>
-                                <td>Sample</td>
-                                <td>50</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Manager A</td>
-                                <td>Sample</td>
-                                <td>50</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Manager A</td>
-                                <td>Sample</td>
-                                <td>50</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Manager A</td>
-                                <td>Sample</td>
-                                <td>50</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Manager A</td>
-                                <td>Sample</td>
-                                <td>50</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Manager A</td>
-                                <td>Sample</td>
-                                <td>50</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Manager A</td>
-                                <td>Sample</td>
-                                <td>50</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="pagination">
-                        <a href="#" class="pagination-prev"><< Prev</a>
-                        <a href="#" class="pagination-number">1</a>
-                        <a href="#" class="pagination-number">2</a>
-                        <a href="#" class="pagination-number">3</a>
-                        <a href="#" class="pagination-number">4</a>
-                        <a href="#" class="pagination-number">5</a>
-                        <a href="#" class="pagination-number">6</a>
-                        <a href="#" class="pagination-number">7</a>
-                        <a href="#" class="pagination-number">8</a>
-                        <a href="#" class="pagination-number">9</a>
-                        <a href="#" class="pagination-number">10</a>
-                        <a href="#" class="pagination-next">Next >></a>
-                    </div>
-                </div>
+                <div class="tabs-content__item active">Production</div>
+                @if (Model.Order != null)
+                {
+
+
+                    @foreach (var order in Model.Order)
+                    {
+                        <div class="form-item">
+                            <label for="order">Order</label>
+                            <input type="text" class="form-item_input" id="id" value="@(order.OrderId)" disabled />
+                            <input type="text" class="form-item_input" id="id" value="@(Constant.OrderStatus[(int)order.StatusId])" disabled />
+                        </div>
+
+                        <form method="post" asp-page-handler="ToNextStatus" asp-route-id="@order.OrderId">
+                            <button type="submit" class="btn btn-secondary">To next Order Status</button>
+                        </form>
+                        <br />
+                        <div style="margin-left:30px">
+                            @foreach (var orderDetail in order.OrderDetails)
+                            {
+                                <span>
+                                    @* @("  - " + orderDetail.ToString()) *@
+                                    <div class="form-item">
+                                        <label for="order">Bird cage @("  - " + orderDetail.BirdCage.Name)</label>
+                                        <input type="text" class="form-item_input" id="id" value="@(orderDetail.Quantity)" disabled />
+                                    </div>
+                                    @if (orderDetail.Progresses != null && orderDetail.Progresses.Count > 0)
+                                    {
+                                        <form method="post" asp-page-handler="ToNextProgress" asp-route-id="@orderDetail.OrderDetailId">
+                                            @* @("Current Step: " + orderDetail.Progresses.ToArray()[(int)orderDetail.CurrentStep].ProgressNum) *@
+                                            <div class="form-item">
+                                                <label for="order">Current Step </label>
+                                                <input type="text" class="form-item_input" id="id" value="@(orderDetail.Progresses.ToArray()[(int)orderDetail.CurrentStep].ProgressNum)" disabled />
+                                                <input type="text" class="form-item_input" id="id" value="@(orderDetail.Progresses.ToArray()[(int)orderDetail.CurrentStep].StartDay)" disabled />
+                                                <input type="text" class="form-item_input" id="id" value="@(orderDetail.Progresses.ToArray()[(int)orderDetail.CurrentStep].EndDay)" disabled />
+                                            </div>
+                                            <button type="submit" class="btn btn-secondary">To next Progress</button>
+                                        </form>
+
+                                    }
+                                    else
+                                    {
+                                        <form method="post" asp-page-handler="GenerateProgress" asp-route-id="@orderDetail.OrderDetailId">
+
+                                            <button type="submit" class="btn btn-secondary">Generate Progresses</button>
+                                        </form>
+                                    }
+
+                                </span>
+                                <br>
+
+                            }
+                        </div>
+                    }
+                }
             </div>
 
         </div>
